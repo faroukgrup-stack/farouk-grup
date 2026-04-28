@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <!-- الصفحة الرئيسية -->
+  <url>
+    <loc>https://www.farouk-grup.com/</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- الصفحة الرئيسية بالإنجليزية -->
+  <url>
+    <loc>https://www.farouk-grup.com/En.html</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- الخدمات المالية بالعربية -->
+  <url>
+    <loc>https://www.farouk-grup.com/Financial.html</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- الخدمات المالية بالإنجليزية -->
+  <url>
+    <loc>https://www.farouk-grup.com/Financial-En.html</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- أعمالنا -->
+  <url>
+    <loc>https://www.farouk-grup.com/Our-Works.html</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- استشارات بالعربية -->
+  <url>
+    <loc>https://www.farouk-grup.com/consultation.html</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- استشارات بالإنجليزية -->
+  <url>
+    <loc>https://www.farouk-grup.com/consultation-En.html</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- صفحة اتصل بنا بالعربية -->
+  <url>
+    <loc>https://www.farouk-grup.com/Contact-Us.html</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- صفحة اتصل بنا بالإنجليزية -->
+  <url>
+    <loc>https://www.farouk-grup.com/Contact-Us-En.html</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+</urlset>
