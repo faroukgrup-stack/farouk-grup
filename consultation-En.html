@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request Consultation | FAROUK GRUP</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- AOS Library -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --gold: #b8860b;
+    --gold-light: #d4b15a;
+    --gold-soft: rgba(184, 134, 11, 0.1);
+    --dark: #0f0f0f;
+    --dark-light: #1a1a1a;
+    --white: #ffffff;
+    --offwhite: #f9f9f9;
+    --text: #333;
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--offwhite);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Navigation */
+nav {
+    background: var(--white);
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo img {
+    height: 50px;
+    width: auto;
+}
+
+.logo h1 {
+    font-family: 'Alexandria', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #444;
+    margin: 0 0.8rem;
+    font-weight: 600;
+    transition: 0.3s;
+}
+nav a:hover { color: var(--gold); }
+nav a i { margin-right: 5px; } /* Adjusted for LTR */
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 100%), url('https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1600') center/cover;
+    padding: 6rem 1rem;
+    text-align: center;
+    color: white;
+    border-bottom: 4px solid var(--gold);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(184,134,11,0.1) 0%, transparent 60%);
+    animation: rotate 30s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.hero h2 {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--gold-light);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    opacity: 0.95;
+    position: relative;
+    z-index: 2;
+}
+
+/* Page Header */
+.page-header {
+    text-align: center;
+    padding: 4rem 1rem 2rem;
+    position: relative;
+}
+
+.page-header h2 {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.page-header p {
+    max-width: 700px;
+    margin: 0 auto;
+    color: #666;
+    font-size: 1.1rem;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+}
+
+/* Consult Cards - new design */
+.consult-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.consult-card {
+    background: var(--white);
+    border-radius: 30px;
+    padding: 3rem 2rem;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(184,134,11,0.2);
+}
+
+.consult-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--gold-soft) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.consult-card:hover::before {
+    opacity: 1;
+}
+
+.consult-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px rgba(184,134,11,0.15);
+    border-color: var(--gold);
+}
+
+.consult-card i {
+    font-size: 3.5rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.consult-card h3 {
+    font-size: 1.8rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.consult-card p {
+    color: #666;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.price-btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: #111;
+    font-weight: 900;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: 0.3s;
+    box-shadow: 0 5px 20px rgba(184,134,11,0.4);
+    position: relative;
+    z-index: 2;
+    border: none;
+}
+
+.price-btn:hover {
+    background: linear-gradient(135deg, #111, #222);
+    color: var(--gold);
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(184,134,11,0.6);
+}
+
+/* Franchise Section - luxury treasure box style */
+.franchise-wrapper {
+    padding: 4rem 1rem;
+    background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+    border-radius: 60px 60px 0 0;
+    margin-top: 4rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.franchise-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(184,134,11,0.2) 0%, transparent 50%);
+    animation: rotate 40s linear infinite;
+}
+
+.franchise-box {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--gold);
+    border-radius: 50px;
+    padding: 3rem;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+.franchise-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.crown-icon {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 1.5rem;
+    background: var(--gold-soft);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: var(--gold);
+    border: 3px solid var(--gold);
+    box-shadow: 0 0 30px rgba(184,134,11,0.3);
+}
+
+.franchise-header h2 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--gold-light);
+    margin-bottom: 0.5rem;
+}
+
+.franchise-header p {
+    color: #ddd;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.franchise-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.franchise-block {
+    background: rgba(255,255,255,0.03);
+    border-radius: 30px;
+    padding: 2rem;
+    border: 1px solid rgba(184,134,11,0.2);
+}
+
+.franchise-block h3 {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.franchise-block ul {
+    list-style: none;
+}
+
+.franchise-block ul li {
+    margin-bottom: 0.8rem;
+    padding-left: 1.8rem; /* Adjusted for LTR */
+    position: relative;
+    color: #eee;
+}
+
+.franchise-block ul li::before {
+    content: '✓';
+    color: var(--gold);
+    position: absolute;
+    left: 0; /* Adjusted for LTR */
+    font-weight: 900;
+}
+
+.franchise-action {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.price-wrapper {
+    margin-bottom: 2rem;
+}
+
+.old-price {
+    display: block;
+    font-size: 1.2rem;
+    color: #aaa;
+    text-decoration: line-through;
+    margin-bottom: 0.5rem;
+}
+
+.new-price {
+    display: block;
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--gold-light);
+    text-shadow: 0 0 20px rgba(184,134,11,0.5);
+}
+
+.franchise-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.price-btn.large {
+    padding: 1.2rem 3rem;
+    font-size: 1.3rem;
+}
+
+.inquiry-btn {
+    display: inline-block;
+    padding: 1.2rem 3rem;
+    border-radius: 50px;
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: 0.3s;
+    background: transparent;
+}
+
+.inquiry-btn:hover {
+    background: var(--gold);
+    color: #111;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(184,134,11,0.4);
+}
+
+/* Featured Badge */
+.featured-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px; /* Keep right for LTR (top-right corner) */
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: #111;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    font-weight: 900;
+    border: 3px solid white;
+    z-index: 10;
+}
+
+.featured-badge i {
+    font-size: 2rem;
+    margin-bottom: 0.2rem;
+}
+
+.featured-badge span {
+    font-size: 0.9rem;
+}
+
+/* Footer */
+footer {
+    background: var(--dark);
+    color: #ddd;
+    padding: 4rem 1rem 2rem;
+    border-top: 3px solid var(--gold);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.footer-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.footer-social {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-social a {
+    color: var(--gold);
+    font-size: 1.8rem;
+    transition: 0.3s;
+}
+.footer-social a:hover {
+    color: var(--gold-light);
+    transform: translateY(-3px);
+}
+
+.footer-logo-box {
+    text-align: center;
+}
+
+.footer-logo-box h2 {
+    color: var(--gold);
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.footer-logo-box div {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 0 auto;
+}
+
+.footer-payment .payment-card {
+    background: rgba(255,255,255,0.05);
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-payment img {
+    height: 25px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid rgba(184,134,11,0.2);
+}
+
+.copyright {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.copyright span {
+    color: var(--gold);
+    font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .hero h2 {
+        font-size: 2.2rem;
+    }
+    .page-header h2 {
+        font-size: 2rem;
+    }
+    .franchise-box {
+        padding: 2rem 1rem;
+    }
+    .franchise-buttons {
+        flex-direction: column;
+    }
+    .price-btn.large, .inquiry-btn {
+        width: 100%;
+        text-align: center;
+    }
+    .footer-row {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-social {
+        justify-content: center;
+    }
+    .footer-payment {
+        justify-content: center;
+    }
+}
+
+/* blink-gold style (optional) */
+.blink-gold {
+    font-weight: 900;
+    font-size: 1.2rem;
+    background: linear-gradient(90deg, var(--gold), var(--dark), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: blinkGold 1.2s linear infinite;
+}
+@keyframes blinkGold {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">
+        <img src="https://lh3.googleusercontent.com/d/1e6u-DPTinDJl_Q9wW3QvGgzFbXO_2sXa" alt="FAROUK GRUP LOGO">
+        <h1>FAROUK GRUP Consulting & Business</h1>
+    </div>
+    <div>
+        <a href="En.html"><i class="fas fa-home"></i> Home</a>
+        <a href="Contact-Us-En.html" style="color:var(--gold)"><i class="fas fa-phone-alt"></i> Contact Us</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <h2>Book Now</h2>
+    <p>Choose the type of consultation or service that suits your project needs</p>
+    <p>Direct practical consultations help you make accurate decisions and achieve tangible results</p>
+</section>
+
+</section>
+
+<div class="container">
+    <div class="consult-grid">
+        <div class="consult-card" data-aos="fade-up">
+            <i class="fas fa-phone"></i>
+            <h3>Phone Consultation</h3>
+            <p>A direct 60-minute session to discuss operational, financial, or strategic challenges in your project with a clear execution plan.</p>
+            <a href="https://alfan.link/faroukazem?link=DPkrFL" target="_blank" class="price-btn">$99</a>
+        </div>
+
+        <div class="consult-card" data-aos="fade-up" data-aos-delay="100">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3>On-Site Consultation</h3>
+            <p>A visit within Istanbul to analyze the project on-site, evaluate operations and costs, and develop an actionable improvement plan.</p>
+            <a href="https://alfan.link/faroukazem?link=wQQtR8" target="_blank" class="price-btn">$249</a>
+        </div>
+    </div>
+</div>
+
+<section class="franchise-wrapper" data-aos="fade-up">
+    <div class="franchise-box">
+        <div class="featured-badge">
+            <i class="fas fa-star"></i>
+            <span>Most Requested</span>
+        </div>
+        <div class="franchise-header">
+            <div class="crown-icon">
+                <i class="fas fa-crown"></i>
+            </div>
+            <h2>The Golden Franchise Package</h2>
+            <p>An integrated franchise system that turns your restaurant into a scalable brand, fully compliant with the Saudi franchise system.</p>
+        </div>
+
+        <div class="franchise-content">
+            <div class="franchise-block">
+                <h3><i class="fas fa-file-contract"></i> Package Components</h3>
+                <ul>
+                    <li>Saudi franchise agreement</li>
+                    <li>Disclosure document approved by Monshaat platform</li>
+                    <li>Non-disclosure agreement (NDA)</li>
+                    <li>Standard operating procedures manual (SOP)</li>
+                    <li>Employee handbook</li>
+                    <li>Site technical standards template</li>
+                    <li>Financial reporting system</li>
+                </ul>
+            </div>
+
+            <div class="franchise-block">
+                <h3><i class="fas fa-medal"></i> Why Choose Us</h3>
+                <ul>
+                    <li>Documents updated according to Saudi regulations</li>
+                    <li>Ready-to-operate system, scalable immediately</li>
+                    <li>Legal protection and templates preventing manipulation</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="franchise-action">
+            <div class="price-wrapper">
+                <span class="old-price">$3999</span>
+                <span class="new-price">$1999</span>
+            </div>
+
+            <div class="franchise-buttons">
+                <a href="https://alfan.link/faroukazem?digital=qnBWnD" target="_blank" class="price-btn large">
+                    Buy Now
+                </a>
+                <a href="Contact-Us-En.html" target="_blank" class="inquiry-btn">
+                    Inquiry
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-row">
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/faroukazem/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=100091571594026&sk=about" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://wa.me/905550196682" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+
+                <div class="footer-logo-box">
+                    <h2>FAROUK GRUP Consulting & Business</h2>
+                    <div></div>
+                </div>
+
+                <div class="footer-payment">
+                    <div class="payment-card">
+                        <img src="https://img.icons8.com/color/48/visa.png" alt="Visa">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard">
+                        <img src="https://img.icons8.com/color/48/000000/apple-pay.png" alt="Apple Pay" style="height:45px;">
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="copyright">
+                All Rights Reserved © 2026 <span>FAROUK GRUP</span>
+                <p>Adnan Kahveci, Beylikdüzü / İstanbul, Türkiye</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- AOS JS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 800, once: true, offset: 100 });
+</script>
+</body>
+</html>

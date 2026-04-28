@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>استشارات الأعمال | FAROUK GRUP</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+    --gold: #b8860b;
+    --gold-light: #d4b15a;
+    --gold-soft: rgba(184,134,11,0.1);
+    --dark: #0f0f0f;
+    --dark-light: #2a2a2a;
+    --white: #ffffff;
+    --offwhite: #f9f9f9;
+    --gray: #eaeaea;
+    --text: #333333;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Tajawal', sans-serif;
+    background: var(--offwhite);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* Navigation */
+nav{
+    background: var(--white);
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--gray);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo img{
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+}
+
+.logo h1{
+    font-family: 'Alexandria', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1px;
+}
+
+nav a{
+    text-decoration: none;
+    color: var(--text);
+    margin: 0 0.8rem;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+nav a:hover{
+    color: var(--gold);
+}
+nav a i{
+    margin-left: 0.3rem;
+}
+
+/* Hero Section */
+.hero{
+    background: linear-gradient(135deg, rgba(0,0,0,0.9), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1600') center/cover;
+    color: white;
+    text-align: center;
+    padding: 4rem 1rem;
+    border-bottom: 4px solid var(--gold);
+}
+
+.hero h2{
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--gold-light);
+    margin-bottom: 0.5rem;
+}
+
+.hero p{
+    font-size: 1.2rem;
+    opacity: 0.9;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Main Container */
+.container{
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+}
+
+/* Form Card */
+.form-card{
+    background: var(--white);
+    border-radius: 2rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid rgba(184,134,11,0.2);
+}
+
+/* Right: Contact Info */
+.contact-info{
+    flex: 1 1 300px;
+    background: linear-gradient(145deg, var(--dark), var(--dark-light));
+    color: var(--white);
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-info h3{
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--gold-light);
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 0.5rem;
+}
+
+.contact-info p{
+    opacity: 0.9;
+    line-height: 1.8;
+}
+
+.info-item{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0.8rem 0;
+}
+
+.info-item i{
+    font-size: 1.5rem;
+    color: var(--gold);
+    width: 2rem;
+}
+
+.info-item span, .info-item a{
+    color: var(--white);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.info-item a:hover{
+    color: var(--gold);
+}
+
+.social-links-info{
+    display: flex;
+    gap: 1.2rem;
+    margin-top: 1rem;
+}
+
+.social-links-info a{
+    color: var(--white);
+    background: rgba(255,255,255,0.1);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.social-links-info a:hover{
+    background: var(--gold);
+    color: var(--dark);
+    transform: translateY(-3px);
+}
+
+/* Left: Form */
+.form-container{
+    flex: 2 1 500px;
+    padding: 2.5rem 2rem;
+}
+
+.form-container h2{
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-container h2 i{
+    font-size: 2rem;
+}
+
+.form-group{
+    margin-bottom: 1.2rem;
+}
+
+label{
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+    color: var(--dark);
+}
+
+label i{
+    color: var(--gold);
+    margin-left: 0.4rem;
+}
+
+input, select, textarea{
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 2px solid var(--gray);
+    border-radius: 12px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s;
+    background: var(--offwhite);
+}
+
+input:focus, select:focus, textarea:focus{
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(184,134,11,0.2);
+    background: var(--white);
+}
+
+textarea{
+    min-height: 100px;
+    resize: vertical;
+}
+
+.btn-submit{
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--dark);
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-weight: 900;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    box-shadow: 0 5px 15px rgba(184,134,11,0.4);
+}
+
+.btn-submit:hover{
+    background: linear-gradient(135deg, var(--dark), #333);
+    color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(184,134,11,0.5);
+}
+
+.btn-submit i{
+    font-size: 1.3rem;
+}
+
+/* Popup */
+.popup-message {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: linear-gradient(145deg, var(--dark), var(--dark-light));
+    color: white;
+    padding: 2rem;
+    border-radius: 2rem;
+    text-align: center;
+    max-width: 400px;
+    border: 2px solid var(--gold);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    animation: popupFadeIn 0.3s ease;
+}
+
+.popup-content i {
+    font-size: 4rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+}
+
+.popup-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--gold-light);
+}
+
+.popup-content p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+}
+
+.popup-content button {
+    background: var(--gold);
+    color: var(--dark);
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid var(--gold-light);
+}
+
+.popup-content button:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+}
+
+@keyframes popupFadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* ===================== */
+/* FOOTER - متطابق مع صفحة طلب استشارة */
+/* ===================== */
+footer {
+    background: var(--dark);
+    color: #ddd;
+    padding: 4rem 1rem 2rem;
+    border-top: 3px solid var(--gold);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.footer-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.footer-social {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-social a {
+    color: var(--gold);
+    font-size: 1.8rem;
+    transition: 0.3s;
+}
+.footer-social a:hover {
+    color: var(--gold-light);
+    transform: translateY(-3px);
+}
+
+.footer-logo-box {
+    text-align: center;
+}
+
+.footer-logo-box h2 {
+    color: var(--gold);
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.footer-logo-box div {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 0 auto;
+}
+
+.footer-payment .payment-card {
+    background: rgba(255,255,255,0.05);
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-payment img {
+    height: 25px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid rgba(184,134,11,0.2);
+}
+
+.copyright {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.copyright span {
+    color: var(--gold);
+    font-weight: bold;
+}
+/* ===================== */
+/* نهاية تنسيق الفوتر */
+/* ===================== */
+
+/* Responsive */
+@media (max-width: 768px){
+    nav{
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.8rem;
+    }
+    .logo{
+        flex-wrap: nowrap;
+        gap: 8px;
+        width: 100%;
+        justify-content: center;
+    }
+    .logo img{
+        height: 35px;
+    }
+    .logo h1{
+        font-size: 1rem;
+    }
+    nav > div:last-child{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+    }
+    .hero h2{
+        font-size: 2rem;
+    }
+    .form-card{
+        border-radius: 1.5rem;
+    }
+    .contact-info{
+        padding: 2rem 1.5rem;
+    }
+    /* Responsive Footer */
+    .footer-row {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-social {
+        justify-content: center;
+    }
+    .footer-payment {
+        justify-content: center;
+    }
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">
+        <img src="https://lh3.googleusercontent.com/d/1e6u-DPTinDJl_Q9wW3QvGgzFbXO_2sXa" alt="FAROUK GRUP LOGO">
+        <h1>مجموعة فاروق للاستشارات والأعمال</h1>
+    </div>
+    <div>
+        <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+        <a href="https://training.farouk-grup.com/"><i class="fas fa-graduation-cap"></i> الدورات</a>
+        <a href="https://training.farouk-grup.com/home/Our-store" style="color: var(--gold);"><i class="fa-solid fa-bag-shopping"></i> متجرنا</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <h2>استشارات احترافية لنمو أعمالك</h2>
+    <p>نقدم حلولاً مبتكرة في تطوير المطاعم، المحاسبة، والديكور الداخلي. املأ النموذج وسنعود إليك خلال 24 ساعة.</p>
+</section>
+
+<div class="container">
+    <div class="form-card">
+        <div class="contact-info">
+            <h3>تواصل معنا</h3>
+            <p>فريقنا جاهز للإجابة على جميع استفساراتكم وتقديم الاستشارات المناسبة لكم.</p>
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>اسطنبول، تركيا</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-phone-alt"></i>
+                <a href="tel:+905550196682">90-555-019-6682+</a>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:faroukgrup@gmail.com">faroukgrup@gmail.com</a>
+            </div>
+            <div class="social-links-info">
+                <a href="https://www.instagram.com/faroukazem/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=100091571594026" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/905550196682" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <div style="margin-top: 2rem; background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 1rem; border: 1px solid rgba(184,134,11,0.3);">
+                <p style="display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-shield-alt" style="color: var(--gold);"></i> خصوصية تامة</p>
+                <p style="display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-clock" style="color: var(--gold);"></i> رد خلال 24 ساعة</p>
+            </div>
+        </div>
+
+        <div class="form-container" id="formContainer">
+            <h2><i class="fas fa-pen-alt"></i> نموذج الاستفسار</h2>
+            <form id="consultForm">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> الاسم الكامل</label>
+                    <input type="text" name="name" placeholder="أدخل اسمك" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+                    <input type="email" name="email" placeholder="example@domain.com" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-phone"></i> رقم الهاتف</label>
+                    <input type="tel" name="phone" placeholder="+90 555 000 0000" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-tasks"></i> مجال الاستشارة</label>
+                    <select name="course" required>
+                        <option value="" disabled selected>-- اختر مجال الاستشارة --</option>
+                        <option value="تطوير المطاعم">تطوير المطاعم</option>
+                        <option value="محاسبة الشركات">محاسبة الشركات</option>
+                        <option value="الديكورات الداخلية">الديكورات الداخلية</option>
+                        <option value="استشارات إدارية عامة">استشارات إدارية عامة</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-comment"></i> تفاصيل الاستفسار</label>
+                    <textarea name="message" placeholder="اكتب استفسارك بالتفصيل..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> إرسال الطلب
+                </button>
+            </form>
+            <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: #888;">
+                <i class="fas fa-lock" style="color: var(--gold);"></i> معلوماتك آمنة ولن تُستخدم لأغراض تسويقية.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Popup -->
+<div id="popupMessage" class="popup-message">
+    <div class="popup-content">
+        <i class="fas fa-check-circle"></i>
+        <h3>شكراً لك!</h3>
+        <p>تم إرسال طلبك بنجاح. سنتواصل معك خلال 24 ساعة.</p>
+        <button onclick="closePopup()">حسناً</button>
+    </div>
+</div>
+
+<!-- ===================== -->
+<!-- FOOTER الجديد - مطابق لصفحة طلب استشارة -->
+<!-- ===================== -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-row">
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/faroukazem/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=100091571594026&sk=about" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://wa.me/905550196682" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+
+                <div class="footer-logo-box">
+                    <h2>مجموعة فاروق للاستشارات والأعمال</h2>
+                    <div></div>
+                </div>
+
+                <div class="footer-payment">
+                    <div class="payment-card">
+                        <img src="https://img.icons8.com/color/48/visa.png" alt="Visa">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard">
+                        <img src="https://img.icons8.com/color/48/000000/apple-pay.png" alt="Apple Pay" style="height:45px;">
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="copyright">
+                جميع الحقوق محفوظة © 2026 <span>FAROUK GRUP</span>
+                <p>Adnan Kahveci, Beylikdüzü / İstanbul, Türkiye</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- ===================== -->
+<!-- نهاية الفوتر الجديد -->
+<!-- ===================== -->
+
+<script>
+// Google Script URL
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMg0e8XKzZUko4poRLsRSBTgk-s1ekeaWWqJIYDbXD7om6gAP4wKax8ow-W4B7hSgpJQ/exec";
+
+const form = document.getElementById('consultForm');
+const submitBtn = document.getElementById('submitBtn');
+const formContainer = document.getElementById('formContainer');
+const popup = document.getElementById('popupMessage');
+
+async function submitForm(event) {
+    event.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> جاري الإرسال...';
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        });
+        formContainer.style.display = 'none';
+        popup.style.display = 'flex';
+        form.reset();
+    } catch (error) {
+        console.error('Error:', error);
+        alert('حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> إرسال الطلب';
+    }
+}
+
+function closePopup() {
+    popup.style.display = 'none';
+    formContainer.style.display = 'block';
+}
+
+form.addEventListener('submit', submitForm);
+</script>
+
+</body>
+</html>
