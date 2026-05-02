@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Golden Franchise Toolkit | Integrated Franchise System | Farouk Grup</title>
+    <meta name="description" content="A comprehensive franchise system that transforms your restaurant into a scalable brand, fully compliant with the Saudi franchise law. Franchise Agreement, Disclosure Document, SOP, and more.">
+    <meta name="keywords" content="Franchise, Franchise System, Saudi Franchise Agreement, Disclosure Document, Monshaat, Farouk Grup, Franchise Toolkit">
+    <meta name="author" content="Farouk Grup">
+
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        :root {
+            --gold: #b8860b;
+            --gold-light: #d4b15a;
+            --gold-dark: #8B6914;
+            --primary: #1a1a1a;
+            --primary-light: #2c2c2c;
+            --bg-dark: #0d0d0d;
+            --bg-light: #f8f5f0;
+            --bg-warm: #fef9f0;
+            --light: #ffffff;
+            --text-dark: #1a1a1a;
+            --text-muted: #6b5b4f;
+            --danger: #C0392B;
+            --success: #1a8a4a;
+            --shadow-sm: 0 8px 25px rgba(0,0,0,0.08);
+            --shadow-lg: 0 25px 60px rgba(0,0,0,0.18);
+            --shadow-gold: 0 15px 40px rgba(184,134,11,0.25);
+            --border-light: rgba(184,134,11,0.15);
+            --transition: all 0.3s ease;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .container { max-width:1200px; margin:0 auto; padding:0 20px; }
+
+        /* Top Bar */
+        .top-bar {
+            background: var(--bg-dark);
+            color: #aaa;
+            padding: 8px 0;
+            font-size: 0.85rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .top-bar i { color: var(--gold); margin: 0 5px; }
+
+        /* Header */
+        .landing-header {
+            text-align: center;
+            padding: 25px 20px 20px;
+            background: var(--light);
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .landing-header .logo-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #2c1810 100%);
+            padding: 10px 30px;
+            border-radius: 50px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gold-dark);
+        }
+        .landing-header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 70px 0 60px;
+            background: linear-gradient(135deg, #fdfaf3 0%, #f7eedb 50%, #fdf9f0 100%);
+        }
+        .hero-grid {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+        .hero-content { flex: 1; min-width: 300px; }
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            color: var(--light);
+            padding: 8px 25px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+            box-shadow: var(--shadow-gold);
+        }
+        .hero-content h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.3;
+            color: #1a0e00;
+            margin-bottom: 20px;
+        }
+        .hero-content h2 span { color: var(--gold-dark); }
+        .hero-content .subhead {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+        .hero-image {
+            flex: 0.9;
+            min-width: 300px;
+            text-align: center;
+        }
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 20px 20px 50px rgba(0,0,0,0.2);
+            border: 4px solid var(--light);
+        }
+
+        /* Buttons */
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            border: none;
+            border-radius: 50px;
+            padding: 16px 40px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--light);
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(184,134,11,0.4);
+            text-decoration: none;
+        }
+        .btn-gold:hover {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: #1a0e00;
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(184,134,11,0.5);
+        }
+
+        .price-info { margin-top: 10px; font-size: 1.1rem; }
+        .old-price { text-decoration: line-through; color: #999; margin-right: 12px; font-size: 1.1rem; }
+        .new-price { font-weight: 900; color: var(--success); font-size: 1.6rem; }
+
+        .trust-badges {
+            display: flex; gap: 20px; margin-top: 20px; flex-wrap: wrap;
+        }
+        .trust-badges span {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 0.9rem; color: var(--text-muted);
+        }
+        .trust-badges i { color: var(--gold-dark); }
+
+        /* Headings */
+        .section-title {
+            font-size: 2.2rem; font-weight: 900; text-align: center;
+            margin-bottom: 20px; color: #1a0e00; position: relative;
+        }
+        .section-title:after {
+            content: ''; display: block; width: 80px; height: 3px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+            margin: 15px auto 0; border-radius: 3px;
+        }
+        .section-subtitle {
+            text-align: center; color: var(--text-muted);
+            font-size: 1.1rem; margin-bottom: 50px;
+            max-width: 700px; margin-left: auto; margin-right: auto;
+        }
+
+        /* Components Section */
+        .components-section {
+            padding: 80px 0; background: var(--light);
+        }
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px; margin-top: 30px;
+        }
+        .component-card {
+            background: #fffdf8;
+            padding: 30px 25px;
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+            display: flex; gap: 18px; align-items: flex-start;
+        }
+        .component-card:hover {
+            border-color: var(--gold);
+            box-shadow: var(--shadow-gold);
+            transform: translateY(-5px);
+        }
+        .component-icon {
+            width: 55px; height: 55px;
+            background: linear-gradient(135deg, rgba(184,134,11,0.15), rgba(212,177,90,0.15));
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; color: var(--gold-dark);
+            flex-shrink: 0;
+        }
+        .component-card h4 { font-size: 1.2rem; margin-bottom: 6px; color: #1a0e00; }
+        .component-card p { color: var(--text-muted); font-size: 0.93rem; }
+
+        /* Why Us Section */
+        .why-section {
+            padding: 80px 0;
+            background: linear-gradient(180deg, var(--bg-warm) 0%, #fdf8ef 100%);
+        }
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px; margin-top: 30px;
+        }
+        .why-card {
+            background: var(--light);
+            padding: 35px 25px;
+            border-radius: 28px;
+            box-shadow: var(--shadow-sm);
+            border-bottom: 4px solid var(--gold);
+            transition: var(--transition);
+            text-align: center;
+        }
+        .why-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+        .why-icon {
+            width: 75px; height: 75px;
+            background: linear-gradient(135deg, rgba(184,134,11,0.12), rgba(212,177,90,0.12));
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px; font-size: 2.2rem; color: var(--gold-dark);
+        }
+        .why-card h4 { font-size: 1.4rem; margin-bottom: 12px; color: #1a0e00; }
+        .why-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 80px 0; background: var(--light);
+        }
+        .gallery-grid {
+            display: flex; gap: 30px; flex-wrap: wrap;
+            justify-content: center; margin-top: 30px;
+        }
+        .gallery-item {
+            flex: 1; min-width: 280px; max-width: 500px; text-align: center;
+        }
+        .gallery-item img {
+            width: 100%; height: auto; border-radius: 20px;
+            box-shadow: var(--shadow-lg); border: 3px solid var(--border-light);
+            transition: var(--transition);
+        }
+        .gallery-item img:hover {
+            transform: scale(1.02);
+            border-color: var(--gold);
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 90px 0;
+            background: linear-gradient(135deg, #1a0e00 0%, #2c1810 50%, #1a0e00 100%);
+            color: var(--light); text-align: center;
+            border-top: 3px solid var(--gold);
+            border-bottom: 3px solid var(--gold);
+        }
+        .cta-section h3 { font-size: 2.4rem; margin-bottom: 20px; }
+        .cta-section p {
+            max-width: 650px; margin: 0 auto 30px;
+            opacity: 0.9; font-size: 1.15rem;
+        }
+        .cta-section .btn-gold {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: #1a0e00; font-size: 1.3rem;
+            padding: 18px 45px;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a; color: #777;
+            padding: 40px 20px; text-align: center; font-size: 0.9rem;
+        }
+        footer span { color: var(--gold); }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.88);
+            backdrop-filter: blur(10px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 2000; visibility: hidden; opacity: 0;
+            transition: opacity 0.35s ease, visibility 0.35s;
+        }
+        .modal-overlay.active { visibility: visible; opacity: 1; }
+        .modal-card {
+            background: var(--light); padding: 30px;
+            border-radius: 28px; width: 92%; max-width: 850px;
+            max-height: 90vh; position: relative;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.4); overflow-y: auto;
+        }
+        .modal-close {
+            position: absolute; top: 15px; right: 20px;
+            font-size: 32px; cursor: pointer;
+            color: var(--text-muted); transition: var(--transition);
+        }
+        .modal-close:hover { color: var(--bg-dark); }
+        .modal-card h2 {
+            text-align: center; margin-bottom: 25px;
+            color: #1a0e00;
+        }
+        #paymentIframe {
+            width: 100%; height: 600px; border: none;
+            border-radius: 18px; background: #fafafa;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h2 { font-size: 2.2rem; }
+            .section-title { font-size: 1.8rem; }
+            .landing-header h1 { font-size: 1.2rem; }
+            .hero-grid { flex-direction: column-reverse; }
+            .gallery-grid { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+    <i class="fas fa-map-marker-alt"></i> Istanbul, Türkiye &nbsp;|&nbsp;
+    <i class="fas fa-phone-alt"></i> +90 555 019 6682 &nbsp;|&nbsp;
+    <i class="fas fa-envelope"></i> faroukgrup@gmail.com
+</div>
+
+<!-- Header -->
+<div class="landing-header">
+    <div class="logo-container">
+        <h1>👑 The Golden Franchise Toolkit</h1>
+    </div>
+</div>
+
+<!-- Main Section -->
+<section class="hero">
+    <div class="container hero-grid">
+        <div class="hero-content">
+            <span class="hero-badge"><i class="fas fa-crown" style="margin-right:6px;"></i> Integrated & Saudi-Compliant Franchise System</span>
+            <h2>Transform Your Restaurant into a <span>Scalable Brand</span> with an Integrated Franchise System</h2>
+            <p class="subhead">A comprehensive franchise system that transforms your restaurant into a scalable brand, fully compliant with the executive regulations of the Saudi franchise law.</p>
+            <button class="btn-gold" id="openModalBtn"><i class="fas fa-shopping-cart"></i> Order the Toolkit Now</button>
+            <a href="Contact-Us-En.html" class="btn-gold"><i class="fas fa-phone-alt"></i> Contact Us for Inquiries</a>
+            <div class="price-info">
+                <span class="new-price">$1,999</span>
+                <span class="old-price">$3,999</span>
+            </div>
+            <div class="trust-badges">
+                <span><i class="fas fa-check-circle"></i> Updated documents per Saudi regulations</span>
+                <span><i class="fas fa-check-circle"></i> Ready-to-operate system</span>
+                <span><i class="fas fa-lock"></i> Secure payment</span>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://lh3.googleusercontent.com/d/1J0mEfv37oocTcnZ4ym5P_89tsykC_jQD" alt="The Golden Franchise Toolkit">
+        </div>
+    </div>
+</section>
+
+<!-- Toolkit Components -->
+<section class="components-section">
+    <div class="container">
+        <h3 class="section-title">Components of the Golden Toolkit</h3>
+        <p class="section-subtitle">Everything you need to launch your restaurant's franchise system in one comprehensive package</p>
+        <div class="components-grid">
+            <div class="component-card">
+                <div class="component-icon"><i class="fas fa-file-contract"></i></div>
+                <div>
+                    <h4>Saudi Franchise Agreement</h4>
+                    <p>A complete franchise agreement compliant with the Saudi franchise law and the executive regulations issued by the Ministry of Commerce.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="component-icon"><i class="fas fa-file-alt"></i></div>
+                <div>
+                    <h4>Certified Disclosure Document</h4>
+                    <p>A disclosure document certified by the Monshaat platform, containing all 16 requirements stipulated in the executive regulations.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="component-icon"><i class="fas fa-shield-alt"></i></div>
+                <div>
+                    <h4>Non-Disclosure Agreement (NDA)</h4>
+                    <p>A confidentiality and information protection agreement that protects your trade secrets and prevents any leakage of sensitive information before and after signing the franchise.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="component-icon"><i class="fas fa-clipboard-list"></i></div>
+                <div>
+                    <h4>Standard Operating Procedures (SOP)</h4>
+                    <p>Comprehensive standard operating procedure manuals covering all restaurant operations from the kitchen to service to ensure consistent quality across all branches.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="component-icon"><i class="fas fa-users"></i></div>
+                <div>
+                    <h4>Employee Handbook</h4>
+                    <p>A comprehensive employee handbook including job descriptions, internal policies, rights and duties to ensure an organized work environment.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="component-icon"><i class="fas fa-map-marked-alt"></i></div>
+                <div>
+                    <h4>Site Technical Standards Template</h4>
+                    <p>Precise technical and engineering standards for selecting and equipping new branch locations in alignment with the brand identity.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="component-icon"><i class="fas fa-chart-bar"></i></div>
+                <div>
+                    <h4>Financial Reporting System</h4>
+                    <p>A unified financial reporting system that ensures transparency and control over the performance of all branches with clear key performance indicators.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="why-section">
+    <div class="container">
+        <h3 class="section-title">Why Choose the Golden Toolkit?</h3>
+        <p class="section-subtitle">This toolkit is designed to be the ideal solution for entrepreneurs and restaurateurs looking to expand through the franchise model</p>
+        <div class="why-grid">
+            <div class="why-card">
+                <div class="why-icon"><i class="fas fa-check-circle"></i></div>
+                <h4>Updated per Saudi Regulations</h4>
+                <p>All documents are updated according to the latest executive regulations of the Saudi Franchise Law issued by the Ministry of Commerce and Monshaat.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon"><i class="fas fa-rocket"></i></div>
+                <h4>Ready for Immediate Operation</h4>
+                <p>An integrated system ready for immediate application without the need for additional modifications. Start franchising as soon as you receive the toolkit.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon"><i class="fas fa-gavel"></i></div>
+                <h4>Comprehensive Legal Protection</h4>
+                <p>Legal templates that prevent manipulation and protect your rights as a franchisor. Includes clear clauses for penalties, compensation, and dispute resolution.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Image Gallery -->
+<section class="gallery-section">
+    <div class="container">
+        <h3 class="section-title">A Glimpse of the Toolkit</h3>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://lh3.googleusercontent.com/d/1J0mEfv37oocTcnZ4ym5P_89tsykC_jQD" alt="Golden Franchise Toolkit Components">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container">
+        <h3>Don't Let Your Competitors Beat You to Expansion</h3>
+        <p>Transform your successful restaurant into a national brand with an integrated franchise system compliant with the highest Saudi standards. The Golden Toolkit is your gateway to the world of franchising.</p>
+        <button class="btn-gold" id="openModalBtn2"><i class="fas fa-crown"></i> Get the Toolkit Now for Only $1,999</button>
+        <p style="margin-top:20px; font-size:0.9rem;"><i class="fas fa-shield-alt"></i> Price includes all documents and templates - Secure Payment</p>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <p>© 2026 <span>Farouk Grup</span> – Farouk Consulting Group. All rights reserved.</p>
+        <p style="margin-top:8px;">Adnan Kahveci, Beylikdüzü / İstanbul, Türkiye</p>
+    </div>
+</footer>
+
+<!-- Payment Modal -->
+<div class="modal-overlay" id="paymentModal">
+    <div class="modal-card">
+        <span class="modal-close" id="closeModalBtn">&times;</span>
+        <h2><i class="fas fa-lock" style="margin-right:8px;"></i> Complete Your Purchase</h2>
+        <iframe id="paymentIframe" src="" allow="payment" allowfullscreen></iframe>
+        <p style="text-align:center; margin-top:15px; color:var(--text-muted); font-size:0.9rem;">
+            After successful payment, you will receive the complete toolkit download link to your email.
+        </p>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const PAYMENT_LINK = "https://alfan.link/faroukazem?digital=qnBWnD";
+        const modal = document.getElementById('paymentModal');
+        const iframe = document.getElementById('paymentIframe');
+        const openBtns = document.querySelectorAll('#openModalBtn, #openModalBtn2');
+        const closeBtn = document.getElementById('closeModalBtn');
+
+        function openModal() {
+            iframe.src = PAYMENT_LINK;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            modal.classList.remove('active');
+            iframe.src = '';
+            document.body.style.overflow = '';
+        }
+
+        openBtns.forEach(btn => btn.addEventListener('click', openModal));
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+    })();
+</script>
+
+</body>
+</html>
