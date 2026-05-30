@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>تقييم ورشة تدريبية | FAROUK</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #0B1C2F;
+            padding: 20px 15px 30px; /* أعلى أكثر من الجوانب */
+            direction: rtl;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start; /* يبدأ من الأعلى */
+            justify-content: center;
+        }
+
+        .card {
+            background: #0a1a2a;
+            border-radius: 30px;
+            max-width: 650px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 25px 20px;
+            border: 2px solid #C4A747;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            margin-top: 0; /* لا حاجة لها */
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header .icon {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .header h1 span {
+            color: #C4A747;
+        }
+
+        .header .sub {
+            background: #1e2a3a;
+            color: #ccc;
+            padding: 6px 20px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-top: 8px;
+            font-size: 0.9rem;
+            border: 1px solid #C4A747;
+            letter-spacing: 0.5px;
+        }
+
+        .section {
+            background: #102433;
+            border-radius: 20px;
+            padding: 20px 18px;
+            margin-bottom: 18px;
+            border: 1px solid rgba(196, 167, 71, 0.25);
+            transition: border 0.3s;
+        }
+
+        .section:hover {
+            border-color: rgba(196, 167, 71, 0.6);
+        }
+
+        .section-title {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 18px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #C4A747;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title .emoji {
+            font-size: 1.4rem;
+        }
+
+        .question {
+            margin-bottom: 22px;
+        }
+
+        .question:last-child {
+            margin-bottom: 0;
+        }
+
+        .question p {
+            color: #e0e0e0;
+            margin-bottom: 10px;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        /* نظام النجوم الفارغة/المملوءة */
+        .stars-container {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            direction: ltr;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .star-btn {
+            background: none;
+            border: none;
+            font-size: 2.4rem;
+            cursor: pointer;
+            color: #4a5a6a; /* لون النجمة الفارغة */
+            transition: all 0.2s ease;
+            padding: 0 3px;
+            line-height: 1;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            text-shadow: 0 0 5px rgba(0,0,0,0.3);
+        }
+
+        .star-btn.active {
+            color: #FFD700; /* ذهبي مملوء */
+            text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+            transform: scale(1.1);
+        }
+
+        .star-btn:hover {
+            transform: scale(1.15);
+            color: #FFD700;
+        }
+
+        .rating-text {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-right: 10px;
+            min-width: 80px;
+            text-align: right;
+            direction: rtl;
+            font-weight: 500;
+        }
+
+        /* الحقول النصية */
+        .input-field {
+            margin-bottom: 18px;
+        }
+
+        .input-field:last-child {
+            margin-bottom: 0;
+        }
+
+        .input-field label {
+            color: #ddd;
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .input-field input,
+        .input-field textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: #1e2f3f;
+            border: 1px solid #3a4a5a;
+            border-radius: 30px;
+            color: white;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            outline: none;
+        }
+
+        .input-field textarea {
+            border-radius: 20px;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .input-field input:focus,
+        .input-field textarea:focus {
+            border-color: #C4A747;
+            box-shadow: 0 0 12px rgba(196, 167, 71, 0.3);
+            background: #1a2b3c;
+        }
+
+        .input-field input::placeholder,
+        .input-field textarea::placeholder {
+            color: #6a7a8a;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* زر الإرسال */
+        .submit-btn {
+            background: linear-gradient(135deg, #C4A747 0%, #d4b85c 100%);
+            border: none;
+            border-radius: 40px;
+            padding: 16px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+            color: #0B1C2F;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-top: 5px;
+            font-family: 'Cairo', sans-serif;
+            box-shadow: 0 6px 20px rgba(196, 167, 71, 0.3);
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #d4b85c 0%, #e0c96e 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(196, 167, 71, 0.5);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* رسالة الشكر */
+        #thankYouArea {
+            display: none;
+            text-align: center;
+            color: white;
+            padding: 50px 20px;
+        }
+
+        #thankYouArea .check-icon {
+            font-size: 5rem;
+            color: #2ecc71;
+            margin-bottom: 15px;
+            animation: popIn 0.5s ease;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            70% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        #thankYouArea h2 {
+            color: white;
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+        }
+
+        #thankYouArea p {
+            color: #ccc;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px 12px 25px;
+            }
+            .card {
+                padding: 18px 14px;
+                border-radius: 22px;
+            }
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            .star-btn {
+                font-size: 2rem;
+            }
+            .section {
+                padding: 15px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="mainCard">
+        <div class="header">
+            <div class="icon">📋</div>
+            <h1>تقييم <span>الورشة</span> التدريبية</h1>
+            <div class="sub">🎯 رأيك يصنع الفرق</div>
+        </div>
+
+        <form id="feedbackForm"
+        action="https://script.google.com/macros/s/AKfycbyqZaT3_fLrSiXlPAAygzpp1x6PsnFRpwy35PElp0CGaTEQIFVWA4_Tikc0vDzpOPPc/exec"
+        method="POST"
+        target="hidden_iframe">
+
+        <!-- حقول مخفية للتقييمات -->
+        <input type="hidden" name="تقييم_المحتوى" id="hidden_content_rating">
+        <input type="hidden" name="تقييم_المدرب" id="hidden_trainer_rating">
+
+        <!-- القسم الأول: معلومات تعريفية -->
+        <div class="section">
+            <div class="section-title"><span class="emoji">👤</span> معلومات التواصل (اختياري)</div>
+            <div class="input-field">
+                <label>الاسم</label>
+                <input type="text" name="الاسم" placeholder="أدخل اسمك (اختياري)">
+            </div>
+            <div class="input-field">
+                <label>🏪 اسم المطعم</label>
+                <input type="text" name="اسم_المطعم" placeholder="أدخل اسم المطعم">
+            </div>
+        </div>
+
+        <!-- القسم الثاني: التقييمات بالنجوم -->
+        <div class="section">
+            <div class="section-title"><span class="emoji">⭐</span> تقييم الورشة</div>
+
+            <!-- تقييم المحتوى -->
+            <div class="question">
+                <p>📘 تقييم محتوى الورشة وملاءمته لواقعك</p>
+                <div class="stars-container" data-rating-name="تقييم_المحتوى" data-hidden-id="hidden_content_rating">
+                    <span class="rating-text" id="content_rating_text">اختر تقييمك</span>
+                    <button type="button" class="star-btn" data-value="5">☆</button>
+                    <button type="button" class="star-btn" data-value="4">☆</button>
+                    <button type="button" class="star-btn" data-value="3">☆</button>
+                    <button type="button" class="star-btn" data-value="2">☆</button>
+                    <button type="button" class="star-btn" data-value="1">☆</button>
+                </div>
+            </div>
+
+            <!-- تقييم المدرب -->
+            <div class="question">
+                <p>🎤 أداء المدرب وأسلوب الطرح التفاعلي</p>
+                <div class="stars-container" data-rating-name="تقييم_المدرب" data-hidden-id="hidden_trainer_rating">
+                    <span class="rating-text" id="trainer_rating_text">اختر تقييمك</span>
+                    <button type="button" class="star-btn" data-value="5">☆</button>
+                    <button type="button" class="star-btn" data-value="4">☆</button>
+                    <button type="button" class="star-btn" data-value="3">☆</button>
+                    <button type="button" class="star-btn" data-value="2">☆</button>
+                    <button type="button" class="star-btn" data-value="1">☆</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- القسم الثالث: الأسئلة المفتوحة -->
+        <div class="section">
+            <div class="section-title"><span class="emoji">💡</span> تغذيتك الراجعة</div>
+            <div class="input-field">
+                <label>🚀 ما هو أكثر مفهوم أو أداة ستطبقها فوراً في مطعمك؟</label>
+                <textarea name="المفهوم_الأهم" rows="3" placeholder="اكتب هنا المفهوم أو الأداة التي أعجبتك أكثر..."></textarea>
+            </div>
+            <div class="input-field">
+                <label>📌 مقترحات لورشات عمل قادمة تحتاجها لتطوير عملك</label>
+                <textarea name="مقترحات_ورشات" rows="3" placeholder="ما المواضيع التي ترغب بطرحها في ورشات قادمة؟"></textarea>
+            </div>
+        </div>
+
+        <button type="submit" class="submit-btn">📨 إرسال التقييم</button>
+    </form>
+
+    <!-- إطار مخفي لاستقبال الرد دون إعادة توجيه -->
+    <iframe name="hidden_iframe" style="display:none;"></iframe>
+
+    <!-- منطقة الشكر -->
+    <div id="thankYouArea">
+        <div class="check-icon">✅</div>
+        <h2>شكراً جزيلاً لك!</h2>
+        <p>تم استلام تقييمك بنجاح، رأيك يهمنا كثيراً</p>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ---- نظام النجوم التفاعلي (فارغة ← مملوءة) ----
+        const starsContainers = document.querySelectorAll('.stars-container');
+
+        starsContainers.forEach(container => {
+            const stars = container.querySelectorAll('.star-btn');
+            const ratingText = container.querySelector('.rating-text');
+            const hiddenInputId = container.getAttribute('data-hidden-id');
+            const hiddenInput = document.getElementById(hiddenInputId);
+            let currentRating = 0;
+
+            // نصوص وصفية لكل تقييم
+            const ratingLabels = {
+                1: 'ضعيف 😞',
+                2: 'مقبول 😐',
+                3: 'جيد 🙂',
+                4: 'جيد جداً 😊',
+                5: 'ممتاز 🤩'
+            };
+
+            // تحديث مظهر النجوم (فارغة ☆ أو مملوءة ★)
+            function updateStars(value) {
+                stars.forEach(star => {
+                    const starValue = parseInt(star.getAttribute('data-value'));
+                    if (starValue <= value) {
+                        star.classList.add('active');
+                        star.textContent = '★'; // نجمة مملوءة
+                    } else {
+                        star.classList.remove('active');
+                        star.textContent = '☆'; // نجمة فارغة
+                    }
+                });
+                if (ratingText) {
+                    if (value > 0) {
+                        ratingText.textContent = ratingLabels[value] || '';
+                    } else {
+                        ratingText.textContent = 'اختر تقييمك';
+                    }
+                }
+            }
+
+            // معاينة التحويم (تظهر النجوم مملوءة بشكل مؤقت)
+            function previewStars(value) {
+                stars.forEach(star => {
+                    const starValue = parseInt(star.getAttribute('data-value'));
+                    if (starValue <= value) {
+                        star.classList.add('active');
+                        star.textContent = '★';
+                    } else {
+                        star.classList.remove('active');
+                        star.textContent = '☆';
+                    }
+                });
+            }
+
+            // إعادة التعيين إلى التقييم الفعلي بعد الخروج من التحويم
+            function resetStars() {
+                updateStars(currentRating);
+            }
+
+            // ربط الأحداث لكل نجمة
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const value = parseInt(this.getAttribute('data-value'));
+                    currentRating = value;
+                    updateStars(value);
+                    if (hiddenInput) {
+                        hiddenInput.value = value;
+                    }
+                });
+
+                star.addEventListener('mouseenter', function() {
+                    const value = parseInt(this.getAttribute('data-value'));
+                    previewStars(value);
+                });
+
+                star.addEventListener('mouseleave', function() {
+                    resetStars();
+                });
+
+                // دعم اللمس
+                star.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    const value = parseInt(this.getAttribute('data-value'));
+                    currentRating = value;
+                    updateStars(value);
+                    if (hiddenInput) {
+                        hiddenInput.value = value;
+                    }
+                });
+            });
+
+            // تهيئة الحالة الأولية (جميع النجوم فارغة)
+            updateStars(0);
+            if (hiddenInput) {
+                hiddenInput.value = '';
+            }
+        });
+
+        // ---- إرسال النموذج ----
+        const form = document.getElementById('feedbackForm');
+        const mainCard = document.getElementById('mainCard');
+        const thankYouArea = document.getElementById('thankYouArea');
+
+        form.addEventListener('submit', function(e) {
+            const contentRating = document.getElementById('hidden_content_rating').value;
+            const trainerRating = document.getElementById('hidden_trainer_rating').value;
+
+            if (!contentRating || !trainerRating) {
+                e.preventDefault();
+                alert('🌟 من فضلك قم بتقييم محتوى الورشة وأداء المدرب قبل الإرسال.');
+                return;
+            }
+
+            // تعطيل الزر ومنع الإرسال المتكرر
+            const submitBtn = form.querySelector('.submit-btn');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = '⏳ جاري الإرسال...';
+                submitBtn.style.opacity = '0.7';
+            }
+
+            // إخفاء النموذج وإظهار الشكر بعد مهلة قصيرة
+            setTimeout(() => {
+                form.style.display = 'none';
+                document.querySelector('.header').style.display = 'none';
+                const sections = mainCard.querySelectorAll('.section');
+                sections.forEach(s => s.style.display = 'none');
+                if (submitBtn) submitBtn.style.display = 'none';
+                thankYouArea.style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 300);
+        });
+    })();
+</script>
+</body>
+</html>
