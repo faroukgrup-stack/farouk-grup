@@ -23,7 +23,6 @@
             justify-content: center;
         }
 
-        /* الحاوية الرئيسية */
         .admin-card {
             background: #0a1a2a;
             border-radius: 40px;
@@ -36,7 +35,6 @@
             transition: all 0.3s;
         }
 
-        /* الرأس */
         .admin-header {
             text-align: center;
             margin-bottom: 30px;
@@ -65,7 +63,6 @@
             border: 1px solid #C4A747;
         }
 
-        /* شريط التقدم والعداد */
         .progress-area {
             background: #0f1e2c;
             border-radius: 60px;
@@ -101,7 +98,6 @@
             transition: width 0.25s ease;
         }
 
-        /* حاوية الأسئلة – تصميم شبكي مريح */
         .questions-grid {
             display: flex;
             flex-direction: column;
@@ -124,7 +120,6 @@
             border-radius: 10px;
         }
 
-        /* السؤال الواحد */
         .question-item {
             background: #102433;
             border-radius: 28px;
@@ -160,7 +155,6 @@
             margin-left: 8px;
         }
 
-        /* خيارات الـ radio (1-4) بأزرار أنيقة */
         .options-row {
             display: flex;
             flex-wrap: wrap;
@@ -210,7 +204,6 @@
             background: #2a3e52;
         }
 
-        /* زر النتيجة */
         .result-btn {
             background: linear-gradient(135deg, #C4A747, #d9b854);
             border: none;
@@ -239,7 +232,7 @@
             transform: translateY(2px);
         }
 
-        /* مودال (منبثقة) النتيجة */
+        /* تحسين المودال ليكون قابلاً للتمرير على الجوال */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -255,6 +248,7 @@
             visibility: hidden;
             opacity: 0;
             transition: all 0.3s ease;
+            padding: 20px;
         }
         .modal-overlay.active {
             visibility: visible;
@@ -264,51 +258,68 @@
             background: #0f1f2e;
             border-radius: 48px;
             max-width: 500px;
-            width: 90%;
+            width: 100%;
+            max-height: 85vh;
             border: 2px solid #C4A747;
-            padding: 35px 25px 40px;
+            padding: 25px 20px 30px;
             text-align: center;
             box-shadow: 0 20px 40px rgba(0,0,0,0.6);
             transform: scale(0.9);
             transition: transform 0.2s;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
         .modal-overlay.active .modal-container {
             transform: scale(1);
         }
+        /* تخصيص شريط التمرير للمودال على الجوال */
+        .modal-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        .modal-container::-webkit-scrollbar-track {
+            background: #1a2b3c;
+            border-radius: 10px;
+        }
+        .modal-container::-webkit-scrollbar-thumb {
+            background: #C4A747;
+            border-radius: 10px;
+        }
         .modal-icon {
-            font-size: 4rem;
-            margin-bottom: 12px;
+            font-size: 3rem;
+            margin-bottom: 8px;
         }
         .modal-title {
             color: white;
-            font-size: 2rem;
+            font-size: 1.7rem;
             font-weight: 800;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         .total-score {
             background: #1e2f40;
             border-radius: 60px;
-            padding: 18px;
-            margin: 20px 0;
-            font-size: 2.3rem;
+            padding: 14px;
+            margin: 15px 0;
+            font-size: 1.8rem;
             font-weight: 800;
             color: #FFD966;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
         .interpretation {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 600;
             padding: 12px;
             border-radius: 40px;
             background: #0a1724;
             color: #e2e2e2;
             margin-bottom: 20px;
+            line-height: 1.5;
         }
         .modal-btn {
             background: #C4A747;
             border: none;
             border-radius: 50px;
-            padding: 12px 28px;
+            padding: 12px 20px;
             font-size: 1.1rem;
             font-weight: 700;
             font-family: 'Cairo', sans-serif;
@@ -316,13 +327,14 @@
             cursor: pointer;
             transition: 0.2s;
             margin-top: 10px;
+            width: 80%;
+            align-self: center;
         }
         .modal-btn:hover {
             background: #e0bd5a;
             transform: scale(1.02);
         }
 
-        /* رسالة تحذير */
         .warning-toast {
             position: fixed;
             bottom: 30px;
@@ -347,6 +359,10 @@
             .options-row { gap: 8px; }
             .radio-option { padding: 5px 12px; }
             .radio-option label { font-size: 0.8rem; }
+            .modal-title { font-size: 1.4rem; }
+            .total-score { font-size: 1.5rem; padding: 10px; }
+            .interpretation { font-size: 0.9rem; }
+            .modal-btn { width: 100%; padding: 10px; }
         }
         footer {
             text-align: center;
@@ -359,26 +375,23 @@
 <body>
 <div class="admin-card">
     <div class="admin-header">
-        <div class="icon">📊</div>
         <h1>مقياس <span>تحديد الإداري</span></h1>
-        <div class="sub">عزيزي المدير / القائد: يساعدك هذا المقياس في تقييم أسلوبك الإداري ومدى قدرتك على الاحتفاظ بالموهوبين داخل مؤسستك، يرجى الإجابة على الأسئلة التالية بكل شفافية.</div>
+        <div class="sub">عزيزي المدير / القائد: يرجى الإجابة على الأسئلة التالية بكل شفافية.</div>
     </div>
 
-    <!-- شريط التقدم وعدد الإجابات -->
     <div class="progress-area">
         <div class="counter" id="answeredCounter">0 / 26</div>
         <div class="progress-bar-bg"><div class="progress-fill" id="progressFill"></div></div>
         <div class="counter">✨ تقييم ذاتي</div>
     </div>
 
-    <!-- حاوية الأسئلة (سيتم حقنها بالجافاسكريبت) -->
     <div id="questionsContainer" class="questions-grid"></div>
 
-    <button id="showResultBtn" class="result-btn">📋 احصل على نتيجتك 📋</button>
+    <button id="showResultBtn" class="result-btn">احصل على نتيجتك 📋</button>
     <footer>عِش القيادة الواعية | كل إجابة تحدث فرقاً في ولاء فريقك</footer>
 </div>
 
-<!-- منبثقة النتيجة -->
+<!-- منبثقة النتيجة المحسنة للجوال -->
 <div id="resultModal" class="modal-overlay">
     <div class="modal-container">
         <div class="modal-icon">🏆</div>
@@ -392,9 +405,7 @@
 <div id="warningToast" class="warning-toast">⚠️ الرجاء الإجابة على جميع العبارات قبل عرض النتيجة</div>
 
 <script>
-    // --------------------------------------------------------------
-    // الأسئلة المستخلصة من الملف (26 عبارة)
-    // --------------------------------------------------------------
+    // الأسئلة كما هي بدون تغيير
     const questionsList = [
         "تفرض أن الموظفين يجب عليهم أن يخبروك بما يرغبون فيه من عملهم وسيفعلون ذلك؟",
         "تعتقد أن الاحتفاظ بالموظفين هو وظيفة قسم الموارد البشرية أو مختصي التعويضات؟",
@@ -424,7 +435,6 @@
         "تصر على أن مشاركة الموظفين والاحتفاظ بهم ليست مهارات قيادة جوهرية ولا تحتاج إلى تمضية وقت لتحسينها؟"
     ];
 
-    // تعريف وصف الخيارات حسب مقياس الملف: 1=دائماً/نعم, 2=في الغالب, 3=في بعض الأحيان, 4=مطلقاً/لا
     const optionLabels = {
         1: "دائمًا / نعم",
         2: "في الغالب / كثيرًا",
@@ -432,15 +442,8 @@
         4: "مطلقًا / لا"
     };
 
-    // عدد الأسئلة
-    const totalQuestions = questionsList.length;  // = 26
-
-    // مصفوفة لتخزين قيم الإجابات (1..4) , تبدأ كلها بلا قيمة
+    const totalQuestions = questionsList.length;
     let answers = new Array(totalQuestions).fill(null);
-
-    // ------------------------
-    // إنشاء واجهة الأسئلة ديناميكياً
-    // ------------------------
     const container = document.getElementById("questionsContainer");
 
     function renderQuestions() {
@@ -449,8 +452,6 @@
             const qDiv = document.createElement("div");
             qDiv.className = "question-item";
             qDiv.setAttribute("data-qidx", idx);
-
-            // رقم السؤال + النص
             const qHeader = document.createElement("div");
             qHeader.className = "question-text";
             const qNumSpan = document.createElement("span");
@@ -460,12 +461,8 @@
             qTextSpan.innerText = qText;
             qHeader.appendChild(qNumSpan);
             qHeader.appendChild(qTextSpan);
-
-            // خيارات radio (1-4)
             const optionsDiv = document.createElement("div");
             optionsDiv.className = "options-row";
-
-            // إنشاء 4 أزرار تفاعلية (1..4)
             for (let val = 1; val <= 4; val++) {
                 const radioWrap = document.createElement("div");
                 radioWrap.className = "radio-option";
@@ -477,40 +474,31 @@
                 const label = document.createElement("label");
                 label.htmlFor = `q_${idx}_val_${val}`;
                 label.innerText = optionLabels[val];
-
-                // ربط الحدث
                 radioInput.addEventListener("change", (function(index, selectedVal) {
                     return function(e) {
                         if (e.target.checked) {
                             answers[index] = selectedVal;
                             updateProgressAndBar();
-                            // إضافة تأثير تحديد مرئي
                             highlightSelectedOption(radioWrap.parentElement, selectedVal);
                         }
                     };
                 })(idx, val));
-
                 radioWrap.appendChild(radioInput);
                 radioWrap.appendChild(label);
                 optionsDiv.appendChild(radioWrap);
             }
-
             qDiv.appendChild(qHeader);
             qDiv.appendChild(optionsDiv);
             container.appendChild(qDiv);
-
-            // إذا كانت هناك إجابة سابقة (لحفظ الحالة عند إعادة الرندر؟ نحن نرندر مرة واحدة فقط لكن قد نعيد تعيين)
             if (answers[idx] !== null) {
                 const selectedRadio = document.querySelector(`input[name="q_${idx}"][value="${answers[idx]}"]`);
                 if (selectedRadio) selectedRadio.checked = true;
-                // تحديث التظليل
                 const parentOpt = selectedRadio?.closest(".radio-option");
                 if (parentOpt) highlightSelectedOption(parentOpt.parentElement, answers[idx]);
             }
         });
     }
 
-    // وظيفة لتظليل الخيار المختار ضمن مجموعة
     function highlightSelectedOption(optionsContainer, selectedVal) {
         if (!optionsContainer) return;
         const allRadios = optionsContainer.querySelectorAll(".radio-option");
@@ -524,141 +512,83 @@
         });
     }
 
-    // تحديث شريط التقدم وعدد الإجابات
     function updateProgressAndBar() {
         const answeredCount = answers.filter(a => a !== null).length;
         document.getElementById("answeredCounter").innerText = `${answeredCount} / ${totalQuestions}`;
         const percent = (answeredCount / totalQuestions) * 100;
         const fillEl = document.getElementById("progressFill");
         fillEl.style.width = `${percent}%`;
-        // تحسين لون شريط التقدم
         if (answeredCount === totalQuestions) fillEl.style.background = "#FFD966";
         else fillEl.style.background = "linear-gradient(90deg, #C4A747, #e6c86e)";
     }
 
-    // حساب النتيجة الإجمالية (مجموع النقاط) لكل الإجابات
     function calculateTotalScore() {
         let sum = 0;
         for (let i = 0; i < totalQuestions; i++) {
-            if (answers[i] === null) return null;  // غير مكتمل
+            if (answers[i] === null) return null;
             sum += answers[i];
         }
         return sum;
     }
 
-    // الحصول على التفسير بناءً على الدرجة (وفق إرشادات الملف)
     function getInterpretation(score) {
         if (score >= 80 && score <= 104) {
-            return {
-                level: "ممتاز - عقلية الاحتفاظ بالمواهب",
-                message: "أحسنت. أنت تملك عقلية نهج محبة الموظفين، وعلى الأرجح أنك تتخذ العديد من الأفعال اللازمة لحث الموهوبين لديك على المشاركة والاحتفاظ بهم. استمر في تعزيز ثقافة الثقة والتطوير.",
-                color: "#2e7d32"
-            };
+            return { level: "ممتاز - عقلية الاحتفاظ بالمواهب", message: "أحسنت. أنت تملك عقلية نهج محبة الموظفين، وعلى الأرجح أنك تتخذ العديد من الأفعال اللازمة لحث الموهوبين لديك على المشاركة والاحتفاظ بهم. استمر في تعزيز ثقافة الثقة والتطوير.", color: "#2e7d32" };
         } else if (score >= 53 && score <= 79) {
-            return {
-                level: "متوسط - خطر خسارة الموهوبين",
-                message: "احذر. أنت في خطر خسارة أفضل موظفيك. قد يكون بعضهم تركوك بالفعل، قيم الموقف واتخذ إجراء قبل أن تخسر المزيد من الموهوبين. ركز على تحسين التواصل والثقة.",
-                color: "#ed6c02"
-            };
+            return { level: "متوسط - خطر خسارة الموهوبين", message: "احذر. أنت في خطر خسارة أفضل موظفيك. قد يكون بعضهم تركوك بالفعل، قيم الموقف واتخذ إجراء قبل أن تخسر المزيد من الموهوبين. ركز على تحسين التواصل والثقة.", color: "#ed6c02" };
         } else if (score >= 52 && score <= 62) {
-            return {
-                level: "منخفض - إنذار عاجل",
-                message: "انتبه. أنت معرض بنسبة كبيرة لخطر خسارة الموظفين الموهوبين. قد يكون لديك صراع مع معتقداتك وأفعالك، وقد تكون عقبة في طريق أن تحظى بأشخاص مشاركين يرغبون في البقاء معك. تحتاج إلى اتخاذ فعل فوري ومركز.",
-                color: "#d32f2f"
-            };
+            return { level: "منخفض - إنذار عاجل", message: "انتبه. أنت معرض بنسبة كبيرة لخطر خسارة الموظفين الموهوبين. قد يكون لديك صراع مع معتقداتك وأفعالك، وقد تكون عقبة في طريق أن تحظى بأشخاص مشاركين يرغبون في البقاء معك. تحتاج إلى اتخاذ فعل فوري ومركز.", color: "#d32f2f" };
         } else {
-            // حالات نادرة: لو كان المجموع أقل من 52 (نظريا أقل من 52 فقط إذا كانت إجابات كثيرة بـ 1 أو 2؟ أقل من 52 يعني توجيه سلبي عالي جداً)
-            // لكن الفاصل الزمني المذكور 52-62 منخفض، وما دونه يعتبر حرج جداً (نتعامل معه كمنخفض جداً)
-            return {
-                level: "حرج للغاية",
-                message: "نتيجة منخفضة جداً. أنت تعاني من خلل جذري في قيادتك تجاه الفريق. غادر معظم المواهب أو هم على وشك الرحيل. نوصي بتغيير فوري في فلسفتك الإدارية، وطلب تدريب قيادي مكثف.",
-                color: "#b71c1c"
-            };
+            return { level: "حرج للغاية", message: "نتيجة منخفضة جداً. أنت تعاني من خلل جذري في قيادتك تجاه الفريق. غادر معظم المواهب أو هم على وشك الرحيل. نوصي بتغيير فوري في فلسفتك الإدارية، وطلب تدريب قيادي مكثف.", color: "#b71c1c" };
         }
     }
 
-    // عرض المودال مع النتيجة
     function showResultModal() {
-        // التحقق من اكتمال الإجابات
         for (let i = 0; i < totalQuestions; i++) {
             if (answers[i] === null) {
-                // إظهار تحذير مؤقت
                 const toast = document.getElementById("warningToast");
                 toast.style.display = "block";
                 setTimeout(() => {
                     toast.style.opacity = "0";
-                    setTimeout(() => {
-                        toast.style.display = "none";
-                        toast.style.opacity = "1";
-                    }, 400);
+                    setTimeout(() => { toast.style.display = "none"; toast.style.opacity = "1"; }, 400);
                 }, 2000);
-                // تمرير إلى أول سؤال غير مجاب عليه
                 const firstUnanswered = document.querySelector(`.question-item[data-qidx="${i}"]`);
                 if (firstUnanswered) {
                     firstUnanswered.scrollIntoView({ behavior: "smooth", block: "center" });
                     firstUnanswered.style.border = "2px solid #dc3545";
-                    setTimeout(() => {
-                        firstUnanswered.style.border = "";
-                    }, 1500);
+                    setTimeout(() => { firstUnanswered.style.border = ""; }, 1500);
                 }
                 return;
             }
         }
-
         const totalScore = calculateTotalScore();
         if (totalScore === null) return;
-
         const interpretationObj = getInterpretation(totalScore);
         const modal = document.getElementById("resultModal");
         const modalScoreSpan = document.getElementById("modalScore");
         const modalInterpretationDiv = document.getElementById("modalInterpretation");
-
         modalScoreSpan.innerText = `${totalScore} نقطة (من 104)`;
-        modalInterpretationDiv.innerHTML = `
-            <strong style="color: ${interpretationObj.color};">${interpretationObj.level}</strong><br>
-            ${interpretationObj.message}
-        `;
+        modalInterpretationDiv.innerHTML = `<strong style="color: ${interpretationObj.color};">${interpretationObj.level}</strong><br>${interpretationObj.message}`;
         modal.classList.add("active");
     }
 
-    // إغلاق المودال
     function closeModal() {
-        const modal = document.getElementById("resultModal");
-        modal.classList.remove("active");
+        document.getElementById("resultModal").classList.remove("active");
     }
 
-    // إضافة مستمع للأزرار (النتيجة + إغلاق)
     document.getElementById("showResultBtn").addEventListener("click", showResultModal);
     document.getElementById("closeModalBtn").addEventListener("click", closeModal);
-    // إغلاق عند الضغط على الخلفية
-    const modalOverlay = document.getElementById("resultModal");
-    modalOverlay.addEventListener("click", function(e) {
-        if (e.target === modalOverlay) closeModal();
-    });
-
-    // تحديث التظليل ديناميكياً عند أي تغيير في الراديو (وذلك عبر حدث الـ change المباشر، لكننا نريد أيضًا تطبيق التظليل على كل مجموعة عند التغير)
-    function bindGlobalRadioListeners() {
-        // الاستماع لجميع الراديو (حتى المضافة)
-        document.querySelectorAll('input[type="radio"]').forEach(radio => {
-            radio.removeEventListener('change', handleRadioStyle);
-            radio.addEventListener('change', handleRadioStyle);
-        });
-    }
+    document.getElementById("resultModal").addEventListener("click", function(e) { if (e.target === this) closeModal(); });
 
     function handleRadioStyle(e) {
         const radio = e.target;
         if (radio.checked) {
             const parentOptionsDiv = radio.closest('.options-row');
-            if (parentOptionsDiv) {
-                const selectedVal = parseInt(radio.value);
-                highlightSelectedOption(parentOptionsDiv, selectedVal);
-            }
+            if (parentOptionsDiv) highlightSelectedOption(parentOptionsDiv, parseInt(radio.value));
         }
     }
 
-    // مراقبة إعادة الربط عند إضافة العناصر (لكننا نضيفها مرة واحدة فقط ثم نستمع)
     function observeAndBind() {
-        // إعادة الربط بعد الرندر
         setTimeout(() => {
             document.querySelectorAll('input[type="radio"]').forEach(radio => {
                 radio.removeEventListener('change', handleRadioStyle);
@@ -667,13 +597,10 @@
         }, 50);
     }
 
-    // تهيئة التطبيق بالكامل
     function init() {
         renderQuestions();
         updateProgressAndBar();
         observeAndBind();
-
-        // التأكد من الحفاظ على إجابات قديمة (لا يوجد تخزين سابق) ولكن نربط التظليل عند التحميل لأي إجابة تلقائية
         for (let i = 0; i < totalQuestions; i++) {
             const selectedInput = document.querySelector(`input[name="q_${i}"]:checked`);
             if (selectedInput) {
@@ -685,7 +612,6 @@
         }
         updateProgressAndBar();
     }
-
     init();
 </script>
 </body>
