@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Management Style Assessment | Leadership & Retention Assessment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #0B1C2F;
+            padding: 30px 20px 50px;
+            direction: ltr;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        /* main container */
+        .admin-card {
+            background: #0a1a2a;
+            border-radius: 40px;
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 30px 25px;
+            border: 2px solid #C4A747;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s;
+        }
+
+        /* header */
+        .admin-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .admin-header .icon {
+            font-size: 3rem;
+            margin-bottom: 5px;
+        }
+        .admin-header h1 {
+            color: white;
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        .admin-header h1 span {
+            color: #C4A747;
+        }
+        .admin-header .sub {
+            background: #1e2a3a;
+            color: #ddd;
+            padding: 8px 22px;
+            border-radius: 60px;
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            border: 1px solid #C4A747;
+        }
+
+        /* progress bar area */
+        .progress-area {
+            background: #0f1e2c;
+            border-radius: 60px;
+            padding: 8px 20px;
+            margin-bottom: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            border: 1px solid #2c3e4e;
+        }
+        .counter {
+            background: #1e2f3f;
+            padding: 6px 18px;
+            border-radius: 30px;
+            color: #FFD966;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .progress-bar-bg {
+            flex: 1;
+            height: 8px;
+            background: #2a3b4b;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #C4A747, #e6c86e);
+            border-radius: 20px;
+            transition: width 0.25s ease;
+        }
+
+        /* questions grid */
+        .questions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            margin-bottom: 35px;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 8px;
+            padding-left: 5px;
+        }
+        .questions-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+        .questions-grid::-webkit-scrollbar-track {
+            background: #1a2b3c;
+            border-radius: 10px;
+        }
+        .questions-grid::-webkit-scrollbar-thumb {
+            background: #C4A747;
+            border-radius: 10px;
+        }
+
+        /* single question */
+        .question-item {
+            background: #102433;
+            border-radius: 28px;
+            padding: 18px 22px;
+            border: 1px solid rgba(196, 167, 71, 0.3);
+            transition: all 0.2s;
+        }
+        .question-item:hover {
+            border-color: rgba(196, 167, 71, 0.7);
+            background: #122838;
+        }
+        .question-text {
+            color: #f0f0f0;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+            line-height: 1.5;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .q-num {
+            background: #C4A747;
+            color: #0a1a2a;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 800;
+            margin-right: 8px;
+        }
+
+        /* radio options styled as buttons */
+        .options-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: flex-start;
+            margin-top: 10px;
+        }
+        .radio-option {
+            background: #1e2f40;
+            border-radius: 50px;
+            padding: 8px 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #3a4c5e;
+        }
+        .radio-option.selected {
+            background: #2c4a2e;
+            border-color: #C4A747;
+            box-shadow: 0 0 0 2px rgba(196,167,71,0.4);
+        }
+        .radio-option input {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #aaa;
+            background: transparent;
+            margin: 0;
+            position: relative;
+            cursor: pointer;
+        }
+        .radio-option input:checked {
+            border-color: #FFD966;
+            background: #FFD966;
+            box-shadow: inset 0 0 0 4px #1e2f40;
+        }
+        .radio-option label {
+            color: #e0e0e0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .radio-option:hover {
+            background: #2a3e52;
+        }
+
+        /* result button */
+        .result-btn {
+            background: linear-gradient(135deg, #C4A747, #d9b854);
+            border: none;
+            border-radius: 60px;
+            padding: 16px 20px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            width: 100%;
+            cursor: pointer;
+            color: #0B1C2F;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(196, 167, 71, 0.3);
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .result-btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, #d9b854, #e9cf7a);
+            box-shadow: 0 14px 28px rgba(196, 167, 71, 0.5);
+        }
+        .result-btn:active {
+            transform: translateY(2px);
+        }
+
+        /* modal overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .modal-container {
+            background: #0f1f2e;
+            border-radius: 48px;
+            max-width: 500px;
+            width: 90%;
+            border: 2px solid #C4A747;
+            padding: 35px 25px 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            transform: scale(0.9);
+            transition: transform 0.2s;
+        }
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 12px;
+        }
+        .modal-title {
+            color: white;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        .total-score {
+            background: #1e2f40;
+            border-radius: 60px;
+            padding: 18px;
+            margin: 20px 0;
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: #FFD966;
+            letter-spacing: 2px;
+        }
+        .interpretation {
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 12px;
+            border-radius: 40px;
+            background: #0a1724;
+            color: #e2e2e2;
+            margin-bottom: 20px;
+        }
+        .modal-btn {
+            background: #C4A747;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            color: #0a1a2a;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+        }
+        .modal-btn:hover {
+            background: #e0bd5a;
+            transform: scale(1.02);
+        }
+
+        /* warning toast */
+        .warning-toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #dc3545cc;
+            backdrop-filter: blur(8px);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            z-index: 1100;
+            font-size: 0.95rem;
+            display: none;
+            transition: 0.2s;
+            pointer-events: none;
+        }
+
+        @media (max-width: 650px) {
+            .admin-card { padding: 20px 18px; }
+            .question-item { padding: 14px 16px; }
+            .options-row { gap: 8px; }
+            .radio-option { padding: 5px 12px; }
+            .radio-option label { font-size: 0.8rem; }
+        }
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #5f778b;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+<div class="admin-card">
+    <div class="admin-header">
+        <div class="icon">📊</div>
+        <h1>Management <span>Style Assessment</span></h1>
+        <div class="sub">Dear Manager / Leader: This scale helps you assess your leadership style and ability to retain talented employees. Please answer each statement honestly.</div>
+    </div>
+
+    <!-- progress bar -->
+    <div class="progress-area">
+        <div class="counter" id="answeredCounter">0 / 26</div>
+        <div class="progress-bar-bg"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="counter">✨ Self-Assessment</div>
+    </div>
+
+    <!-- questions injected here -->
+    <div id="questionsContainer" class="questions-grid"></div>
+
+    <button id="showResultBtn" class="result-btn">📋 Get Your Score 📋</button>
+    <footer>Conscious leadership | Every answer shapes your team's loyalty</footer>
+</div>
+
+<!-- result modal -->
+<div id="resultModal" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-icon">🏆</div>
+        <div class="modal-title">Assessment Result</div>
+        <div class="total-score" id="modalScore">-- points</div>
+        <div class="interpretation" id="modalInterpretation"></div>
+        <button class="modal-btn" id="closeModalBtn">Got it ✓</button>
+    </div>
+</div>
+
+<div id="warningToast" class="warning-toast">⚠️ Please answer all statements before viewing your result.</div>
+
+<script>
+    // ------------------------------------------------------------------
+    // All 26 statements professionally translated into English
+    // based on original managerial scale content
+    // ------------------------------------------------------------------
+    const questionsList = [
+        "Do you assume that employees must tell you what they want from their work, and that they will?",
+        "Do you believe employee retention is solely the job of HR or compensation specialists?",
+        "Do you consider career paths for employees to be their own concern, not yours?",
+        "Do you take it for granted that employees know you respect them, so you don’t need to show it?",
+        "Do you think employees should tell you if they don’t feel challenged in their work?",
+        "Do you expect employees to leave their personal lives at the door, believing only their work life matters to you?",
+        "Do you avoid discussing career options with employees, especially when promotions aren’t readily available?",
+        "Do you hire primarily based on technical or practical skills?",
+        "Do you share information with employees only on a need‑to‑know basis?",
+        "Do you believe you’re here to do the job and that employees don’t have to like you?",
+        "Do you think work is not a place for having fun?",
+        "Are you afraid that if you introduce your employees to others in your network, they might lure them away?",
+        "Do you feel you don’t have time for mentoring?",
+        "Do you really know what it costs you to lose talented, high‑performing people?",
+        "Do you tend to hoard good people rather than help them pursue other opportunities?",
+        "Do you agree that we don’t have the luxury of loving what we do?",
+        "Do you fail to challenge policies for the benefit of your employees?",
+        "Do you consider good work a reward in itself?",
+        "Do you believe that unless you control people, methods, places, and time, work won’t be done properly?",
+        "Do you avoid giving negative feedback or corrective guidance to your employees?",
+        "Do you see yourself as too busy to be a good listener?",
+        "Do you view employee values as their own private affair, and thus rarely discuss them?",
+        "Do you think employee wellness program initiatives are unnecessary costs?",
+        "Do you believe generational differences have nothing to do with the workplace?",
+        "Do you think employees should generally wait for you to dictate what they do?",
+        "Do you insist that employee engagement and retention are not core leadership skills and don’t require time to improve?"
+    ];
+
+    // Option labels (1 = Always/Yes, 2 = Mostly/Often, 3 = Sometimes, 4 = Never/No)
+    const optionLabels = {
+        1: "Always / Yes",
+        2: "Mostly / Often",
+        3: "Sometimes",
+        4: "Never / No"
+    };
+
+    const totalQuestions = questionsList.length; // 26
+    let answers = new Array(totalQuestions).fill(null);
+
+    const container = document.getElementById("questionsContainer");
+
+    // Render all questions dynamically
+    function renderQuestions() {
+        container.innerHTML = "";
+        questionsList.forEach((qText, idx) => {
+            const qDiv = document.createElement("div");
+            qDiv.className = "question-item";
+            qDiv.setAttribute("data-qidx", idx);
+
+            const qHeader = document.createElement("div");
+            qHeader.className = "question-text";
+            const qNumSpan = document.createElement("span");
+            qNumSpan.className = "q-num";
+            qNumSpan.innerText = idx + 1;
+            const qTextSpan = document.createElement("span");
+            qTextSpan.innerText = qText;
+            qHeader.appendChild(qNumSpan);
+            qHeader.appendChild(qTextSpan);
+
+            const optionsDiv = document.createElement("div");
+            optionsDiv.className = "options-row";
+
+            for (let val = 1; val <= 4; val++) {
+                const radioWrap = document.createElement("div");
+                radioWrap.className = "radio-option";
+                const radioInput = document.createElement("input");
+                radioInput.type = "radio";
+                radioInput.name = `q_${idx}`;
+                radioInput.value = val;
+                radioInput.id = `q_${idx}_val_${val}`;
+                const label = document.createElement("label");
+                label.htmlFor = `q_${idx}_val_${val}`;
+                label.innerText = optionLabels[val];
+
+                radioInput.addEventListener("change", (function(index, selectedVal) {
+                    return function(e) {
+                        if (e.target.checked) {
+                            answers[index] = selectedVal;
+                            updateProgressAndBar();
+                            highlightSelectedOption(radioWrap.parentElement, selectedVal);
+                        }
+                    };
+                })(idx, val));
+
+                radioWrap.appendChild(radioInput);
+                radioWrap.appendChild(label);
+                optionsDiv.appendChild(radioWrap);
+            }
+
+            qDiv.appendChild(qHeader);
+            qDiv.appendChild(optionsDiv);
+            container.appendChild(qDiv);
+
+            // if previously answered (preserve state)
+            if (answers[idx] !== null) {
+                const selectedRadio = document.querySelector(`input[name="q_${idx}"][value="${answers[idx]}"]`);
+                if (selectedRadio) selectedRadio.checked = true;
+                const parentOpt = selectedRadio?.closest(".radio-option");
+                if (parentOpt) highlightSelectedOption(parentOpt.parentElement, answers[idx]);
+            }
+        });
+    }
+
+    function highlightSelectedOption(optionsContainer, selectedVal) {
+        if (!optionsContainer) return;
+        const allRadios = optionsContainer.querySelectorAll(".radio-option");
+        allRadios.forEach(opt => {
+            const input = opt.querySelector("input");
+            if (input && parseInt(input.value) === selectedVal) {
+                opt.classList.add("selected");
+            } else {
+                opt.classList.remove("selected");
+            }
+        });
+    }
+
+    function updateProgressAndBar() {
+        const answeredCount = answers.filter(a => a !== null).length;
+        document.getElementById("answeredCounter").innerText = `${answeredCount} / ${totalQuestions}`;
+        const percent = (answeredCount / totalQuestions) * 100;
+        const fillEl = document.getElementById("progressFill");
+        fillEl.style.width = `${percent}%`;
+        if (answeredCount === totalQuestions) fillEl.style.background = "#FFD966";
+        else fillEl.style.background = "linear-gradient(90deg, #C4A747, #e6c86e)";
+    }
+
+    function calculateTotalScore() {
+        let sum = 0;
+        for (let i = 0; i < totalQuestions; i++) {
+            if (answers[i] === null) return null;
+            sum += answers[i];
+        }
+        return sum;
+    }
+
+    // Interpretation based on original thresholds (80-104, 53-79, 52-62, below)
+    function getInterpretation(score) {
+        if (score >= 80 && score <= 104) {
+            return {
+                level: "Excellent – Talent Retention Mindset",
+                message: "Well done! You have an employee‑centric mindset and are likely taking many actions to engage and retain your talented people. Continue fostering a culture of trust and development.",
+                color: "#2e7d32"
+            };
+        } else if (score >= 53 && score <= 79) {
+            return {
+                level: "Moderate – Risk of Losing Talent",
+                message: "Be careful. You are at risk of losing your best employees. Some may have already left. Assess the situation and take action before you lose more talented individuals. Focus on improving communication and trust.",
+                color: "#ed6c02"
+            };
+        } else if (score >= 52 && score <= 62) {
+            return {
+                level: "Low – Urgent Warning",
+                message: "Heads up. You are at significant risk of losing talented employees. You may have conflicting beliefs and actions that become an obstacle to having engaged people who want to stay and work with you over time. Immediate and focused action is needed.",
+                color: "#d32f2f"
+            };
+        } else {
+            return {
+                level: "Critical",
+                message: "Very low score. You have a fundamental misalignment in your leadership approach toward your team. Most talents have left or are about to leave. We recommend an immediate shift in your managerial philosophy and seeking intensive leadership coaching.",
+                color: "#b71c1c"
+            };
+        }
+    }
+
+    function showResultModal() {
+        // check if all questions answered
+        for (let i = 0; i < totalQuestions; i++) {
+            if (answers[i] === null) {
+                const toast = document.getElementById("warningToast");
+                toast.style.display = "block";
+                setTimeout(() => {
+                    toast.style.opacity = "0";
+                    setTimeout(() => {
+                        toast.style.display = "none";
+                        toast.style.opacity = "1";
+                    }, 400);
+                }, 2000);
+                const firstUnanswered = document.querySelector(`.question-item[data-qidx="${i}"]`);
+                if (firstUnanswered) {
+                    firstUnanswered.scrollIntoView({ behavior: "smooth", block: "center" });
+                    firstUnanswered.style.border = "2px solid #dc3545";
+                    setTimeout(() => {
+                        firstUnanswered.style.border = "";
+                    }, 1500);
+                }
+                return;
+            }
+        }
+
+        const totalScore = calculateTotalScore();
+        if (totalScore === null) return;
+
+        const interpretationObj = getInterpretation(totalScore);
+        const modal = document.getElementById("resultModal");
+        const modalScoreSpan = document.getElementById("modalScore");
+        const modalInterpretationDiv = document.getElementById("modalInterpretation");
+
+        modalScoreSpan.innerText = `${totalScore} points (out of 104)`;
+        modalInterpretationDiv.innerHTML = `
+            <strong style="color: ${interpretationObj.color};">${interpretationObj.level}</strong><br>
+            ${interpretationObj.message}
+        `;
+        modal.classList.add("active");
+    }
+
+    function closeModal() {
+        const modal = document.getElementById("resultModal");
+        modal.classList.remove("active");
+    }
+
+    document.getElementById("showResultBtn").addEventListener("click", showResultModal);
+    document.getElementById("closeModalBtn").addEventListener("click", closeModal);
+    const modalOverlay = document.getElementById("resultModal");
+    modalOverlay.addEventListener("click", function(e) {
+        if (e.target === modalOverlay) closeModal();
+    });
+
+    function handleRadioStyle(e) {
+        const radio = e.target;
+        if (radio.checked) {
+            const parentOptionsDiv = radio.closest('.options-row');
+            if (parentOptionsDiv) {
+                const selectedVal = parseInt(radio.value);
+                highlightSelectedOption(parentOptionsDiv, selectedVal);
+            }
+        }
+    }
+
+    function observeAndBind() {
+        setTimeout(() => {
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.removeEventListener('change', handleRadioStyle);
+                radio.addEventListener('change', handleRadioStyle);
+            });
+        }, 50);
+    }
+
+    function init() {
+        renderQuestions();
+        updateProgressAndBar();
+        observeAndBind();
+
+        for (let i = 0; i < totalQuestions; i++) {
+            const selectedInput = document.querySelector(`input[name="q_${i}"]:checked`);
+            if (selectedInput) {
+                const val = parseInt(selectedInput.value);
+                answers[i] = val;
+                const optionsRow = selectedInput.closest('.options-row');
+                if (optionsRow) highlightSelectedOption(optionsRow, val);
+            }
+        }
+        updateProgressAndBar();
+    }
+
+    init();
+</script>
+</body>
+</html>
