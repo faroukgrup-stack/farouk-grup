@@ -41,6 +41,63 @@
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
+        /* ============ زر عائم للعودة للرئيسية ============ */
+        .floating-home {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            width: 55px;
+            height: 55px;
+            background: var(--primary);
+            color: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(10,22,40,0.4);
+            transition: var(--transition);
+            border: 2px solid var(--gold);
+        }
+        .floating-home:hover {
+            background: var(--gold);
+            color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 14px 35px rgba(184,134,11,0.5);
+        }
+
+        /* ============ زر واتساب عائم (يسار) ============ */
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 999;
+            width: 55px;
+            height: 55px;
+            background: #25D366;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(37,211,102,0.35);
+            transition: var(--transition);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 8px 25px rgba(37,211,102,0.35); }
+            50% { box-shadow: 0 8px 40px rgba(37,211,102,0.6); transform: scale(1.06); }
+        }
+        .floating-whatsapp:hover {
+            animation: none;
+            transform: scale(1.1);
+            box-shadow: 0 8px 35px rgba(37,211,102,0.7);
+        }
+
         /* الشريط العلوي */
         .top-bar {
             background: var(--primary);
@@ -508,6 +565,8 @@
             .savings-grid { flex-direction: column; }
             .hero-grid { flex-direction: column-reverse; }
             .card-meta { flex-direction: column; align-items: flex-start; }
+            .floating-home { bottom: 20px; right: 20px; width: 45px; height: 45px; font-size: 1.2rem; }
+            .floating-whatsapp { bottom: 20px; left: 20px; width: 45px; height: 45px; font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -616,7 +675,6 @@
         <h3 class="section-title">شاهد كيف تعمل خدمتنا</h3>
         <p class="section-subtitle">تعرف على آلية عمل باقة شريكك المالي وكيف يمكننا مساعدتك في إدارة أعمالك</p>
         <div class="video-wrapper">
-            <!-- تم تعديل رابط الفيديو إلى يوتيوب -->
             <iframe width="560" height="315"
 src="https://www.youtube.com/embed/E0CwCqNBcKc?si=7R4i6dHhdppW-4s2&modestbranding=1&rel=0&controls=1"
 title="YouTube video player" frameborder="0"
@@ -713,6 +771,16 @@ referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
     </div>
 </div>
 
+<!-- ============ زر العودة للرئيسية (عائم) ============ -->
+<a href="index.html" class="floating-home" title="العودة للرئيسية">
+    <i class="fas fa-home"></i>
+</a>
+
+<!-- ============ زر واتساب عائم ============ -->
+<a href="https://wa.me/905550196682" target="_blank" class="floating-whatsapp" title="تواصل معنا عبر واتساب">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
 <script>
     (function() {
         const PAYMENT_LINK = "https://alfan.link/faroukazem?payment-link=tNDwDw";
@@ -738,6 +806,5 @@ referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
         window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
     })();
 </script>
-
 </body>
 </html>
