@@ -711,6 +711,33 @@
             font-size: 1.1rem;
         }
 
+        /* ===== FLOATING HOME BUTTON ===== */
+        .floating-home {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(180, 133, 84, 0.9);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+        .floating-home:hover {
+            background: #b48554;
+            transform: scale(1.05);
+            color: white;
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .header-tool {
@@ -785,6 +812,12 @@
             .btn-generate {
                 font-size: 1rem;
                 padding: 14px;
+            }
+            .floating-home {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 16px;
+                font-size: 0.85rem;
             }
         }
         @media (max-width: 480px) {
@@ -1247,6 +1280,9 @@
 
         </div><!-- /form-container -->
     </div><!-- /container -->
+
+    <!-- ===== FLOATING HOME BUTTON ===== -->
+    <a href="index.html" class="floating-home"><i class="fas fa-home"></i> الرئيسية</a>
 
     <!-- ===== SCRIPTS ===== -->
     <script>
@@ -1715,6 +1751,5 @@
         console.log('🩺 أداة التشخيص الاستشاري للمطاعم - FAROUK GRUP');
         console.log('ℹ️ تأكد من تحديث رابط Google Script في الكود.');
     </script>
-
 </body>
 </html>
