@@ -342,38 +342,94 @@ nav.scrolled .logo h1{
     position:relative;
     animation:fadeInUp 0.8s ease 0.2s both;
 }
-.hero .consult-btn-hero{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    padding:16px 32px;
-    border-radius:50px;
-    background:linear-gradient(135deg,var(--gold),var(--gold-light));
-    color:#111;
-    font-weight:900;
-    text-decoration:none;
-    transition:0.3s;
-    font-size:1.15rem;
-    box-shadow:0 5px 20px rgba(184,134,11,0.5);
-    position:relative;
-    animation:fadeInUp 0.8s ease 0.4s both, pulseBtn 2.5s ease-in-out infinite;
+
+/* ===== HERO BUTTONS CONTAINER ===== */
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 10px;
+    position: relative;
+    z-index: 2;
+}
+
+/* تنسيق الأزرار الأساسي */
+.consult-btn-hero {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: #111;
+    font-weight: 900;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.05rem;
+    box-shadow: 0 5px 20px rgba(184, 134, 11, 0.4);
+    position: relative;
+    animation: fadeInUp 0.8s ease 0.4s both, pulseBtn 2.5s ease-in-out infinite;
+    min-width: 200px;
+    border: none;
+    cursor: pointer;
 }
 @keyframes pulseBtn{
     0%,100%{box-shadow:0 5px 20px rgba(184,134,11,0.5)}
     50%{box-shadow:0 8px 35px rgba(184,134,11,0.75)}
 }
-.hero .consult-btn-hero img{
-    width:26px;
-}
-.hero .consult-btn-hero:hover{
-    background:linear-gradient(135deg,#111,#222);
-    color:var(--gold);
-    transform:translateY(-3px);
-    box-shadow:0 10px 30px rgba(184,134,11,0.7);
+
+/* إزالة الأنيميشن من الأزرار الثانوية لتجنب التشتت */
+.consult-btn-hero.secondary,
+.consult-btn-hero.tertiary {
+    animation: fadeInUp 0.8s ease 0.6s both;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* Client Ticker */
+/* زر "دراسة سريعة" (ثانوي) */
+.consult-btn-hero.secondary {
+    background: transparent;
+    border: 2px solid var(--gold);
+    color: var(--gold-light);
+    box-shadow: none;
+}
+.consult-btn-hero.secondary:hover {
+    background: rgba(184, 134, 11, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(184, 134, 11, 0.25);
+    color: #fff;
+}
+
+/* زر "تقييم مطعمك" (ثالثي) */
+.consult-btn-hero.tertiary {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.consult-btn-hero.tertiary:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    border-color: var(--gold-light);
+}
+
+.consult-btn-hero i {
+    font-size: 1.2rem;
+}
+.consult-btn-hero.primary i {
+    color: #111;
+}
+.consult-btn-hero.secondary i {
+    color: var(--gold-light);
+}
+.consult-btn-hero.tertiary i {
+    color: #fff;
+}
+
+/* ============ CLIENT TICKER ============ */
 .client-ticker{
     background:rgba(0,0,0,0.5);
     padding:16px 0;
@@ -1086,9 +1142,17 @@ hr{
     .hero p{
         font-size:1rem;
     }
-    .hero .consult-btn-hero{
-        font-size:1rem;
-        padding:14px 24px;
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+    }
+    .consult-btn-hero {
+        min-width: 0;
+        width: 100%;
+        max-width: 320px;
+        font-size: 0.95rem;
+        padding: 12px 20px;
     }
     .stats-bar{
         border-radius:30px;
@@ -1139,9 +1203,13 @@ hr{
     .hero h2{
         font-size:1.7rem;
     }
-    .hero .consult-btn-hero{
-        font-size:0.9rem;
-        padding:12px 20px;
+    .consult-btn-hero {
+        font-size:0.85rem;
+        padding:10px 16px;
+        max-width:280px;
+    }
+    .consult-btn-hero i {
+        font-size:1rem;
     }
     .section-title h2{
         font-size:1.7rem;
@@ -1234,10 +1302,24 @@ hr{
 <section class="hero">
     <h2>نحو إدارة أكثر ذكاءً وإبداع</h2>
     <p>متخصصون في التطوير المالي والتشغيلي في قطاع المطاعم من مرحلة التخطيط والتنفيذ وصولاً للتشغيل</p>
-    <a href="consultation.html" target="_self" class="consult-btn-hero">
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Consult Icon">
-        طلب استشارة / خدمة
-    </a>
+    
+    <div class="hero-buttons">
+        <!-- الزر الأساسي: طلب استشارة -->
+        <a href="consultation.html" target="_self" class="consult-btn-hero primary">
+            <i class="fas fa-hand-holding-heart"></i>
+            طلب استشارة / خدمة
+        </a>
+        <!-- الزر الثانوي: دراسة سريعة -->
+        <a href="Feasibility-study.html" target="_self" class="consult-btn-hero secondary">
+            <i class="fas fa-magnifying-glass-chart"></i>
+            دراسة سريعة لمشروعك مجاناً
+        </a>
+        <!-- الزر الثالث: تقييم مطعمك -->
+        <a href="restaurant-consulting.html" target="_self" class="consult-btn-hero tertiary">
+            <i class="fas fa-star"></i>
+            قييم مطعمك مجاناً
+        </a>
+    </div>
 </section>
 
 <!-- Client Ticker -->
@@ -1446,14 +1528,6 @@ hr{
     </div>
 </div>
 
-<!-- تقييم فوري لمشروعك -->
-<div class="assessment-cta" data-aos="fade-up">
-    <h3>اكتشف إمكانيات مشروعك في دقائق</h3>
-    <p>أداة تقييم سريعة تساعدك على فهم نقاط القوة والضعف في عملك</p>
-    <a href="Feasibility-study.html" target="_blank" class="cta-btn">
-        <i class="fas fa-clipboard-check"></i> احصل على تقييم فوري لمشروعك
-    </a>
-</div>
 
 <!-- من نحن / رؤية ورسالة -->
 <section class="about-luxury" id="about">
@@ -1544,7 +1618,7 @@ hr{
 
         <div class="copyright">
             جميع الحقوق محفوظة  © 2026 <span>FAROUK GRUP</span>
-            <p style="margin-top:5px;opacity:0.8;">Adnan Kahveci, Beylikdüzü / İstanbul, Türkiye V3.1</p>
+            <p style="margin-top:5px;opacity:0.8;">Adnan Kahveci, Beylikdüzü / İstanbul, Türkiye V3.2</p>
         </div>
     </div>
 </footer>
