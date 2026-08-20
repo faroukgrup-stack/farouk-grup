@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>التشخيص الاستشاري للمطاعم | FAROUK GRUP</title>
+    <meta name="description" content="أداة تشخيصية متخصصة لتقييم أداء المطاعم والمنشآت الغذائية">
+    <meta name="robots" content="noindex, nofollow">
+
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+    </script>
+
+    <style>
+        /* ===== ROOT ===== */
+        :root {
+            --gold: #b8860b;
+            --gold-light: #d4b15a;
+            --gold-soft: rgba(184, 134, 11, 0.12);
+            --gold-glow: rgba(184, 134, 11, 0.25);
+            --dark: #0b0e17;
+            --dark-panel: rgba(18, 24, 36, 0.92);
+            --dark-card: rgba(22, 30, 46, 0.85);
+            --border-light: rgba(184, 134, 11, 0.25);
+            --text-light: #f0f4fa;
+            --text-muted: #aab7d4;
+            --white: #ffffff;
+            --offwhite: #f5f7fc;
+            --radius: 20px;
+            --radius-sm: 12px;
+            --shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: radial-gradient(circle at 60% 20%, #141c2b, #080b12);
+            color: var(--text-light);
+            line-height: 1.7;
+            min-height: 100vh;
+            padding: 20px 0 60px;
+            position: relative;
+        }
+
+        /* ===== GLOW BG ===== */
+        .glow-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .glow-bg span {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(184, 134, 11, 0.10) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(100px);
+            animation: glowFloat 25s infinite alternate ease-in-out;
+            top: -10%;
+            right: -10%;
+        }
+        .glow-bg span:nth-child(2) {
+            top: auto;
+            bottom: -10%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            animation-delay: -8s;
+            background: radial-gradient(circle, rgba(212, 177, 90, 0.06) 0%, transparent 70%);
+        }
+        @keyframes glowFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(60px, -40px) scale(1.3);
+            }
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== HEADER ===== */
+        .header-tool {
+            background: var(--dark-panel);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius) var(--radius) 0 0;
+            padding: 24px 28px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .header-tool::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(184, 134, 11, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .header-tool .logo-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .header-tool .logo-badge img {
+            height: 48px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 12px rgba(184, 134, 11, 0.3));
+        }
+        .header-tool h1 {
+            font-family: 'Alexandria', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--gold-light);
+            letter-spacing: 1px;
+        }
+        .header-tool .sub {
+            display: inline-block;
+            background: var(--gold);
+            color: #111;
+            padding: 4px 20px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            margin-top: 6px;
+            letter-spacing: 0.5px;
+        }
+        .header-tool .sub i {
+            margin-left: 6px;
+        }
+
+        /* ===== FORM CARD ===== */
+        .form-container {
+            background: var(--dark-panel);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-light);
+            border-top: none;
+            border-radius: 0 0 var(--radius) var(--radius);
+            padding: 28px 30px 36px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        /* ===== MANDATORY NOTICE ===== */
+        .mandatory-notice {
+            background: rgba(184, 134, 11, 0.08);
+            border: 1px solid rgba(184, 134, 11, 0.2);
+            border-radius: var(--radius-sm);
+            padding: 12px 18px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+        .mandatory-notice i {
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+        .mandatory-notice strong {
+            color: var(--gold-light);
+        }
+        .mandatory-notice .required-star {
+            color: #e74c3c;
+            font-weight: 900;
+            margin-right: 2px;
+        }
+
+        /* ===== CLIENT INFO ===== */
+        .client-data {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 14px;
+            margin-bottom: 30px;
+            background: rgba(184, 134, 11, 0.04);
+            padding: 18px 20px;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(184, 134, 11, 0.08);
+        }
+        .client-data .field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .client-data label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .client-data label i {
+            color: var(--gold);
+            font-size: 0.8rem;
+        }
+        .client-data label .required-star {
+            color: #e74c3c;
+            font-size: 1rem;
+        }
+        .client-data input,
+        .client-data select {
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px;
+            background: rgba(10, 14, 23, 0.7);
+            color: var(--text-light);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            width: 100%;
+        }
+        .client-data input:focus,
+        .client-data select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px var(--gold-soft);
+            background: rgba(10, 14, 23, 0.9);
+        }
+        .client-data input::placeholder {
+            color: #667;
+        }
+        .client-data .phone-wrapper {
+            display: flex;
+            gap: 8px;
+        }
+        .client-data .phone-wrapper input[type="text"] {
+            width: 130px;
+            flex-shrink: 0;
+        }
+        .client-data .phone-wrapper input[type="tel"] {
+            flex: 1;
+        }
+        .client-data .full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* ===== SECTIONS ===== */
+        .section-block {
+            border: 1px solid rgba(184, 134, 11, 0.15);
+            border-radius: var(--radius-sm);
+            margin-bottom: 22px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        .section-block .section-header {
+            background: linear-gradient(135deg, rgba(184, 134, 11, 0.12), rgba(184, 134, 11, 0.04));
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(184, 134, 11, 0.08);
+            cursor: default;
+        }
+        .section-block .section-header h3 {
+            font-size: 1.05rem;
+            font-weight: 900;
+            color: var(--gold-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-block .section-header h3 i {
+            font-size: 1.1rem;
+        }
+        .section-block .section-header .max-score {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 14px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .question-row {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            transition: var(--transition);
+        }
+        .question-row:last-of-type {
+            border-bottom: none;
+        }
+        .question-row:hover {
+            background: rgba(184, 134, 11, 0.03);
+        }
+        .question-row .q-text {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 0.98rem;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .question-row .q-text .q-num {
+            color: var(--gold);
+            font-weight: 900;
+            font-size: 0.8rem;
+            background: rgba(184, 134, 11, 0.15);
+            padding: 0 10px;
+            border-radius: 30px;
+            min-width: 28px;
+            text-align: center;
+        }
+        .options-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .options-row label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 6px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            color: var(--text-muted);
+            flex: 1 0 auto;
+            justify-content: center;
+            min-width: 60px;
+        }
+        .options-row label:hover {
+            border-color: var(--gold);
+            background: rgba(184, 134, 11, 0.10);
+            color: var(--text-light);
+        }
+        .options-row input[type="radio"] {
+            accent-color: var(--gold);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .options-row input[type="radio"]:checked+.label-text {
+            color: var(--gold-light);
+            font-weight: 700;
+        }
+        .options-row label:has(input:checked) {
+            border-color: var(--gold);
+            background: rgba(184, 134, 11, 0.15);
+            color: var(--gold-light);
+        }
+
+        .note-field {
+            margin-top: 10px;
+        }
+        .note-field input,
+        .note-field textarea {
+            width: 100%;
+            padding: 8px 14px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 30px;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .note-field input:focus,
+        .note-field textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .note-field textarea {
+            border-radius: var(--radius-sm);
+            min-height: 50px;
+            resize: vertical;
+        }
+
+        .section-note {
+            padding: 12px 20px 16px;
+            background: rgba(0, 0, 0, 0.15);
+        }
+        .section-note textarea {
+            width: 100%;
+            padding: 8px 14px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-sm);
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 0.9rem;
+            min-height: 44px;
+            resize: vertical;
+            transition: var(--transition);
+        }
+        .section-note textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(0, 0, 0, 0.4);
+        }
+        .section-note textarea::placeholder {
+            color: #556;
+        }
+
+        /* ===== BUTTON ===== */
+        .btn-generate {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: #111;
+            font-weight: 900;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 28px 0 10px;
+            transition: var(--transition);
+            box-shadow: 0 6px 24px rgba(184, 134, 11, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            letter-spacing: 0.5px;
+        }
+        .btn-generate:hover {
+            background: #111;
+            color: var(--gold);
+            box-shadow: 0 8px 36px rgba(184, 134, 11, 0.5);
+            transform: translateY(-2px);
+        }
+        .btn-generate:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        .btn-generate i {
+            font-size: 1.3rem;
+        }
+
+        /* ===== REPORT ===== */
+        .report-section {
+            display: none;
+            margin-top: 30px;
+            animation: fadeUp 0.6s ease;
+        }
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .report-card {
+            background: var(--dark-panel);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+        .report-card .report-head {
+            text-align: center;
+            border-bottom: 2px solid rgba(184, 134, 11, 0.2);
+            padding-bottom: 18px;
+            margin-bottom: 24px;
+        }
+        .report-card .report-head h2 {
+            color: var(--gold-light);
+            font-size: 1.6rem;
+            font-weight: 900;
+        }
+        .report-card .report-head .client-name {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+        .report-card .report-head .meta {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 2px;
+        }
+
+        /* Summary Table */
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0 22px;
+            font-size: 0.95rem;
+        }
+        .summary-table thead th {
+            background: rgba(184, 134, 11, 0.12);
+            padding: 10px 12px;
+            border-bottom: 2px solid var(--gold);
+            color: var(--gold-light);
+            font-weight: 700;
+            text-align: center;
+        }
+        .summary-table tbody td {
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+        .summary-table tbody tr:hover {
+            background: rgba(184, 134, 11, 0.04);
+        }
+        .summary-table .score-badge {
+            display: inline-block;
+            padding: 2px 16px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+        .score-badge.excellent {
+            background: #1a7a3a;
+            color: #8fdfb0;
+        }
+        .score-badge.good {
+            background: #7a6a1a;
+            color: #f0d97a;
+        }
+        .score-badge.fair {
+            background: #7a4a1a;
+            color: #f0b97a;
+        }
+        .score-badge.poor {
+            background: #6a1a1a;
+            color: #f08a7a;
+        }
+
+        /* Score Circle */
+        .score-circle-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 18px 0 12px;
+        }
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 900;
+            color: #111;
+            box-shadow: 0 0 50px rgba(184, 134, 11, 0.25);
+            position: relative;
+        }
+        .score-circle .label {
+            position: absolute;
+            bottom: -32px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+        .final-classification {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 900;
+            margin: 28px 0 12px;
+            padding: 10px;
+            border-radius: var(--radius-sm);
+            background: rgba(184, 134, 11, 0.06);
+            border: 1px solid rgba(184, 134, 11, 0.1);
+            color: var(--gold-light);
+        }
+
+        /* Charts */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin: 22px 0 18px;
+        }
+        .chart-box {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: var(--radius-sm);
+            padding: 14px 12px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .chart-box h4 {
+            color: var(--gold-light);
+            text-align: center;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .chart-box canvas {
+            max-height: 100px;
+            width: 100% !important;
+        }
+
+        /* Recommendations */
+        .recommendation-box {
+            background: rgba(184, 134, 11, 0.06);
+            border: 1px solid rgba(184, 134, 11, 0.12);
+            border-radius: var(--radius-sm);
+            padding: 18px 22px;
+            margin: 18px 0 22px;
+        }
+        .recommendation-box strong {
+            color: var(--gold-light);
+            display: block;
+            margin-bottom: 6px;
+            font-size: 1.05rem;
+        }
+        .recommendation-box p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+        .recommendation-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 0;
+        }
+        .recommendation-box ul li {
+            padding: 4px 0 4px 28px;
+            position: relative;
+            color: var(--text-muted);
+        }
+        .recommendation-box ul li::before {
+            content: '▸';
+            position: absolute;
+            right: 0;
+            color: var(--gold);
+            font-weight: 900;
+        }
+
+        /* Export */
+        .export-btns {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .export-btns button {
+            background: rgba(184, 134, 11, 0.10);
+            border: 1px solid rgba(184, 134, 11, 0.2);
+            color: var(--gold-light);
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-family: inherit;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .export-btns button:hover {
+            background: var(--gold);
+            color: #111;
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+        .export-btns button i {
+            font-size: 1.1rem;
+        }
+
+        /* ===== LOADING ===== */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(6px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .loading-overlay.show {
+            display: flex;
+        }
+        .loading-overlay i {
+            font-size: 3rem;
+            color: var(--gold-light);
+        }
+        .loading-overlay p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .header-tool {
+                padding: 18px 16px;
+            }
+            .header-tool h1 {
+                font-size: 1.3rem;
+            }
+            .header-tool .logo-badge img {
+                height: 36px;
+            }
+            .form-container {
+                padding: 18px 14px 24px;
+            }
+            .client-data {
+                grid-template-columns: 1fr 1fr;
+                padding: 14px;
+                gap: 10px;
+            }
+            .client-data .full-width {
+                grid-column: 1 / -1;
+            }
+            .client-data .phone-wrapper {
+                flex-wrap: wrap;
+            }
+            .client-data .phone-wrapper input[type="text"] {
+                width: 100%;
+            }
+            .options-row label {
+                font-size: 0.78rem;
+                padding: 5px 10px;
+                min-width: 44px;
+                flex: 1 0 auto;
+            }
+            .question-row {
+                padding: 14px 14px;
+            }
+            .section-block .section-header {
+                padding: 12px 14px;
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            .section-block .section-header h3 {
+                font-size: 0.95rem;
+            }
+            .report-card {
+                padding: 18px 14px;
+            }
+            .summary-table {
+                font-size: 0.8rem;
+            }
+            .summary-table th,
+            .summary-table td {
+                padding: 6px 6px;
+            }
+            .score-circle {
+                width: 120px;
+                height: 120px;
+                font-size: 2.4rem;
+            }
+            .final-classification {
+                font-size: 1.1rem;
+            }
+            .charts-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .export-btns button {
+                padding: 8px 18px;
+                font-size: 0.85rem;
+            }
+            .btn-generate {
+                font-size: 1rem;
+                padding: 14px;
+            }
+        }
+        @media (max-width: 480px) {
+            .client-data {
+                grid-template-columns: 1fr;
+            }
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            .options-row label {
+                flex: 1 1 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== GLOW ===== -->
+    <div class="glow-bg">
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- ===== LOADING ===== -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <i class="fas fa-spinner fa-pulse"></i>
+        <p>جاري إنشاء التقرير التشخيصي...</p>
+    </div>
+
+    <!-- ===== MAIN ===== -->
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="header-tool">
+            <div class="logo-badge">
+                <img src="https://lh3.googleusercontent.com/d/1e6u-DPTinDJl_Q9wW3QvGgzFbXO_2sXa" alt="FAROUK GRUP">
+                <h1>التشخيص الاستشاري للمطاعم</h1>
+            </div>
+            <div class="sub"><i class="fas fa-utensils"></i> تقييم لمنشآت الضيافة والأغذية</div>
+        </div>
+
+        <!-- FORM -->
+        <div class="form-container" id="formContainer">
+
+            <!-- Mandatory notice -->
+            <div class="mandatory-notice">
+                <i class="fas fa-info-circle"></i>
+                <span><strong>تنبيه:</strong> الحقول التي تحمل علامة <span class="required-star">*</span> إلزامية. يمكنك الحصول على تقرير مفصل عن نتائجك مباشرة بعد إكمال التقييم.</span>
+            </div>
+
+            <!-- CLIENT DATA -->
+            <div class="client-data" id="clientDataSection">
+                <div class="field-group">
+                    <label><i class="fas fa-store"></i> اسم المنشأة <span class="required-star">*</span></label>
+                    <input type="text" id="restaurantName" placeholder="مثال: مطعم الأندلس" required>
+                </div>
+                <div class="field-group">
+                    <label><i class="fas fa-user"></i> اسم المالك <span class="required-star">*</span></label>
+                    <input type="text" id="ownerName" placeholder="الاسم الكامل" required>
+                </div>
+                <div class="field-group">
+                    <label><i class="fas fa-envelope"></i> البريد الإلكتروني <span class="required-star">*</span></label>
+                    <input type="email" id="email" placeholder="example@domain.com" required>
+                </div>
+                <div class="field-group">
+                    <label><i class="fas fa-phone"></i> رقم الهاتف <span class="required-star">*</span></label>
+                    <div class="phone-wrapper">
+                        <input type="text" id="countryCodeInput" list="countryCodes" placeholder="🔍 مفتاح البلد" style="width: 140px; direction: ltr;">
+                        <datalist id="countryCodes">
+                            <option value="+90">🇹🇷 +90 تركيا</option>
+                            <option value="+966">🇸🇦 +966 السعودية</option>
+                            <option value="+971">🇦🇪 +971 الإمارات</option>
+                            <option value="+962">🇯🇴 +962 الأردن</option>
+                            <option value="+961">🇱🇧 +961 لبنان</option>
+                            <option value="+20">🇪🇬 +20 مصر</option>
+                            <option value="+212">🇲🇦 +212 المغرب</option>
+                            <option value="+216">🇹🇳 +216 تونس</option>
+                            <option value="+213">🇩🇿 +213 الجزائر</option>
+                            <option value="+1">🇺🇸 +1 الولايات المتحدة</option>
+                            <option value="+44">🇬🇧 +44 المملكة المتحدة</option>
+                            <option value="+49">🇩🇪 +49 ألمانيا</option>
+                            <option value="+33">🇫🇷 +33 فرنسا</option>
+                            <option value="+34">🇪🇸 +34 إسبانيا</option>
+                            <option value="+39">🇮🇹 +39 إيطاليا</option>
+                            <option value="+61">🇦🇺 +61 أستراليا</option>
+                            <option value="+91">🇮🇳 +91 الهند</option>
+                            <option value="+55">🇧🇷 +55 البرازيل</option>
+                            <option value="+7">🇷🇺 +7 روسيا</option>
+                            <option value="+81">🇯🇵 +81 اليابان</option>
+                            <option value="+82">🇰🇷 +82 كوريا الجنوبية</option>
+                            <option value="+86">🇨🇳 +86 الصين</option>
+                            <option value="+60">🇲🇾 +60 ماليزيا</option>
+                            <option value="+63">🇵🇭 +63 الفلبين</option>
+                            <option value="+64">🇳🇿 +64 نيوزيلندا</option>
+                            <option value="+27">🇿🇦 +27 جنوب أفريقيا</option>
+                            <option value="+234">🇳🇬 +234 نيجيريا</option>
+                            <option value="+254">🇰🇪 +254 كينيا</option>
+                            <option value="+30">🇬🇷 +30 اليونان</option>
+                            <option value="+357">🇨🇾 +357 قبرص</option>
+                            <option value="+31">🇳🇱 +31 هولندا</option>
+                            <option value="+32">🇧🇪 +32 بلجيكا</option>
+                            <option value="+41">🇨🇭 +41 سويسرا</option>
+                            <option value="+46">🇸🇪 +46 السويد</option>
+                            <option value="+47">🇳🇴 +47 النرويج</option>
+                            <option value="+45">🇩🇰 +45 الدنمارك</option>
+                            <option value="+358">🇫🇮 +358 فنلندا</option>
+                            <option value="+353">🇮🇪 +353 أيرلندا</option>
+                            <option value="+351">🇵🇹 +351 البرتغال</option>
+                            <option value="+43">🇦🇹 +43 النمسا</option>
+                            <option value="+48">🇵🇱 +48 بولندا</option>
+                            <option value="+420">🇨🇿 +420 التشيك</option>
+                            <option value="+36">🇭🇺 +36 المجر</option>
+                            <option value="+40">🇷🇴 +40 رومانيا</option>
+                            <option value="+359">🇧🇬 +359 بلغاريا</option>
+                            <option value="+30">🇬🇷 +30 اليونان</option>
+                            <option value="+972">🇮🇱 +972 إسرائيل</option>
+                            <option value="+965">🇰🇼 +965 الكويت</option>
+                            <option value="+968">🇴🇲 +968 عمان</option>
+                            <option value="+974">🇶🇦 +974 قطر</option>
+                            <option value="+973">🇧🇭 +973 البحرين</option>
+                            <option value="+218">🇱🇾 +218 ليبيا</option>
+                            <option value="+249">🇸🇩 +249 السودان</option>
+                            <option value="+963">🇸🇾 +963 سوريا</option>
+                            <option value="+964">🇮🇶 +964 العراق</option>
+                            <option value="+967">🇾🇪 +967 اليمن</option>
+                            <option value="+970">🇵🇸 +970 فلسطين</option>
+                            <option value="+992">🇹🇯 +992 طاجيكستان</option>
+                            <option value="+993">🇹🇲 +993 تركمانستان</option>
+                            <option value="+998">🇺🇿 +998 أوزبكستان</option>
+                            <option value="+996">🇰🇬 +996 قرغيزستان</option>
+                            <option value="+7">🇰🇿 +7 كازاخستان</option>
+                            <option value="+94">🇱🇰 +94 سريلانكا</option>
+                            <option value="+880">🇧🇩 +880 بنغلاديش</option>
+                            <option value="+92">🇵🇰 +92 باكستان</option>
+                            <option value="+977">🇳🇵 +977 نيبال</option>
+                            <option value="+975">🇧🇹 +975 بوتان</option>
+                            <option value="+95">🇲🇲 +95 ميانمار</option>
+                            <option value="+856">🇱🇦 +856 لاوس</option>
+                            <option value="+855">🇰🇭 +855 كمبوديا</option>
+                            <option value="+84">🇻🇳 +84 فيتنام</option>
+                            <option value="+62">🇮🇩 +62 إندونيسيا</option>
+                            <option value="+65">🇸🇬 +65 سنغافورة</option>
+                            <option value="+66">🇹🇭 +66 تايلاند</option>
+                            <option value="+673">🇧🇳 +63 بروناي</option>
+                            <option value="+670">🇹🇱 +670 تيمور الشرقية</option>
+                        </datalist>
+                        <input type="tel" id="phone" placeholder="555 000 1234" required>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label><i class="fas fa-city"></i> المدينة والدولة</label>
+                    <input type="text" id="city" placeholder="مثال: اسطنبول، تركيا">
+                </div>
+                <div class="field-group">
+                    <label><i class="fas fa-calendar-alt"></i> سنة التأسيس</label>
+                    <input type="number" id="estYear" placeholder="مثال: 2018" min="1900" max="2099">
+                </div>
+                <div class="field-group">
+                    <label><i class="fas fa-store-alt"></i> عدد الفروع</label>
+                    <input type="number" id="branches" placeholder="1" min="1">
+                </div>
+                <div class="field-group">
+                    <label><i class="fas fa-utensils"></i> نوع النشاط</label>
+                    <select id="activityType">
+                        <option value="">-- اختر --</option>
+                        <option value="مطعم">مطعم</option>
+                        <option value="كافيه">كافيه</option>
+                        <option value="مطعم وكافيه">مطعم وكافيه</option>
+                        <option value="مطبخ سحابي">مطبخ سحابي</option>
+                        <option value="فود ترك">فود ترك</option>
+                        <option value="مخبز / حلويات">مخبز / حلويات</option>
+                        <option value="مطعم فاخر">مطعم فاخر</option>
+                        <option value="خدمة طعام">خدمة طعام</option>
+                    </select>
+                </div>
+                <div class="field-group">
+                    <label><i class="fas fa-users"></i> عدد الموظفين</label>
+                    <input type="number" id="employees" placeholder="مثال: 15" min="1">
+                </div>
+            </div>
+
+            <!-- ===== QUESTIONS ===== -->
+
+            <!-- SECTION 1: العمليات والتشغيل -->
+            <div class="section-block">
+                <div class="section-header">
+                    <h3><i class="fas fa-cogs"></i> العمليات والتشغيل</h3>
+                    <span class="max-score">الدرجة القصوى: 20</span>
+                </div>
+                <div class="question-row" id="q1_row">
+                    <div class="q-text"><span class="q-num">1</span> جودة الخدمة المقدمة للعملاء وسرعة الاستجابة</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q1" value="1" required> <span class="label-text">ضعيف</span></label>
+                        <label><input type="radio" name="q1" value="2"> <span class="label-text">مقبول</span></label>
+                        <label><input type="radio" name="q1" value="3"> <span class="label-text">جيد</span></label>
+                        <label><input type="radio" name="q1" value="4"> <span class="label-text">جيد جداً</span></label>
+                        <label><input type="radio" name="q1" value="5"> <span class="label-text">ممتاز</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="ملاحظاتك (اختياري)" id="note_q1"></div>
+                </div>
+                <div class="question-row" id="q2_row">
+                    <div class="q-text"><span class="q-num">2</span> كفاءة إدارة المطبخ وسرعة تحضير الطلبات</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q2" value="1" required> <span class="label-text">ضعيف</span></label>
+                        <label><input type="radio" name="q2" value="2"> <span class="label-text">مقبول</span></label>
+                        <label><input type="radio" name="q2" value="3"> <span class="label-text">جيد</span></label>
+                        <label><input type="radio" name="q2" value="4"> <span class="label-text">جيد جداً</span></label>
+                        <label><input type="radio" name="q2" value="5"> <span class="label-text">ممتاز</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="ملاحظاتك (اختياري)" id="note_q2"></div>
+                </div>
+                <div class="question-row" id="q3_row">
+                    <div class="q-text"><span class="q-num">3</span> وجود أدلة تشغيل قياسية (SOPs) محدثة ومطبقة</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q3" value="1" required> <span class="label-text">ضعيف</span></label>
+                        <label><input type="radio" name="q3" value="2"> <span class="label-text">مقبول</span></label>
+                        <label><input type="radio" name="q3" value="3"> <span class="label-text">جيد</span></label>
+                        <label><input type="radio" name="q3" value="4"> <span class="label-text">جيد جداً</span></label>
+                        <label><input type="radio" name="q3" value="5"> <span class="label-text">ممتاز</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="ملاحظاتك (اختياري)" id="note_q3"></div>
+                </div>
+                <div class="question-row" id="q4_row">
+                    <div class="q-text"><span class="q-num">4</span> تطبيق معايير سلامة غذائية (HACCP) ونظافة عامة</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q4" value="1" required> <span class="label-text">ضعيف</span></label>
+                        <label><input type="radio" name="q4" value="2"> <span class="label-text">مقبول</span></label>
+                        <label><input type="radio" name="q4" value="3"> <span class="label-text">جيد</span></label>
+                        <label><input type="radio" name="q4" value="4"> <span class="label-text">جيد جداً</span></label>
+                        <label><input type="radio" name="q4" value="5"> <span class="label-text">ممتاز</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="ملاحظاتك (اختياري)" id="note_q4"></div>
+                </div>
+                <div class="section-note">
+                    <textarea placeholder="ملاحظات عامة على محور العمليات والتشغيل (اختياري)" id="note_sec1"></textarea>
+                </div>
+            </div>
+
+            <!-- SECTION 2: الإدارة المالية -->
+            <div class="section-block">
+                <div class="section-header">
+                    <h3><i class="fas fa-chart-line"></i> الإدارة المالية</h3>
+                    <span class="max-score">الدرجة القصوى: 20</span>
+                </div>
+                <div class="question-row" id="q5_row">
+                    <div class="q-text"><span class="q-num">5</span> وجود نظام محاسبي وقوائم مالية دورية (دخل، ميزانية، تدفقات)</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q5" value="1" required> <span class="label-text">ضعيف</span></label>
+                        <label><input type="radio" name="q5" value="2"> <span class="label-text">مقبول</span></label>
+                        <label><input type="radio" name="q5" value="3"> <span class="label-text">جيد</span></label>
+                        <label><input type="radio" name="q5" value="4"> <span class="label-text">جيد جداً</span></label>
+                        <label><input type="radio" name="q5" value="5"> <span class="label-text">ممتاز</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="ملاحظاتك (اختياري)" id="note_q5"></div>
+                </div>
+                <div class="question-row" id="q6_row">
+                    <div class="q-text"><span class="q-num">6</span> مراقبة دقيقة للتكاليف وهوامش الربح الإجمالي والصافي</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q6" value="1" required> <span class="label-text">ضعيف</span></label>
+                        <label><input type="radio" name="q6" value="2"> <span class="label-text">مقبول</span></label>
+                        <label><input type="radio" name="q6" value="3"> <span class="label-text">جيد</span></label>
+                        <label><input type="radio" name="q6" value="4"> <span class="label-text">جيد جداً</span></label>
+                        <label><input type="radio" name="q6" value="5"> <span class="label-text">ممتاز</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="ملاحظاتك (اختياري)" id="note_q6"></div>
+                </div>
+                <div class="question-row" id="q7_row">
+                    <div class="q-text"><span class="q-num">7</span> إدارة التدفقات النقدية وتوفر سيولة كافية للتشغيل اليومي</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q7" value="1" required> <span class="label-text">ضعيف</span></label>
+                        <label><input type="radio" name="q7" value="2"> <span class="label-text">مقبول</span></label>
+                        <label><input type="radio" name="q7" value="3"> <span class="label-text">جيد</span></label>
+                        <label><input type="radio" name="q7" value="4"> <span class="label-text">جيد جداً</span></label>
+                        <label><input type="radio" name="q7" value="5"> <span class="label-text">ممتاز</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="ملاحظاتك (اختياري)" id="note_q7"></div>
+                </div>
+                <div class="question-row" id="q8_row">
+                    <div class="q-text"><span class="q-num">8</span> تحليل ربحية الأصناف (Menu Engineering) وتعديل القائمة بناءً عليه</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q8" value="1" required> <span class="label-text">ضعيف</span></label>
+                        <label><input type="radio" name="q8" value="2"> <span class="label-text">مقبول</span></label>
+                        <label><input type="radio" name="q8" value="3"> <span class="label-text">جيد</span></label>
+                        <label><input type="radio" name="q8" value="4"> <span class="label-text">جيد جداً</span></label>
+                        <label><input type="radio" name="q8" value="5"> <span class="label-text">ممتاز</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="ملاحظاتك (اختياري)" id="note_q8"></div>
+                </div>
+                <div class="section-note">
+                    <textarea placeholder="ملاحظات عامة على محور الإدارة المالية (اختياري)" id="note_sec2"></textarea>
+                </div>
+            </div>
+
+            <!-- SECTION 3: التسويق والمبيعات -->
+            <div class="section-block">
+                <div class="section-header">
+                    <h3><i class="fas fa-bullhorn"></i> التسويق والمبيعات</h3>
+                    <span class="max-score">الدرجة القصوى: 15</span>
+                </div>
+                <div class="question-row" id="q9_row">
+                    <div class="q-text"><span class="q-num">9</span> التواجد الرقمي والتسويق عبر وسائل التواصل الاجتماعي</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q9" value="1" required> <span class="label-text">ضعيف</span></label>
+                        <label><input type="radio" name="q9" value="2"> <span class="label-text">مقبول</span></label>
+                        <label><input type="radio" name="q9" value="3"> <span class="label-text">جيد</span></label>
+                        <label><input type="radio" name="q9" value="4"> <span class="label-text">جيد جداً</span></label>
+                        <label><input type="radio" name="q9" value="5"> <span class="label-text">ممتاز</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="ملاحظاتك (اختياري)" id="note_q9"></div>
+                </div>
+                <div class="question-row" id="q10_row">
+                    <div class="q-text"><span class="q-num">10</span> برامج ولاء العملاء والعروض الترويجية المدروسة</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q10" value="1" required> <span class="label-text">ضعيف</span></label>
+                        <label><input type="radio" name="q10" value="2"> <span class="label-text">مقبول</span></label>
+                        <label><input type="radio" name="q10" value="3"> <span class="label-text">جيد</span></label>
+                        <label><input type="radio" name="q10" value="4"> <span class="label-text">جيد جداً</span></label>
+                        <label><input type="radio" name="q10" value="5"> <span class="label-text">ممتاز</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="ملاحظاتك (اختياري)" id="note_q10"></div>
+                </div>
+                <div class="question-row" id="q11_row">
+                    <div class="q-text"><span class="q-num">11</span> خطة تسويقية سنوية بميزانية محددة وأهداف واضحة</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q11" value="1" required> <span class="label-text">ضعيف</span></label>
+                        <label><input type="radio" name="q11" value="2"> <span class="label-text">مقبول</span></label>
+                        <label><input type="radio" name="q11" value="3"> <span class="label-text">جيد</span></label>
+                        <label><input type="radio" name="q11" value="4"> <span class="label-text">جيد جداً</span></label>
+                        <label><input type="radio" name="q11" value="5"> <span class="label-text">ممتاز</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="ملاحظاتك (اختياري)" id="note_q11"></div>
+                </div>
+                <div class="section-note">
+                    <textarea placeholder="ملاحظات عامة على محور التسويق والمبيعات (اختياري)" id="note_sec3"></textarea>
+                </div>
+            </div>
+
+            <!-- SECTION 4: الموارد البشرية -->
+            <div class="section-block">
+                <div class="section-header">
+                    <h3><i class="fas fa-users"></i> الموارد البشرية</h3>
+                    <span class="max-score">الدرجة القصوى: 10</span>
+                </div>
+                <div class="question-row" id="q12_row">
+                    <div class="q-text"><span class="q-num">12</span> خطة تدريب وتأهيل للموظفين الجدد والحاليين</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q12" value="1" required> <span class="label-text">ضعيف</span></label>
+                        <label><input type="radio" name="q12" value="2"> <span class="label-text">مقبول</span></label>
+                        <label><input type="radio" name="q12" value="3"> <span class="label-text">جيد</span></label>
+                        <label><input type="radio" name="q12" value="4"> <span class="label-text">جيد جداً</span></label>
+                        <label><input type="radio" name="q12" value="5"> <span class="label-text">ممتاز</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="ملاحظاتك (اختياري)" id="note_q12"></div>
+                </div>
+                <div class="question-row" id="q13_row">
+                    <div class="q-text"><span class="q-num">13</span> معدل دوران الموظفين ونظام حوافز أداء فعال</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q13" value="1" required> <span class="label-text">ضعيف</span></label>
+                        <label><input type="radio" name="q13" value="2"> <span class="label-text">مقبول</span></label>
+                        <label><input type="radio" name="q13" value="3"> <span class="label-text">جيد</span></label>
+                        <label><input type="radio" name="q13" value="4"> <span class="label-text">جيد جداً</span></label>
+                        <label><input type="radio" name="q13" value="5"> <span class="label-text">ممتاز</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="ملاحظاتك (اختياري)" id="note_q13"></div>
+                </div>
+                <div class="section-note">
+                    <textarea placeholder="ملاحظات عامة على محور الموارد البشرية (اختياري)" id="note_sec4"></textarea>
+                </div>
+            </div>
+
+            <!-- SECTION 5: التوسع والامتياز -->
+            <div class="section-block">
+                <div class="section-header">
+                    <h3><i class="fas fa-store-alt"></i> التوسع والامتياز التجاري</h3>
+                    <span class="max-score">الدرجة القصوى: 15</span>
+                </div>
+                <div class="question-row" id="q14_row">
+                    <div class="q-text"><span class="q-num">14</span> قابلية تكرار نموذج العمل بنجاح في فروع أخرى</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q14" value="1" required> <span class="label-text">ضعيف</span></label>
+                        <label><input type="radio" name="q14" value="2"> <span class="label-text">مقبول</span></label>
+                        <label><input type="radio" name="q14" value="3"> <span class="label-text">جيد</span></label>
+                        <label><input type="radio" name="q14" value="4"> <span class="label-text">جيد جداً</span></label>
+                        <label><input type="radio" name="q14" value="5"> <span class="label-text">ممتاز</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="ملاحظاتك (اختياري)" id="note_q14"></div>
+                </div>
+                <div class="question-row" id="q15_row">
+                    <div class="q-text"><span class="q-num">15</span> توثيق شامل للعمليات (أدلة تشغيل، تدريب، علامة تجارية)</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q15" value="1" required> <span class="label-text">ضعيف</span></label>
+                        <label><input type="radio" name="q15" value="2"> <span class="label-text">مقبول</span></label>
+                        <label><input type="radio" name="q15" value="3"> <span class="label-text">جيد</span></label>
+                        <label><input type="radio" name="q15" value="4"> <span class="label-text">جيد جداً</span></label>
+                        <label><input type="radio" name="q15" value="5"> <span class="label-text">ممتاز</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="ملاحظاتك (اختياري)" id="note_q15"></div>
+                </div>
+                <div class="question-row" id="q16_row">
+                    <div class="q-text"><span class="q-num">16</span> تسجيل العلامة التجارية وحماية الملكية الفكرية</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q16" value="1" required> <span class="label-text">ضعيف</span></label>
+                        <label><input type="radio" name="q16" value="2"> <span class="label-text">مقبول</span></label>
+                        <label><input type="radio" name="q16" value="3"> <span class="label-text">جيد</span></label>
+                        <label><input type="radio" name="q16" value="4"> <span class="label-text">جيد جداً</span></label>
+                        <label><input type="radio" name="q16" value="5"> <span class="label-text">ممتاز</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="ملاحظاتك (اختياري)" id="note_q16"></div>
+                </div>
+                <div class="section-note">
+                    <textarea placeholder="ملاحظات عامة على محور التوسع والامتياز (اختياري)" id="note_sec5"></textarea>
+                </div>
+            </div>
+
+            <!-- SUBMIT -->
+            <button class="btn-generate" id="submitBtn" onclick="handleSubmit()">
+                <i class="fas fa-chart-bar"></i> تشخيص المنشأة الآن
+            </button>
+
+            <!-- ===== REPORT ===== -->
+            <div class="report-section" id="reportContainer">
+                <div class="report-card" id="reportContent">
+                    <div class="report-head">
+                        <h2><i class="fas fa-stethoscope"></i> التقرير التشخيصي</h2>
+                        <div class="client-name" id="reportClientName"></div>
+                        <div class="meta" id="reportMeta"></div>
+                    </div>
+
+                    <table class="summary-table" id="summaryTable">
+                        <thead>
+                            <tr>
+                                <th>المحور</th>
+                                <th>الدرجة</th>
+                                <th>النسبة</th>
+                                <th>التصنيف</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+                    <div class="score-circle-wrap">
+                        <div class="score-circle" id="finalScoreCircle">0</div>
+                    </div>
+                    <div class="final-classification" id="finalClassification"></div>
+
+                    <div class="charts-grid" id="chartsContainer"></div>
+
+                    <div class="recommendation-box" id="recommendationBox">
+                        <strong><i class="fas fa-lightbulb"></i> التوصيات الاستشارية</strong>
+                        <p id="recommendationText"></p>
+                    </div>
+
+                    <div class="export-btns">
+                        <button onclick="exportReport('pdf')"><i class="fas fa-file-pdf"></i> تصدير PDF</button>
+                        <button onclick="exportReport('word')"><i class="fas fa-file-word"></i> تصدير Word</button>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /form-container -->
+    </div><!-- /container -->
+
+    <!-- ===== SCRIPTS ===== -->
+    <script>
+        // ===== CONFIG =====
+        // ⚠️ استبدل هذا الرابط برابط التطبيق الخاص بك بعد نشر السكريبت
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx8oKvnxszl5dvwim9wIXHNLr9Q8pkYuoihlPffH9_jkOU1D3qbGmFAR2aF3T8I6zJS/exec";
+
+        // ===== STATE =====
+        let chartInstances = [];
+        let lastReportData = null;
+
+        // ===== DOM REFS =====
+        const $ = id => document.getElementById(id);
+        const loadingOverlay = $('loadingOverlay');
+        const reportContainer = $('reportContainer');
+        const submitBtn = $('submitBtn');
+
+        // ===== HELPERS =====
+        function getVal(id) { return $(id) ? $(id).value.trim() : ''; }
+
+        function getRadioVal(name) {
+            const el = document.querySelector(`input[name="${name}"]:checked`);
+            return el ? parseInt(el.value) : 0;
+        }
+
+        function getNote(id) { return $(id) ? $(id).value.trim() : ''; }
+
+        function getSectionNote(id) { return $(id) ? $(id).value.trim() : ''; }
+
+        function showLoading(show) {
+            loadingOverlay.classList.toggle('show', show);
+            submitBtn.disabled = show;
+        }
+
+        // ===== VALIDATION =====
+        function validateForm() {
+            // Mandatory fields
+            const restaurant = getVal('restaurantName');
+            const owner = getVal('ownerName');
+            const email = getVal('email');
+            const phone = getVal('phone');
+            const countryCode = getVal('countryCodeInput');
+
+            if (!restaurant) { alert('يرجى إدخال اسم المنشأة.'); return false; }
+            if (!owner) { alert('يرجى إدخال اسم المالك.'); return false; }
+            if (!email || !email.includes('@')) { alert('يرجى إدخال بريد إلكتروني صحيح.'); return false; }
+            if (!phone || phone.length < 6) { alert('يرجى إدخال رقم هاتف صحيح.'); return false; }
+            if (!countryCode || !countryCode.startsWith('+')) { alert('يرجى اختيار أو كتابة مفتاح البلد الصحيح (مثل +90).'); return false; }
+
+            // All radio questions (q1 - q16)
+            const requiredRadios = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14',
+                'q15', 'q16'
+            ];
+            for (const q of requiredRadios) {
+                const checked = document.querySelector(`input[name="${q}"]:checked`);
+                if (!checked) {
+                    alert(`يرجى الإجابة على جميع الأسئلة (السؤال ${q.replace('q','')}).`);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // ===== COLLECT DATA =====
+        function collectData() {
+            const qMap = {};
+            for (let i = 1; i <= 16; i++) {
+                qMap[`q${i}`] = getRadioVal(`q${i}`);
+            }
+
+            const sections = [
+                { id: 'sec1', name: 'العمليات والتشغيل', qs: ['q1', 'q2', 'q3', 'q4'], max: 20, weight: 0.25 },
+                { id: 'sec2', name: 'الإدارة المالية', qs: ['q5', 'q6', 'q7', 'q8'], max: 20, weight: 0.25 },
+                { id: 'sec3', name: 'التسويق والمبيعات', qs: ['q9', 'q10', 'q11'], max: 15, weight: 0.18 },
+                { id: 'sec4', name: 'الموارد البشرية', qs: ['q12', 'q13'], max: 10, weight: 0.12 },
+                { id: 'sec5', name: 'التوسع والامتياز', qs: ['q14', 'q15', 'q16'], max: 15, weight: 0.20 },
+            ];
+
+            const sectionScores = sections.map(sec => {
+                let raw = 0;
+                sec.qs.forEach(q => raw += qMap[q]);
+                const pct = Math.round((raw / sec.max) * 100);
+                return { ...sec, raw, pct };
+            });
+
+            let totalWeighted = 0;
+            sectionScores.forEach(s => totalWeighted += s.pct * s.weight);
+            const finalScore = Math.round(totalWeighted);
+
+            // Questions detail
+            const qLabels = {
+                q1: 'جودة الخدمة وسرعة الاستجابة',
+                q2: 'كفاءة إدارة المطبخ وسرعة التحضير',
+                q3: 'وجود أدلة تشغيل قياسية (SOPs)',
+                q4: 'تطبيق معايير سلامة غذائية HACCP',
+                q5: 'نظام محاسبي وقوائم مالية دورية',
+                q6: 'مراقبة التكاليف وهوامش الربح',
+                q7: 'إدارة التدفقات النقدية والسيولة',
+                q8: 'تحليل ربحية الأصناف (Menu Engineering)',
+                q9: 'التواجد الرقمي والتسويق عبر التواصل',
+                q10: 'برامج ولاء العملاء والعروض',
+                q11: 'خطة تسويقية سنوية بميزانية',
+                q12: 'خطة تدريب وتأهيل الموظفين',
+                q13: 'معدل دوران الموظفين ونظام حوافز',
+                q14: 'قابلية تكرار نموذج العمل',
+                q15: 'توثيق شامل للعمليات',
+                q16: 'تسجيل العلامة التجارية'
+            };
+
+            const questionsDetail = [];
+            for (let i = 1; i <= 16; i++) {
+                const q = `q${i}`;
+                const score = qMap[q];
+                const labelMap = { 1: 'ضعيف', 2: 'مقبول', 3: 'جيد', 4: 'جيد جداً', 5: 'ممتاز' };
+                questionsDetail.push({
+                    num: i,
+                    id: q,
+                    text: qLabels[q] || q,
+                    score: score,
+                    label: labelMap[score] || '-',
+                    note: getNote(`note_${q}`)
+                });
+            }
+
+            return {
+                client: {
+                    restaurant: getVal('restaurantName'),
+                    owner: getVal('ownerName'),
+                    email: getVal('email'),
+                    countryCode: getVal('countryCodeInput'),
+                    phone: getVal('phone'),
+                    city: getVal('city'),
+                    estYear: getVal('estYear'),
+                    branches: getVal('branches'),
+                    activity: getVal('activityType'),
+                    employees: getVal('employees'),
+                },
+                sections: sectionScores,
+                questions: questionsDetail,
+                finalScore: finalScore,
+                sectionNotes: {
+                    sec1: getSectionNote('note_sec1'),
+                    sec2: getSectionNote('note_sec2'),
+                    sec3: getSectionNote('note_sec3'),
+                    sec4: getSectionNote('note_sec4'),
+                    sec5: getSectionNote('note_sec5'),
+                },
+                timestamp: new Date().toISOString(),
+            };
+        }
+
+        // ===== CLASSIFICATION =====
+        function getClassification(score) {
+            if (score >= 85) return { text: 'ممتاز - جاهز للتوسع والامتياز', cls: 'excellent' };
+            if (score >= 70) return { text: 'جيد جداً - يحتاج تحسينات محدودة', cls: 'good' };
+            if (score >= 55) return { text: 'جيد - يحتاج إعادة هيكلة جزئية', cls: 'fair' };
+            return { text: 'يحتاج تطوير - إعادة بناء المنظومة', cls: 'poor' };
+        }
+
+        function getRecommendations(score, sections) {
+            const weakAreas = sections.filter(s => s.pct < 55).map(s => s.name);
+            const midAreas = sections.filter(s => s.pct >= 55 && s.pct < 75).map(s => s.name);
+
+            let recs = [];
+            if (score >= 85) {
+                recs.push('✅ المنظومة متكاملة، يُوصى بالتحسين المستمر والتوسع المدروس.');
+                recs.push('📌 توثيق الإجراءات بشكل أكثر احترافية للامتياز التجاري.');
+                recs.push('📌 الاستثمار في التسويق الرقمي وبرامج الولاء لتعزيز الميزة التنافسية.');
+            } else if (score >= 70) {
+                recs.push('📌 تحسين التوثيق التشغيلي وأدلة الإجراءات (SOPs).');
+                recs.push('📌 تعزيز نظام الرقابة المالية وتحليل التكاليف بشكل دوري.');
+                if (weakAreas.length) recs.push(`📌 التركيز على تحسين: ${weakAreas.join('، ')}.`);
+            } else if (score >= 55) {
+                recs.push('📌 إعادة هيكلة العمليات الأساسية وتوحيد الإجراءات.');
+                recs.push('📌 وضع خطة مالية واضحة مع ميزانيات تشغيلية.');
+                recs.push('📌 تدريب الموظفين وتحسين معدلات الاحتفاظ بهم.');
+                if (weakAreas.length) recs.push(`📌 الأولوية لتطوير: ${weakAreas.join('، ')}.`);
+            } else {
+                recs.push('🚨 إعادة بناء المنظومة التشغيلية والإدارية من الأساس.');
+                recs.push('📌 تطبيق نظام محاسبي متكامل ومراقبة التكاليف بشكل صارم.');
+                recs.push('📌 وضع خطة تسويقية ورقمية فعالة لزيادة المبيعات.');
+                recs.push('📌 تدريب وتأهيل الكوادر البشرية وتحسين ثقافة العمل.');
+                recs.push('📌 توثيق جميع العمليات كخطوة أولى نحو التوسع.');
+            }
+            return recs;
+        }
+
+        // ===== RENDER REPORT =====
+        function renderReport(data) {
+            const { client, sections, questions, finalScore, sectionNotes } = data;
+            const classInfo = getClassification(finalScore);
+            const recs = getRecommendations(finalScore, sections);
+
+            // Client info
+            $('reportClientName').textContent = `${client.restaurant} | ${client.owner}`;
+            const phoneFull = client.countryCode + ' ' + client.phone;
+            $('reportMeta').textContent =
+                `📧 ${client.email} | 📱 ${phoneFull} | ${client.city || '-'} | ${client.activity || '-'} | فروع: ${client.branches || '-'} | موظفين: ${client.employees || '-'}`;
+
+            // Table
+            const tbody = document.querySelector('#summaryTable tbody');
+            tbody.innerHTML = '';
+            sections.forEach(s => {
+                const cls = s.pct >= 85 ? 'excellent' : s.pct >= 70 ? 'good' : s.pct >= 55 ? 'fair' : 'poor';
+                const clsLabel = s.pct >= 85 ? 'ممتاز' : s.pct >= 70 ? 'جيد جداً' : s.pct >= 55 ? 'جيد' : 'يحتاج تطوير';
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${s.name}</td>
+                    <td>${s.raw}/${s.max}</td>
+                    <td>${s.pct}%</td>
+                    <td><span class="score-badge ${cls}">${clsLabel}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // Score circle
+            $('finalScoreCircle').textContent = finalScore;
+            $('finalClassification').textContent = `التصنيف العام: ${classInfo.text}`;
+
+            // Charts
+            chartInstances.forEach(c => c.destroy());
+            chartInstances = [];
+            const chartsContainer = $('chartsContainer');
+            chartsContainer.innerHTML = '';
+            sections.forEach((s, i) => {
+                const box = document.createElement('div');
+                box.className = 'chart-box';
+                const canvasId = `chart-${i}`;
+                box.innerHTML = `<h4>${s.name}</h4><canvas id="${canvasId}" height="100"></canvas>`;
+                chartsContainer.appendChild(box);
+            });
+
+            // Wait for DOM then init charts
+            setTimeout(() => {
+                sections.forEach((s, i) => {
+                    const canvas = document.getElementById(`chart-${i}`);
+                    if (!canvas) return;
+                    const ctx = canvas.getContext('2d');
+                    const color = s.pct >= 85 ? '#28a745' : s.pct >= 70 ? '#d4b15a' : s.pct >= 55 ? '#f0a030' :
+                    '#dc3545';
+                    const chart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: [s.name],
+                            datasets: [{
+                                data: [s.pct],
+                                backgroundColor: color,
+                                borderColor: color,
+                                borderWidth: 1,
+                                barThickness: 32,
+                                borderRadius: 6,
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y',
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            scales: {
+                                x: { beginAtZero: true, max: 100, ticks: { color: '#aab7d4', font: { size: 10 } },
+                                    grid: { color: 'rgba(255,255,255,0.05)' } },
+                                y: { ticks: { color: '#aab7d4', font: { size: 10 } }, grid: { display: false } }
+                            },
+                            plugins: { legend: { display: false } },
+                            animation: { duration: 600 }
+                        }
+                    });
+                    chartInstances.push(chart);
+                });
+            }, 100);
+
+            // Recommendations
+            const recHtml = recs.map(r => `<li>${r}</li>`).join('');
+            $('recommendationText').innerHTML = `<ul>${recHtml}</ul>`;
+
+            // Store for export
+            lastReportData = data;
+
+            // Show report
+            reportContainer.style.display = 'block';
+            reportContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ===== SUBMIT =====
+        async function handleSubmit() {
+            if (!validateForm()) return;
+            showLoading(true);
+
+            const data = collectData();
+
+            // Build payload for Google Script
+            const payload = {
+                // Client info
+                restaurantName: data.client.restaurant,
+                ownerName: data.client.owner,
+                email: data.client.email,
+                countryCode: data.client.countryCode,
+                phone: data.client.phone,
+                city: data.client.city,
+                estYear: data.client.estYear,
+                branches: data.client.branches,
+                activity: data.client.activity,
+                employees: data.client.employees,
+                // Scores
+                finalScore: data.finalScore,
+                // Section scores
+                sec1_score: data.sections[0].pct,
+                sec2_score: data.sections[1].pct,
+                sec3_score: data.sections[2].pct,
+                sec4_score: data.sections[3].pct,
+                sec5_score: data.sections[4].pct,
+                // Section notes
+                note_sec1: data.sectionNotes.sec1,
+                note_sec2: data.sectionNotes.sec2,
+                note_sec3: data.sectionNotes.sec3,
+                note_sec4: data.sectionNotes.sec4,
+                note_sec5: data.sectionNotes.sec5,
+                // All question scores
+                ...data.questions.reduce((acc, q) => { acc[`q${q.num}_score`] = q.score; return acc; }, {}),
+                // All question notes
+                ...data.questions.reduce((acc, q) => { acc[`q${q.num}_note`] = q.note || ''; return acc; }, {}),
+                timestamp: data.timestamp,
+            };
+
+            try {
+                // Send to Google Sheets & Email
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                // Note: no-cors mode doesn't return response, but we assume success
+                console.log('✅ Data sent to Google Sheets');
+            } catch (err) {
+                console.error('⚠️ Error sending to Google Sheets:', err);
+                // Still show report even if save fails
+            }
+
+            // Render report
+            renderReport(data);
+            showLoading(false);
+        }
+
+        // ===== EXPORT =====
+        function exportReport(type) {
+            if (!lastReportData) { alert('الرجاء إجراء التشخيص أولاً.'); return; }
+            const data = lastReportData;
+            const classInfo = getClassification(data.finalScore);
+            const recs = getRecommendations(data.finalScore, data.sections);
+
+            // Build HTML for export
+            let questionsHtml = data.questions.map(q =>
+                `<tr><td>${q.num}</td><td>${q.text}</td><td>${q.score}/5</td><td>${q.label}</td><td>${q.note || '-'}</td></tr>`
+            ).join('');
+
+            let sectionsHtml = data.sections.map(s => {
+                const cls = s.pct >= 85 ? 'ممتاز' : s.pct >= 70 ? 'جيد جداً' : s.pct >= 55 ? 'جيد' : 'يحتاج تطوير';
+                return `<tr><td>${s.name}</td><td>${s.raw}/${s.max}</td><td>${s.pct}%</td><td>${cls}</td></tr>`;
+            }).join('');
+
+            const recHtml = recs.map(r => `<li>${r}</li>`).join('');
+
+            const phoneFull = data.client.countryCode + ' ' + data.client.phone;
+
+            const htmlContent = `
+            <!DOCTYPE html>
+            <html dir="rtl" lang="ar">
+            <head><meta charset="utf-8"><title>تقرير تشخيصي - ${data.client.restaurant}</title>
+            <style>
+                body{font-family:'Tajawal',sans-serif;padding:30px;background:#fff;color:#222;}
+                .header{text-align:center;border-bottom:4px solid #b8860b;padding-bottom:16px;margin-bottom:24px;}
+                .header h1{color:#b8860b;font-size:24px;margin:0;}
+                .header p{margin:4px 0;color:#555;}
+                table{width:100%;border-collapse:collapse;margin:16px 0;}
+                th,td{border:1px solid #b8860b;padding:8px;text-align:center;}
+                th{background:#f5f0e0;color:#333;}
+                .score-box{text-align:center;padding:16px;background:#f5f0e0;border-radius:12px;margin:16px 0;}
+                .score-box .num{font-size:48px;font-weight:900;color:#b8860b;}
+                .rec-box{background:#faf6ed;padding:16px;border-radius:12px;border:1px solid #b8860b;margin:16px 0;}
+                .rec-box ul{list-style:none;padding:0;}
+                .rec-box ul li{padding:4px 0;border-bottom:1px solid #eee;}
+                .footer{text-align:center;color:#888;margin-top:30px;border-top:1px solid #ddd;padding-top:16px;}
+                .q-table td{font-size:13px;}
+                .badge{display:inline-block;padding:2px 14px;border-radius:30px;font-weight:700;font-size:12px;}
+                .badge.excellent{background:#d4edda;color:#155724;}
+                .badge.good{background:#fff3cd;color:#856404;}
+                .badge.fair{background:#fce4d6;color:#7b4a1a;}
+                .badge.poor{background:#f8d7da;color:#721c24;}
+            </style>
+            </head>
+            <body>
+                <div class="header">
+                    <h1>📊 التقرير التشخيصي الاستشاري</h1>
+                    <p><strong>المنشأة:</strong> ${data.client.restaurant} | <strong>المالك:</strong> ${data.client.owner}</p>
+                    <p>📧 ${data.client.email} | 📱 ${phoneFull} | ${data.client.city || '-'}</p>
+                    <p>النشاط: ${data.client.activity || '-'} | الفروع: ${data.client.branches || '-'} | الموظفين: ${data.client.employees || '-'}</p>
+                    <p style="color:#888;font-size:13px;">تاريخ التقرير: ${new Date(data.timestamp).toLocaleString('ar-EG')}</p>
+                </div>
+
+                <h2>نتائج المحاور</h2>
+                <table>${sectionsHtml}</table>
+
+                <div class="score-box">
+                    <div class="num">${data.finalScore}%</div>
+                    <div style="font-size:20px;font-weight:700;">${classInfo.text}</div>
+                </div>
+
+                <h2>التوصيات</h2>
+                <div class="rec-box"><ul>${recHtml}</ul></div>
+
+                <h2>تفاصيل الأسئلة</h2>
+                <table class="q-table">
+                    <thead><tr><th>#</th><th>السؤال</th><th>الدرجة</th><th>التقييم</th><th>ملاحظات</th></tr></thead>
+                    <tbody>${questionsHtml}</tbody>
+                </table>
+
+                <div class="footer">
+                    تم الإنشاء بواسطة <strong>مجموعة فاروق</strong> للاستشارات والأعمال © ${new Date().getFullYear()}
+                </div>
+            </body>
+            </html>
+            `;
+
+            const blob = new Blob(['\uFEFF' + htmlContent], { type: 'text/html' });
+            const link = document.createElement('a');
+            const filename = `تقرير_${data.client.restaurant}_${new Date().toISOString().slice(0,10)}`;
+
+            if (type === 'word') {
+                link.download = `${filename}.doc`;
+            } else {
+                link.download = `${filename}.pdf.html`; // fallback, actual PDF would need library
+                // For simplicity, we use print to PDF or save as HTML
+                alert('لتصدير PDF، استخدم خيار "طباعة" ثم اختر "حفظ باسم PDF" من المتصفح.');
+                const win = window.open('', '_blank');
+                win.document.write(htmlContent);
+                win.document.close();
+                win.focus();
+                win.print();
+                return;
+            }
+            link.href = URL.createObjectURL(blob);
+            link.click();
+            URL.revokeObjectURL(link.href);
+        }
+
+        // ===== KEYBOARD SUPPORT =====
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+                const btn = document.activeElement?.closest('.question-row')?.querySelector('input[type="radio"]');
+                if (btn) {
+                    const radios = document.querySelectorAll(`input[name="${btn.name}"]`);
+                    let found = false;
+                    for (let i = 0; i < radios.length; i++) {
+                        if (radios[i] === btn) {
+                            if (i < radios.length - 1) { radios[i + 1].checked = true;
+                                found = true; }
+                            break;
+                        }
+                    }
+                    if (!found && radios.length) radios[0].checked = true;
+                    e.preventDefault();
+                }
+            }
+        });
+
+        console.log('🩺 أداة التشخيص الاستشاري للمطاعم - FAROUK GRUP');
+        console.log('ℹ️ تأكد من تحديث رابط Google Script في الكود.');
+    </script>
+
+</body>
+</html>
