@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Restaurant Diagnostic Assessment | FAROUK GRUP</title>
+    <meta name="description" content="A specialized diagnostic tool to evaluate the performance of restaurants and food establishments">
+    <meta name="robots" content="noindex, nofollow">
+
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+    </script>
+
+    <style>
+        /* ===== ROOT ===== */
+        :root {
+            --gold: #b8860b;
+            --gold-light: #d4b15a;
+            --gold-soft: rgba(184, 134, 11, 0.12);
+            --gold-glow: rgba(184, 134, 11, 0.25);
+            --dark: #0b0e17;
+            --dark-panel: rgba(18, 24, 36, 0.92);
+            --dark-card: rgba(22, 30, 46, 0.85);
+            --border-light: rgba(184, 134, 11, 0.25);
+            --text-light: #f0f4fa;
+            --text-muted: #aab7d4;
+            --white: #ffffff;
+            --offwhite: #f5f7fc;
+            --radius: 20px;
+            --radius-sm: 12px;
+            --shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: radial-gradient(circle at 60% 20%, #141c2b, #080b12);
+            color: var(--text-light);
+            line-height: 1.7;
+            min-height: 100vh;
+            padding: 20px 0 60px;
+            position: relative;
+            text-align: left; /* LTR */
+        }
+
+        /* ===== GLOW BG ===== */
+        .glow-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .glow-bg span {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(184, 134, 11, 0.10) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(100px);
+            animation: glowFloat 25s infinite alternate ease-in-out;
+            top: -10%;
+            right: -10%;
+        }
+        .glow-bg span:nth-child(2) {
+            top: auto;
+            bottom: -10%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            animation-delay: -8s;
+            background: radial-gradient(circle, rgba(212, 177, 90, 0.06) 0%, transparent 70%);
+        }
+        @keyframes glowFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(60px, -40px) scale(1.3);
+            }
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== HEADER ===== */
+        .header-tool {
+            background: var(--dark-panel);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius) var(--radius) 0 0;
+            padding: 24px 28px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .header-tool::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(184, 134, 11, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .header-tool .logo-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .header-tool .logo-badge img {
+            height: 48px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 12px rgba(184, 134, 11, 0.3));
+        }
+        .header-tool h1 {
+            font-family: 'Alexandria', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--gold-light);
+            letter-spacing: 1px;
+        }
+        .header-tool .sub {
+            display: inline-block;
+            background: var(--gold);
+            color: #111;
+            padding: 4px 20px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            margin-top: 6px;
+            letter-spacing: 0.5px;
+        }
+        .header-tool .sub i {
+            margin-left: 6px;
+        }
+
+        /* ===== FORM CARD ===== */
+        .form-container {
+            background: var(--dark-panel);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-light);
+            border-top: none;
+            border-radius: 0 0 var(--radius) var(--radius);
+            padding: 28px 30px 36px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        /* ===== MANDATORY NOTICE ===== */
+        .mandatory-notice {
+            background: rgba(184, 134, 11, 0.08);
+            border: 1px solid rgba(184, 134, 11, 0.2);
+            border-radius: var(--radius-sm);
+            padding: 12px 18px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+        .mandatory-notice i {
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+        .mandatory-notice strong {
+            color: var(--gold-light);
+        }
+        .mandatory-notice .required-star {
+            color: #e74c3c;
+            font-weight: 900;
+            margin-left: 2px;
+        }
+
+        /* ===== CLIENT INFO ===== */
+        .client-data {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 14px;
+            margin-bottom: 30px;
+            background: rgba(184, 134, 11, 0.04);
+            padding: 18px 20px;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(184, 134, 11, 0.08);
+        }
+        .client-data .field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .client-data label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .client-data label i {
+            color: var(--gold);
+            font-size: 0.8rem;
+        }
+        .client-data label .required-star {
+            color: #e74c3c;
+            font-size: 1rem;
+        }
+        .client-data input,
+        .client-data select {
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px;
+            background: rgba(10, 14, 23, 0.7);
+            color: var(--text-light);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            width: 100%;
+            direction: ltr;
+        }
+        .client-data input:focus,
+        .client-data select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px var(--gold-soft);
+            background: rgba(10, 14, 23, 0.9);
+        }
+        .client-data input::placeholder {
+            color: #667;
+        }
+        .client-data .phone-wrapper {
+            display: flex;
+            gap: 8px;
+        }
+        .client-data .phone-wrapper input[type="text"] {
+            width: 150px;
+            flex-shrink: 0;
+        }
+        .client-data .phone-wrapper input[type="tel"] {
+            flex: 1;
+        }
+        .client-data .full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* ===== SECTIONS ===== */
+        .section-block {
+            border: 1px solid rgba(184, 134, 11, 0.15);
+            border-radius: var(--radius-sm);
+            margin-bottom: 22px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        .section-block .section-header {
+            background: linear-gradient(135deg, rgba(184, 134, 11, 0.12), rgba(184, 134, 11, 0.04));
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(184, 134, 11, 0.08);
+            cursor: default;
+        }
+        .section-block .section-header h3 {
+            font-size: 1.05rem;
+            font-weight: 900;
+            color: var(--gold-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-block .section-header h3 i {
+            font-size: 1.1rem;
+        }
+        .section-block .section-header .max-score {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 14px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .question-row {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            transition: var(--transition);
+        }
+        .question-row:last-of-type {
+            border-bottom: none;
+        }
+        .question-row:hover {
+            background: rgba(184, 134, 11, 0.03);
+        }
+        .question-row .q-text {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 0.98rem;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .question-row .q-text .q-num {
+            color: var(--gold);
+            font-weight: 900;
+            font-size: 0.8rem;
+            background: rgba(184, 134, 11, 0.15);
+            padding: 0 10px;
+            border-radius: 30px;
+            min-width: 28px;
+            text-align: center;
+        }
+        .options-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .options-row label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 6px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            color: var(--text-muted);
+            flex: 1 0 auto;
+            justify-content: center;
+            min-width: 60px;
+        }
+        .options-row label:hover {
+            border-color: var(--gold);
+            background: rgba(184, 134, 11, 0.10);
+            color: var(--text-light);
+        }
+        .options-row input[type="radio"] {
+            accent-color: var(--gold);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .options-row input[type="radio"]:checked+.label-text {
+            color: var(--gold-light);
+            font-weight: 700;
+        }
+        .options-row label:has(input:checked) {
+            border-color: var(--gold);
+            background: rgba(184, 134, 11, 0.15);
+            color: var(--gold-light);
+        }
+
+        .note-field {
+            margin-top: 10px;
+        }
+        .note-field input,
+        .note-field textarea {
+            width: 100%;
+            padding: 8px 14px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 30px;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .note-field input:focus,
+        .note-field textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .note-field textarea {
+            border-radius: var(--radius-sm);
+            min-height: 50px;
+            resize: vertical;
+        }
+
+        .section-note {
+            padding: 12px 20px 16px;
+            background: rgba(0, 0, 0, 0.15);
+        }
+        .section-note textarea {
+            width: 100%;
+            padding: 8px 14px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-sm);
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 0.9rem;
+            min-height: 44px;
+            resize: vertical;
+            transition: var(--transition);
+        }
+        .section-note textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(0, 0, 0, 0.4);
+        }
+        .section-note textarea::placeholder {
+            color: #556;
+        }
+
+        /* ===== BUTTON ===== */
+        .btn-generate {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: #111;
+            font-weight: 900;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 28px 0 10px;
+            transition: var(--transition);
+            box-shadow: 0 6px 24px rgba(184, 134, 11, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            letter-spacing: 0.5px;
+        }
+        .btn-generate:hover {
+            background: #111;
+            color: var(--gold);
+            box-shadow: 0 8px 36px rgba(184, 134, 11, 0.5);
+            transform: translateY(-2px);
+        }
+        .btn-generate:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        .btn-generate i {
+            font-size: 1.3rem;
+        }
+
+        /* ===== REPORT ===== */
+        .report-section {
+            display: none;
+            margin-top: 30px;
+            animation: fadeUp 0.6s ease;
+        }
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .report-card {
+            background: var(--dark-panel);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+        .report-card .report-head {
+            text-align: center;
+            border-bottom: 2px solid rgba(184, 134, 11, 0.2);
+            padding-bottom: 18px;
+            margin-bottom: 24px;
+        }
+        .report-card .report-head h2 {
+            color: var(--gold-light);
+            font-size: 1.6rem;
+            font-weight: 900;
+        }
+        .report-card .report-head .client-name {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+        .report-card .report-head .meta {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 2px;
+        }
+
+        /* Summary Table */
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0 22px;
+            font-size: 0.95rem;
+        }
+        .summary-table thead th {
+            background: rgba(184, 134, 11, 0.12);
+            padding: 10px 12px;
+            border-bottom: 2px solid var(--gold);
+            color: var(--gold-light);
+            font-weight: 700;
+            text-align: center;
+        }
+        .summary-table tbody td {
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+        .summary-table tbody tr:hover {
+            background: rgba(184, 134, 11, 0.04);
+        }
+        .summary-table .score-badge {
+            display: inline-block;
+            padding: 2px 16px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+        .score-badge.excellent {
+            background: #1a7a3a;
+            color: #8fdfb0;
+        }
+        .score-badge.good {
+            background: #7a6a1a;
+            color: #f0d97a;
+        }
+        .score-badge.fair {
+            background: #7a4a1a;
+            color: #f0b97a;
+        }
+        .score-badge.poor {
+            background: #6a1a1a;
+            color: #f08a7a;
+        }
+
+        /* Score Circle */
+        .score-circle-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 18px 0 12px;
+        }
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 900;
+            color: #111;
+            box-shadow: 0 0 50px rgba(184, 134, 11, 0.25);
+            position: relative;
+        }
+        .score-circle .label {
+            position: absolute;
+            bottom: -32px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+        .final-classification {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 900;
+            margin: 28px 0 12px;
+            padding: 10px;
+            border-radius: var(--radius-sm);
+            background: rgba(184, 134, 11, 0.06);
+            border: 1px solid rgba(184, 134, 11, 0.1);
+            color: var(--gold-light);
+        }
+
+        /* Charts */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin: 22px 0 18px;
+        }
+        .chart-box {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: var(--radius-sm);
+            padding: 14px 12px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .chart-box h4 {
+            color: var(--gold-light);
+            text-align: center;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .chart-box canvas {
+            max-height: 100px;
+            width: 100% !important;
+        }
+
+        /* Recommendations */
+        .recommendation-box {
+            background: rgba(184, 134, 11, 0.06);
+            border: 1px solid rgba(184, 134, 11, 0.12);
+            border-radius: var(--radius-sm);
+            padding: 18px 22px;
+            margin: 18px 0 22px;
+        }
+        .recommendation-box strong {
+            color: var(--gold-light);
+            display: block;
+            margin-bottom: 6px;
+            font-size: 1.05rem;
+        }
+        .recommendation-box p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+        .recommendation-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 0;
+        }
+        .recommendation-box ul li {
+            padding: 4px 0 4px 28px;
+            position: relative;
+            color: var(--text-muted);
+        }
+        .recommendation-box ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: 900;
+        }
+
+        /* Export */
+        .export-btns {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .export-btns button {
+            background: rgba(184, 134, 11, 0.10);
+            border: 1px solid rgba(184, 134, 11, 0.2);
+            color: var(--gold-light);
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-family: inherit;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .export-btns button:hover {
+            background: var(--gold);
+            color: #111;
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+        .export-btns button i {
+            font-size: 1.1rem;
+        }
+
+        /* ===== LOADING ===== */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(6px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .loading-overlay.show {
+            display: flex;
+        }
+        .loading-overlay i {
+            font-size: 3rem;
+            color: var(--gold-light);
+        }
+        .loading-overlay p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* ===== FLOATING HOME BUTTON ===== */
+        .floating-home {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(180, 133, 84, 0.9);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+        .floating-home:hover {
+            background: #b48554;
+            transform: scale(1.05);
+            color: white;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .header-tool {
+                padding: 18px 16px;
+            }
+            .header-tool h1 {
+                font-size: 1.3rem;
+            }
+            .header-tool .logo-badge img {
+                height: 36px;
+            }
+            .form-container {
+                padding: 18px 14px 24px;
+            }
+            .client-data {
+                grid-template-columns: 1fr 1fr;
+                padding: 14px;
+                gap: 10px;
+            }
+            .client-data .full-width {
+                grid-column: 1 / -1;
+            }
+            .client-data .phone-wrapper {
+                flex-wrap: wrap;
+            }
+            .client-data .phone-wrapper input[type="text"] {
+                width: 100%;
+            }
+            .options-row label {
+                font-size: 0.78rem;
+                padding: 5px 10px;
+                min-width: 44px;
+                flex: 1 0 auto;
+            }
+            .question-row {
+                padding: 14px 14px;
+            }
+            .section-block .section-header {
+                padding: 12px 14px;
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            .section-block .section-header h3 {
+                font-size: 0.95rem;
+            }
+            .report-card {
+                padding: 18px 14px;
+            }
+            .summary-table {
+                font-size: 0.8rem;
+            }
+            .summary-table th,
+            .summary-table td {
+                padding: 6px 6px;
+            }
+            .score-circle {
+                width: 120px;
+                height: 120px;
+                font-size: 2.4rem;
+            }
+            .final-classification {
+                font-size: 1.1rem;
+            }
+            .charts-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .export-btns button {
+                padding: 8px 18px;
+                font-size: 0.85rem;
+            }
+            .btn-generate {
+                font-size: 1rem;
+                padding: 14px;
+            }
+            .floating-home {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .client-data {
+                grid-template-columns: 1fr;
+            }
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            .options-row label {
+                flex: 1 1 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== GLOW ===== -->
+    <div class="glow-bg">
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- ===== LOADING ===== -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <i class="fas fa-spinner fa-pulse"></i>
+        <p>Generating your diagnostic report...</p>
+    </div>
+
+    <!-- ===== MAIN ===== -->
+    <div class="container">
+
+        <!-- HEADER -->
+        <div class="header-tool">
+            <div class="logo-badge">
+                <img src="https://lh3.googleusercontent.com/d/1e6u-DPTinDJl_Q9wW3QvGgzFbXO_2sXa" alt="FAROUK GRUP">
+                <h1>Restaurant Diagnostic Assessment</h1>
+            </div>
+            <div class="sub"><i class="fas fa-utensils"></i> Evaluate your food & hospitality business</div>
+        </div>
+
+        <!-- FORM -->
+        <div class="form-container" id="formContainer">
+
+            <!-- Mandatory notice -->
+            <div class="mandatory-notice">
+                <i class="fas fa-info-circle"></i>
+                <span><strong>Notice:</strong> Fields marked with <span class="required-star">*</span> are required. You will receive a detailed report immediately after completing the assessment.</span>
+            </div>
+
+            <!-- CLIENT DATA -->
+            <div class="client-data" id="clientDataSection">
+                <div class="field-group">
+                    <label><i class="fas fa-store"></i> Establishment Name <span class="required-star">*</span></label>
+                    <input type="text" id="restaurantName" placeholder="e.g. Andalusia Restaurant" required>
+                </div>
+                <div class="field-group">
+                    <label><i class="fas fa-user"></i> Owner Name <span class="required-star">*</span></label>
+                    <input type="text" id="ownerName" placeholder="Full Name" required>
+                </div>
+                <div class="field-group">
+                    <label><i class="fas fa-envelope"></i> Email Address <span class="required-star">*</span></label>
+                    <input type="email" id="email" placeholder="example@domain.com" required>
+                </div>
+                <div class="field-group">
+                    <label><i class="fas fa-phone"></i> Phone Number <span class="required-star">*</span></label>
+                    <div class="phone-wrapper">
+                        <input type="text" id="countryCodeInput" list="countryCodes" placeholder="🔍 Country Code" style="width: 150px; direction: ltr;">
+                        <datalist id="countryCodes">
+                            <option value="+90">🇹🇷 +90 Turkey</option>
+                            <option value="+966">🇸🇦 +966 Saudi Arabia</option>
+                            <option value="+971">🇦🇪 +971 UAE</option>
+                            <option value="+962">🇯🇴 +962 Jordan</option>
+                            <option value="+961">🇱🇧 +961 Lebanon</option>
+                            <option value="+20">🇪🇬 +20 Egypt</option>
+                            <option value="+212">🇲🇦 +212 Morocco</option>
+                            <option value="+216">🇹🇳 +216 Tunisia</option>
+                            <option value="+213">🇩🇿 +213 Algeria</option>
+                            <option value="+1">🇺🇸 +1 United States</option>
+                            <option value="+44">🇬🇧 +44 United Kingdom</option>
+                            <option value="+49">🇩🇪 +49 Germany</option>
+                            <option value="+33">🇫🇷 +33 France</option>
+                            <option value="+34">🇪🇸 +34 Spain</option>
+                            <option value="+39">🇮🇹 +39 Italy</option>
+                            <option value="+61">🇦🇺 +61 Australia</option>
+                            <option value="+91">🇮🇳 +91 India</option>
+                            <option value="+55">🇧🇷 +55 Brazil</option>
+                            <option value="+7">🇷🇺 +7 Russia</option>
+                            <option value="+81">🇯🇵 +81 Japan</option>
+                            <option value="+82">🇰🇷 +82 South Korea</option>
+                            <option value="+86">🇨🇳 +86 China</option>
+                            <option value="+60">🇲🇾 +60 Malaysia</option>
+                            <option value="+63">🇵🇭 +63 Philippines</option>
+                            <option value="+64">🇳🇿 +64 New Zealand</option>
+                            <option value="+27">🇿🇦 +27 South Africa</option>
+                            <option value="+234">🇳🇬 +234 Nigeria</option>
+                            <option value="+254">🇰🇪 +254 Kenya</option>
+                            <option value="+30">🇬🇷 +30 Greece</option>
+                            <option value="+357">🇨🇾 +357 Cyprus</option>
+                            <option value="+31">🇳🇱 +31 Netherlands</option>
+                            <option value="+32">🇧🇪 +32 Belgium</option>
+                            <option value="+41">🇨🇭 +41 Switzerland</option>
+                            <option value="+46">🇸🇪 +46 Sweden</option>
+                            <option value="+47">🇳🇴 +47 Norway</option>
+                            <option value="+45">🇩🇰 +45 Denmark</option>
+                            <option value="+358">🇫🇮 +358 Finland</option>
+                            <option value="+353">🇮🇪 +353 Ireland</option>
+                            <option value="+351">🇵🇹 +351 Portugal</option>
+                            <option value="+43">🇦🇹 +43 Austria</option>
+                            <option value="+48">🇵🇱 +48 Poland</option>
+                            <option value="+420">🇨🇿 +420 Czechia</option>
+                            <option value="+36">🇭🇺 +36 Hungary</option>
+                            <option value="+40">🇷🇴 +40 Romania</option>
+                            <option value="+359">🇧🇬 +359 Bulgaria</option>
+                            <option value="+972">🇮🇱 +972 Israel</option>
+                            <option value="+965">🇰🇼 +965 Kuwait</option>
+                            <option value="+968">🇴🇲 +968 Oman</option>
+                            <option value="+974">🇶🇦 +974 Qatar</option>
+                            <option value="+973">🇧🇭 +973 Bahrain</option>
+                            <option value="+218">🇱🇾 +218 Libya</option>
+                            <option value="+249">🇸🇩 +249 Sudan</option>
+                            <option value="+963">🇸🇾 +963 Syria</option>
+                            <option value="+964">🇮🇶 +964 Iraq</option>
+                            <option value="+967">🇾🇪 +967 Yemen</option>
+                            <option value="+970">🇵🇸 +970 Palestine</option>
+                            <option value="+992">🇹🇯 +992 Tajikistan</option>
+                            <option value="+993">🇹🇲 +993 Turkmenistan</option>
+                            <option value="+998">🇺🇿 +998 Uzbekistan</option>
+                            <option value="+996">🇰🇬 +996 Kyrgyzstan</option>
+                            <option value="+7">🇰🇿 +7 Kazakhstan</option>
+                            <option value="+94">🇱🇰 +94 Sri Lanka</option>
+                            <option value="+880">🇧🇩 +880 Bangladesh</option>
+                            <option value="+92">🇵🇰 +92 Pakistan</option>
+                            <option value="+977">🇳🇵 +977 Nepal</option>
+                            <option value="+975">🇧🇹 +975 Bhutan</option>
+                            <option value="+95">🇲🇲 +95 Myanmar</option>
+                            <option value="+856">🇱🇦 +856 Laos</option>
+                            <option value="+855">🇰🇭 +855 Cambodia</option>
+                            <option value="+84">🇻🇳 +84 Vietnam</option>
+                            <option value="+62">🇮🇩 +62 Indonesia</option>
+                            <option value="+65">🇸🇬 +65 Singapore</option>
+                            <option value="+66">🇹🇭 +66 Thailand</option>
+                            <option value="+673">🇧🇳 +673 Brunei</option>
+                            <option value="+670">🇹🇱 +670 Timor-Leste</option>
+                        </datalist>
+                        <input type="tel" id="phone" placeholder="555 000 1234" required>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label><i class="fas fa-city"></i> City & Country</label>
+                    <input type="text" id="city" placeholder="e.g. Istanbul, Turkey">
+                </div>
+                <div class="field-group">
+                    <label><i class="fas fa-calendar-alt"></i> Year Established</label>
+                    <input type="number" id="estYear" placeholder="e.g. 2018" min="1900" max="2099">
+                </div>
+                <div class="field-group">
+                    <label><i class="fas fa-store-alt"></i> Number of Branches</label>
+                    <input type="number" id="branches" placeholder="1" min="1">
+                </div>
+                <div class="field-group">
+                    <label><i class="fas fa-utensils"></i> Activity Type</label>
+                    <select id="activityType">
+                        <option value="">-- Select --</option>
+                        <option value="Restaurant">Restaurant</option>
+                        <option value="Café">Café</option>
+                        <option value="Restaurant & Café">Restaurant & Café</option>
+                        <option value="Cloud Kitchen">Cloud Kitchen</option>
+                        <option value="Food Truck">Food Truck</option>
+                        <option value="Bakery / Pastry">Bakery / Pastry</option>
+                        <option value="Fine Dining">Fine Dining</option>
+                        <option value="Catering">Catering</option>
+                    </select>
+                </div>
+                <div class="field-group">
+                    <label><i class="fas fa-users"></i> Number of Employees</label>
+                    <input type="number" id="employees" placeholder="e.g. 15" min="1">
+                </div>
+            </div>
+
+            <!-- ===== QUESTIONS ===== -->
+
+            <!-- SECTION 1: Operations & Processes -->
+            <div class="section-block">
+                <div class="section-header">
+                    <h3><i class="fas fa-cogs"></i> Operations & Processes</h3>
+                    <span class="max-score">Max Score: 20</span>
+                </div>
+                <div class="question-row" id="q1_row">
+                    <div class="q-text"><span class="q-num">1</span> Quality of customer service and responsiveness</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q1" value="1" required> <span class="label-text">Poor</span></label>
+                        <label><input type="radio" name="q1" value="2"> <span class="label-text">Fair</span></label>
+                        <label><input type="radio" name="q1" value="3"> <span class="label-text">Good</span></label>
+                        <label><input type="radio" name="q1" value="4"> <span class="label-text">Very Good</span></label>
+                        <label><input type="radio" name="q1" value="5"> <span class="label-text">Excellent</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="Your notes (optional)" id="note_q1"></div>
+                </div>
+                <div class="question-row" id="q2_row">
+                    <div class="q-text"><span class="q-num">2</span> Kitchen management efficiency and order preparation speed</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q2" value="1" required> <span class="label-text">Poor</span></label>
+                        <label><input type="radio" name="q2" value="2"> <span class="label-text">Fair</span></label>
+                        <label><input type="radio" name="q2" value="3"> <span class="label-text">Good</span></label>
+                        <label><input type="radio" name="q2" value="4"> <span class="label-text">Very Good</span></label>
+                        <label><input type="radio" name="q2" value="5"> <span class="label-text">Excellent</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="Your notes (optional)" id="note_q2"></div>
+                </div>
+                <div class="question-row" id="q3_row">
+                    <div class="q-text"><span class="q-num">3</span> Availability and implementation of updated Standard Operating Procedures (SOPs)</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q3" value="1" required> <span class="label-text">Poor</span></label>
+                        <label><input type="radio" name="q3" value="2"> <span class="label-text">Fair</span></label>
+                        <label><input type="radio" name="q3" value="3"> <span class="label-text">Good</span></label>
+                        <label><input type="radio" name="q3" value="4"> <span class="label-text">Very Good</span></label>
+                        <label><input type="radio" name="q3" value="5"> <span class="label-text">Excellent</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="Your notes (optional)" id="note_q3"></div>
+                </div>
+                <div class="question-row" id="q4_row">
+                    <div class="q-text"><span class="q-num">4</span> Implementation of food safety standards (HACCP) and general cleanliness</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q4" value="1" required> <span class="label-text">Poor</span></label>
+                        <label><input type="radio" name="q4" value="2"> <span class="label-text">Fair</span></label>
+                        <label><input type="radio" name="q4" value="3"> <span class="label-text">Good</span></label>
+                        <label><input type="radio" name="q4" value="4"> <span class="label-text">Very Good</span></label>
+                        <label><input type="radio" name="q4" value="5"> <span class="label-text">Excellent</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="Your notes (optional)" id="note_q4"></div>
+                </div>
+                <div class="section-note">
+                    <textarea placeholder="General notes on Operations & Processes (optional)" id="note_sec1"></textarea>
+                </div>
+            </div>
+
+            <!-- SECTION 2: Financial Management -->
+            <div class="section-block">
+                <div class="section-header">
+                    <h3><i class="fas fa-chart-line"></i> Financial Management</h3>
+                    <span class="max-score">Max Score: 20</span>
+                </div>
+                <div class="question-row" id="q5_row">
+                    <div class="q-text"><span class="q-num">5</span> Accounting system and periodic financial statements (Income, Balance Sheet, Cash Flow)</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q5" value="1" required> <span class="label-text">Poor</span></label>
+                        <label><input type="radio" name="q5" value="2"> <span class="label-text">Fair</span></label>
+                        <label><input type="radio" name="q5" value="3"> <span class="label-text">Good</span></label>
+                        <label><input type="radio" name="q5" value="4"> <span class="label-text">Very Good</span></label>
+                        <label><input type="radio" name="q5" value="5"> <span class="label-text">Excellent</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="Your notes (optional)" id="note_q5"></div>
+                </div>
+                <div class="question-row" id="q6_row">
+                    <div class="q-text"><span class="q-num">6</span> Strict monitoring of costs and gross/net profit margins</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q6" value="1" required> <span class="label-text">Poor</span></label>
+                        <label><input type="radio" name="q6" value="2"> <span class="label-text">Fair</span></label>
+                        <label><input type="radio" name="q6" value="3"> <span class="label-text">Good</span></label>
+                        <label><input type="radio" name="q6" value="4"> <span class="label-text">Very Good</span></label>
+                        <label><input type="radio" name="q6" value="5"> <span class="label-text">Excellent</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="Your notes (optional)" id="note_q6"></div>
+                </div>
+                <div class="question-row" id="q7_row">
+                    <div class="q-text"><span class="q-num">7</span> Cash flow management and sufficient liquidity for daily operations</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q7" value="1" required> <span class="label-text">Poor</span></label>
+                        <label><input type="radio" name="q7" value="2"> <span class="label-text">Fair</span></label>
+                        <label><input type="radio" name="q7" value="3"> <span class="label-text">Good</span></label>
+                        <label><input type="radio" name="q7" value="4"> <span class="label-text">Very Good</span></label>
+                        <label><input type="radio" name="q7" value="5"> <span class="label-text">Excellent</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="Your notes (optional)" id="note_q7"></div>
+                </div>
+                <div class="question-row" id="q8_row">
+                    <div class="q-text"><span class="q-num">8</span> Menu engineering (profitability analysis) and menu adjustments based on data</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q8" value="1" required> <span class="label-text">Poor</span></label>
+                        <label><input type="radio" name="q8" value="2"> <span class="label-text">Fair</span></label>
+                        <label><input type="radio" name="q8" value="3"> <span class="label-text">Good</span></label>
+                        <label><input type="radio" name="q8" value="4"> <span class="label-text">Very Good</span></label>
+                        <label><input type="radio" name="q8" value="5"> <span class="label-text">Excellent</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="Your notes (optional)" id="note_q8"></div>
+                </div>
+                <div class="section-note">
+                    <textarea placeholder="General notes on Financial Management (optional)" id="note_sec2"></textarea>
+                </div>
+            </div>
+
+            <!-- SECTION 3: Marketing & Sales -->
+            <div class="section-block">
+                <div class="section-header">
+                    <h3><i class="fas fa-bullhorn"></i> Marketing & Sales</h3>
+                    <span class="max-score">Max Score: 15</span>
+                </div>
+                <div class="question-row" id="q9_row">
+                    <div class="q-text"><span class="q-num">9</span> Digital presence and social media marketing</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q9" value="1" required> <span class="label-text">Poor</span></label>
+                        <label><input type="radio" name="q9" value="2"> <span class="label-text">Fair</span></label>
+                        <label><input type="radio" name="q9" value="3"> <span class="label-text">Good</span></label>
+                        <label><input type="radio" name="q9" value="4"> <span class="label-text">Very Good</span></label>
+                        <label><input type="radio" name="q9" value="5"> <span class="label-text">Excellent</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="Your notes (optional)" id="note_q9"></div>
+                </div>
+                <div class="question-row" id="q10_row">
+                    <div class="q-text"><span class="q-num">10</span> Customer loyalty programs and targeted promotional offers</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q10" value="1" required> <span class="label-text">Poor</span></label>
+                        <label><input type="radio" name="q10" value="2"> <span class="label-text">Fair</span></label>
+                        <label><input type="radio" name="q10" value="3"> <span class="label-text">Good</span></label>
+                        <label><input type="radio" name="q10" value="4"> <span class="label-text">Very Good</span></label>
+                        <label><input type="radio" name="q10" value="5"> <span class="label-text">Excellent</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="Your notes (optional)" id="note_q10"></div>
+                </div>
+                <div class="question-row" id="q11_row">
+                    <div class="q-text"><span class="q-num">11</span> Annual marketing plan with defined budget and clear objectives</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q11" value="1" required> <span class="label-text">Poor</span></label>
+                        <label><input type="radio" name="q11" value="2"> <span class="label-text">Fair</span></label>
+                        <label><input type="radio" name="q11" value="3"> <span class="label-text">Good</span></label>
+                        <label><input type="radio" name="q11" value="4"> <span class="label-text">Very Good</span></label>
+                        <label><input type="radio" name="q11" value="5"> <span class="label-text">Excellent</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="Your notes (optional)" id="note_q11"></div>
+                </div>
+                <div class="section-note">
+                    <textarea placeholder="General notes on Marketing & Sales (optional)" id="note_sec3"></textarea>
+                </div>
+            </div>
+
+            <!-- SECTION 4: Human Resources -->
+            <div class="section-block">
+                <div class="section-header">
+                    <h3><i class="fas fa-users"></i> Human Resources</h3>
+                    <span class="max-score">Max Score: 10</span>
+                </div>
+                <div class="question-row" id="q12_row">
+                    <div class="q-text"><span class="q-num">12</span> Training and development plan for new and existing employees</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q12" value="1" required> <span class="label-text">Poor</span></label>
+                        <label><input type="radio" name="q12" value="2"> <span class="label-text">Fair</span></label>
+                        <label><input type="radio" name="q12" value="3"> <span class="label-text">Good</span></label>
+                        <label><input type="radio" name="q12" value="4"> <span class="label-text">Very Good</span></label>
+                        <label><input type="radio" name="q12" value="5"> <span class="label-text">Excellent</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="Your notes (optional)" id="note_q12"></div>
+                </div>
+                <div class="question-row" id="q13_row">
+                    <div class="q-text"><span class="q-num">13</span> Employee turnover rate and effective performance incentive system</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q13" value="1" required> <span class="label-text">Poor</span></label>
+                        <label><input type="radio" name="q13" value="2"> <span class="label-text">Fair</span></label>
+                        <label><input type="radio" name="q13" value="3"> <span class="label-text">Good</span></label>
+                        <label><input type="radio" name="q13" value="4"> <span class="label-text">Very Good</span></label>
+                        <label><input type="radio" name="q13" value="5"> <span class="label-text">Excellent</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="Your notes (optional)" id="note_q13"></div>
+                </div>
+                <div class="section-note">
+                    <textarea placeholder="General notes on Human Resources (optional)" id="note_sec4"></textarea>
+                </div>
+            </div>
+
+            <!-- SECTION 5: Expansion & Franchising -->
+            <div class="section-block">
+                <div class="section-header">
+                    <h3><i class="fas fa-store-alt"></i> Expansion & Franchising</h3>
+                    <span class="max-score">Max Score: 15</span>
+                </div>
+                <div class="question-row" id="q14_row">
+                    <div class="q-text"><span class="q-num">14</span> Scalability of the business model for successful replication</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q14" value="1" required> <span class="label-text">Poor</span></label>
+                        <label><input type="radio" name="q14" value="2"> <span class="label-text">Fair</span></label>
+                        <label><input type="radio" name="q14" value="3"> <span class="label-text">Good</span></label>
+                        <label><input type="radio" name="q14" value="4"> <span class="label-text">Very Good</span></label>
+                        <label><input type="radio" name="q14" value="5"> <span class="label-text">Excellent</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="Your notes (optional)" id="note_q14"></div>
+                </div>
+                <div class="question-row" id="q15_row">
+                    <div class="q-text"><span class="q-num">15</span> Comprehensive documentation of processes (operational guides, training, brand)</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q15" value="1" required> <span class="label-text">Poor</span></label>
+                        <label><input type="radio" name="q15" value="2"> <span class="label-text">Fair</span></label>
+                        <label><input type="radio" name="q15" value="3"> <span class="label-text">Good</span></label>
+                        <label><input type="radio" name="q15" value="4"> <span class="label-text">Very Good</span></label>
+                        <label><input type="radio" name="q15" value="5"> <span class="label-text">Excellent</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="Your notes (optional)" id="note_q15"></div>
+                </div>
+                <div class="question-row" id="q16_row">
+                    <div class="q-text"><span class="q-num">16</span> Trademark registration and intellectual property protection</div>
+                    <div class="options-row">
+                        <label><input type="radio" name="q16" value="1" required> <span class="label-text">Poor</span></label>
+                        <label><input type="radio" name="q16" value="2"> <span class="label-text">Fair</span></label>
+                        <label><input type="radio" name="q16" value="3"> <span class="label-text">Good</span></label>
+                        <label><input type="radio" name="q16" value="4"> <span class="label-text">Very Good</span></label>
+                        <label><input type="radio" name="q16" value="5"> <span class="label-text">Excellent</span></label>
+                    </div>
+                    <div class="note-field"><input type="text" placeholder="Your notes (optional)" id="note_q16"></div>
+                </div>
+                <div class="section-note">
+                    <textarea placeholder="General notes on Expansion & Franchising (optional)" id="note_sec5"></textarea>
+                </div>
+            </div>
+
+            <!-- SUBMIT -->
+            <button class="btn-generate" id="submitBtn" onclick="handleSubmit()">
+                <i class="fas fa-chart-bar"></i> Diagnose Your Establishment Now
+            </button>
+
+            <!-- ===== REPORT ===== -->
+            <div class="report-section" id="reportContainer">
+                <div class="report-card" id="reportContent">
+                    <div class="report-head">
+                        <h2><i class="fas fa-stethoscope"></i> Diagnostic Report</h2>
+                        <div class="client-name" id="reportClientName"></div>
+                        <div class="meta" id="reportMeta"></div>
+                    </div>
+
+                    <table class="summary-table" id="summaryTable">
+                        <thead>
+                            <tr>
+                                <th>Area</th>
+                                <th>Score</th>
+                                <th>Percentage</th>
+                                <th>Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+                    <div class="score-circle-wrap">
+                        <div class="score-circle" id="finalScoreCircle">0</div>
+                    </div>
+                    <div class="final-classification" id="finalClassification"></div>
+
+                    <div class="charts-grid" id="chartsContainer"></div>
+
+                    <div class="recommendation-box" id="recommendationBox">
+                        <strong><i class="fas fa-lightbulb"></i> Recommendations</strong>
+                        <p id="recommendationText"></p>
+                    </div>
+
+                    <div class="export-btns">
+                        <button onclick="exportReport('pdf')"><i class="fas fa-file-pdf"></i> Export PDF</button>
+                        <button onclick="exportReport('word')"><i class="fas fa-file-word"></i> Export Word</button>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /form-container -->
+    </div><!-- /container -->
+
+    <!-- ===== FLOATING HOME BUTTON ===== -->
+    <a href="En.html" class="floating-home"><i class="fas fa-home"></i> Home</a>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script>
+        // ===== CONFIG =====
+        // ⚠️ Replace this URL with your actual Google Apps Script deployment URL
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx8oKvnxszl5dvwim9wIXHNLr9Q8pkYuoihlPffH9_jkOU1D3qbGmFAR2aF3T8I6zJS/exec";
+
+        // ===== STATE =====
+        let chartInstances = [];
+        let lastReportData = null;
+
+        // ===== DOM REFS =====
+        const $ = id => document.getElementById(id);
+        const loadingOverlay = $('loadingOverlay');
+        const reportContainer = $('reportContainer');
+        const submitBtn = $('submitBtn');
+
+        // ===== HELPERS =====
+        function getVal(id) { return $(id) ? $(id).value.trim() : ''; }
+
+        function getRadioVal(name) {
+            const el = document.querySelector(`input[name="${name}"]:checked`);
+            return el ? parseInt(el.value) : 0;
+        }
+
+        function getNote(id) { return $(id) ? $(id).value.trim() : ''; }
+
+        function getSectionNote(id) { return $(id) ? $(id).value.trim() : ''; }
+
+        function showLoading(show) {
+            loadingOverlay.classList.toggle('show', show);
+            submitBtn.disabled = show;
+        }
+
+        // ===== VALIDATION =====
+        function validateForm() {
+            const restaurant = getVal('restaurantName');
+            const owner = getVal('ownerName');
+            const email = getVal('email');
+            const phone = getVal('phone');
+            const countryCode = getVal('countryCodeInput');
+
+            if (!restaurant) { alert('Please enter the establishment name.'); return false; }
+            if (!owner) { alert('Please enter the owner name.'); return false; }
+            if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return false; }
+            if (!phone || phone.length < 6) { alert('Please enter a valid phone number.'); return false; }
+            if (!countryCode || !countryCode.startsWith('+')) { alert('Please select or enter a valid country code (e.g. +90).'); return false; }
+
+            const requiredRadios = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14',
+                'q15', 'q16'
+            ];
+            for (const q of requiredRadios) {
+                const checked = document.querySelector(`input[name="${q}"]:checked`);
+                if (!checked) {
+                    alert(`Please answer all questions (question ${q.replace('q','')}).`);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // ===== COLLECT DATA =====
+        function collectData() {
+            const qMap = {};
+            for (let i = 1; i <= 16; i++) {
+                qMap[`q${i}`] = getRadioVal(`q${i}`);
+            }
+
+            const sections = [
+                { id: 'sec1', name: 'Operations & Processes', qs: ['q1', 'q2', 'q3', 'q4'], max: 20, weight: 0.25 },
+                { id: 'sec2', name: 'Financial Management', qs: ['q5', 'q6', 'q7', 'q8'], max: 20, weight: 0.25 },
+                { id: 'sec3', name: 'Marketing & Sales', qs: ['q9', 'q10', 'q11'], max: 15, weight: 0.18 },
+                { id: 'sec4', name: 'Human Resources', qs: ['q12', 'q13'], max: 10, weight: 0.12 },
+                { id: 'sec5', name: 'Expansion & Franchising', qs: ['q14', 'q15', 'q16'], max: 15, weight: 0.20 },
+            ];
+
+            const sectionScores = sections.map(sec => {
+                let raw = 0;
+                sec.qs.forEach(q => raw += qMap[q]);
+                const pct = Math.round((raw / sec.max) * 100);
+                return { ...sec, raw, pct };
+            });
+
+            let totalWeighted = 0;
+            sectionScores.forEach(s => totalWeighted += s.pct * s.weight);
+            const finalScore = Math.round(totalWeighted);
+
+            const qLabels = {
+                q1: 'Quality of customer service and responsiveness',
+                q2: 'Kitchen management efficiency and order preparation speed',
+                q3: 'Availability and implementation of updated Standard Operating Procedures (SOPs)',
+                q4: 'Implementation of food safety standards (HACCP) and general cleanliness',
+                q5: 'Accounting system and periodic financial statements',
+                q6: 'Strict monitoring of costs and gross/net profit margins',
+                q7: 'Cash flow management and sufficient liquidity for daily operations',
+                q8: 'Menu engineering (profitability analysis) and menu adjustments',
+                q9: 'Digital presence and social media marketing',
+                q10: 'Customer loyalty programs and targeted promotional offers',
+                q11: 'Annual marketing plan with defined budget and clear objectives',
+                q12: 'Training and development plan for new and existing employees',
+                q13: 'Employee turnover rate and effective performance incentive system',
+                q14: 'Scalability of the business model for successful replication',
+                q15: 'Comprehensive documentation of processes (operational guides, training, brand)',
+                q16: 'Trademark registration and intellectual property protection'
+            };
+
+            const questionsDetail = [];
+            for (let i = 1; i <= 16; i++) {
+                const q = `q${i}`;
+                const score = qMap[q];
+                const labelMap = { 1: 'Poor', 2: 'Fair', 3: 'Good', 4: 'Very Good', 5: 'Excellent' };
+                questionsDetail.push({
+                    num: i,
+                    id: q,
+                    text: qLabels[q] || q,
+                    score: score,
+                    label: labelMap[score] || '-',
+                    note: getNote(`note_${q}`)
+                });
+            }
+
+            return {
+                client: {
+                    restaurant: getVal('restaurantName'),
+                    owner: getVal('ownerName'),
+                    email: getVal('email'),
+                    countryCode: getVal('countryCodeInput'),
+                    phone: getVal('phone'),
+                    city: getVal('city'),
+                    estYear: getVal('estYear'),
+                    branches: getVal('branches'),
+                    activity: getVal('activityType'),
+                    employees: getVal('employees'),
+                },
+                sections: sectionScores,
+                questions: questionsDetail,
+                finalScore: finalScore,
+                sectionNotes: {
+                    sec1: getSectionNote('note_sec1'),
+                    sec2: getSectionNote('note_sec2'),
+                    sec3: getSectionNote('note_sec3'),
+                    sec4: getSectionNote('note_sec4'),
+                    sec5: getSectionNote('note_sec5'),
+                },
+                timestamp: new Date().toISOString(),
+            };
+        }
+
+        // ===== CLASSIFICATION =====
+        function getClassification(score) {
+            if (score >= 85) return { text: 'Excellent – Ready for expansion and franchising', cls: 'excellent' };
+            if (score >= 70) return { text: 'Very Good – Needs limited improvements', cls: 'good' };
+            if (score >= 55) return { text: 'Good – Requires partial restructuring', cls: 'fair' };
+            return { text: 'Needs development – Rebuild the system', cls: 'poor' };
+        }
+
+        function getRecommendations(score, sections) {
+            const weakAreas = sections.filter(s => s.pct < 55).map(s => s.name);
+            const midAreas = sections.filter(s => s.pct >= 55 && s.pct < 75).map(s => s.name);
+
+            let recs = [];
+            if (score >= 85) {
+                recs.push('✅ System is integrated; recommended continuous improvement and measured expansion.');
+                recs.push('📌 Document procedures more professionally for franchising.');
+                recs.push('📌 Invest in digital marketing and loyalty programs to boost competitive advantage.');
+            } else if (score >= 70) {
+                recs.push('📌 Improve operational documentation and SOPs.');
+                recs.push('📌 Strengthen financial oversight and regular cost analysis.');
+                if (weakAreas.length) recs.push(`📌 Focus on improving: ${weakAreas.join(', ')}.`);
+            } else if (score >= 55) {
+                recs.push('📌 Restructure core processes and standardize procedures.');
+                recs.push('📌 Develop a clear financial plan with operational budgets.');
+                recs.push('📌 Train employees and improve retention rates.');
+                if (weakAreas.length) recs.push(`📌 Prioritize development of: ${weakAreas.join(', ')}.`);
+            } else {
+                recs.push('🚨 Rebuild the operational and managerial system from the ground up.');
+                recs.push('📌 Implement an integrated accounting system and strict cost control.');
+                recs.push('📌 Develop an effective digital marketing plan to increase sales.');
+                recs.push('📌 Train and qualify human resources and improve work culture.');
+                recs.push('📌 Document all processes as a first step toward expansion.');
+            }
+            return recs;
+        }
+
+        // ===== RENDER REPORT =====
+        function renderReport(data) {
+            const { client, sections, questions, finalScore, sectionNotes } = data;
+            const classInfo = getClassification(finalScore);
+            const recs = getRecommendations(finalScore, sections);
+
+            $('reportClientName').textContent = `${client.restaurant} | ${client.owner}`;
+            const phoneFull = client.countryCode + ' ' + client.phone;
+            $('reportMeta').textContent =
+                `📧 ${client.email} | 📱 ${phoneFull} | ${client.city || '-'} | ${client.activity || '-'} | Branches: ${client.branches || '-'} | Employees: ${client.employees || '-'}`;
+
+            const tbody = document.querySelector('#summaryTable tbody');
+            tbody.innerHTML = '';
+            sections.forEach(s => {
+                const cls = s.pct >= 85 ? 'excellent' : s.pct >= 70 ? 'good' : s.pct >= 55 ? 'fair' : 'poor';
+                const clsLabel = s.pct >= 85 ? 'Excellent' : s.pct >= 70 ? 'Very Good' : s.pct >= 55 ? 'Good' :
+                    'Needs Development';
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${s.name}</td>
+                    <td>${s.raw}/${s.max}</td>
+                    <td>${s.pct}%</td>
+                    <td><span class="score-badge ${cls}">${clsLabel}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            $('finalScoreCircle').textContent = finalScore;
+            $('finalClassification').textContent = `Overall Rating: ${classInfo.text}`;
+
+            chartInstances.forEach(c => c.destroy());
+            chartInstances = [];
+            const chartsContainer = $('chartsContainer');
+            chartsContainer.innerHTML = '';
+            sections.forEach((s, i) => {
+                const box = document.createElement('div');
+                box.className = 'chart-box';
+                const canvasId = `chart-${i}`;
+                box.innerHTML = `<h4>${s.name}</h4><canvas id="${canvasId}" height="100"></canvas>`;
+                chartsContainer.appendChild(box);
+            });
+
+            setTimeout(() => {
+                sections.forEach((s, i) => {
+                    const canvas = document.getElementById(`chart-${i}`);
+                    if (!canvas) return;
+                    const ctx = canvas.getContext('2d');
+                    const color = s.pct >= 85 ? '#28a745' : s.pct >= 70 ? '#d4b15a' : s.pct >= 55 ? '#f0a030' :
+                        '#dc3545';
+                    const chart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: [s.name],
+                            datasets: [{
+                                data: [s.pct],
+                                backgroundColor: color,
+                                borderColor: color,
+                                borderWidth: 1,
+                                barThickness: 32,
+                                borderRadius: 6,
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y',
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            scales: {
+                                x: { beginAtZero: true, max: 100, ticks: { color: '#aab7d4', font: { size: 10 } },
+                                    grid: { color: 'rgba(255,255,255,0.05)' } },
+                                y: { ticks: { color: '#aab7d4', font: { size: 10 } }, grid: { display: false } }
+                            },
+                            plugins: { legend: { display: false } },
+                            animation: { duration: 600 }
+                        }
+                    });
+                    chartInstances.push(chart);
+                });
+            }, 100);
+
+            const recHtml = recs.map(r => `<li>${r}</li>`).join('');
+            $('recommendationText').innerHTML = `<ul>${recHtml}</ul>`;
+
+            lastReportData = data;
+            reportContainer.style.display = 'block';
+            reportContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ===== SUBMIT =====
+        async function handleSubmit() {
+            if (!validateForm()) return;
+            showLoading(true);
+
+            const data = collectData();
+
+            const payload = {
+                restaurantName: data.client.restaurant,
+                ownerName: data.client.owner,
+                email: data.client.email,
+                countryCode: data.client.countryCode,
+                phone: data.client.phone,
+                city: data.client.city,
+                estYear: data.client.estYear,
+                branches: data.client.branches,
+                activity: data.client.activity,
+                employees: data.client.employees,
+                finalScore: data.finalScore,
+                sec1_score: data.sections[0].pct,
+                sec2_score: data.sections[1].pct,
+                sec3_score: data.sections[2].pct,
+                sec4_score: data.sections[3].pct,
+                sec5_score: data.sections[4].pct,
+                note_sec1: data.sectionNotes.sec1,
+                note_sec2: data.sectionNotes.sec2,
+                note_sec3: data.sectionNotes.sec3,
+                note_sec4: data.sectionNotes.sec4,
+                note_sec5: data.sectionNotes.sec5,
+                ...data.questions.reduce((acc, q) => { acc[`q${q.num}_score`] = q.score; return acc; }, {}),
+                ...data.questions.reduce((acc, q) => { acc[`q${q.num}_note`] = q.note || ''; return acc; }, {}),
+                timestamp: data.timestamp,
+            };
+
+            try {
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                console.log('✅ Data sent to Google Sheets');
+            } catch (err) {
+                console.error('⚠️ Error sending to Google Sheets:', err);
+            }
+
+            renderReport(data);
+            showLoading(false);
+        }
+
+        // ===== EXPORT =====
+        function exportReport(type) {
+            if (!lastReportData) { alert('Please run the diagnosis first.'); return; }
+            const data = lastReportData;
+            const classInfo = getClassification(data.finalScore);
+            const recs = getRecommendations(data.finalScore, data.sections);
+
+            let questionsHtml = data.questions.map(q =>
+                `<tr><td>${q.num}</td><td>${q.text}</td><td>${q.score}/5</td><td>${q.label}</td><td>${q.note || '-'}</td></tr>`
+            ).join('');
+
+            let sectionsHtml = data.sections.map(s => {
+                const cls = s.pct >= 85 ? 'Excellent' : s.pct >= 70 ? 'Very Good' : s.pct >= 55 ? 'Good' :
+                    'Needs Development';
+                return `<tr><td>${s.name}</td><td>${s.raw}/${s.max}</td><td>${s.pct}%</td><td>${cls}</td></tr>`;
+            }).join('');
+
+            const recHtml = recs.map(r => `<li>${r}</li>`).join('');
+
+            const phoneFull = data.client.countryCode + ' ' + data.client.phone;
+
+            const htmlContent = `
+            <!DOCTYPE html>
+            <html lang="en">
+            <head><meta charset="utf-8"><title>Diagnostic Report - ${data.client.restaurant}</title>
+            <style>
+                body{font-family:'Tajawal',sans-serif;padding:30px;background:#fff;color:#222;direction:ltr;text-align:left;}
+                .header{text-align:center;border-bottom:4px solid #b8860b;padding-bottom:16px;margin-bottom:24px;}
+                .header h1{color:#b8860b;font-size:24px;margin:0;}
+                .header p{margin:4px 0;color:#555;}
+                table{width:100%;border-collapse:collapse;margin:16px 0;}
+                th,td{border:1px solid #b8860b;padding:8px;text-align:center;}
+                th{background:#f5f0e0;color:#333;}
+                .score-box{text-align:center;padding:16px;background:#f5f0e0;border-radius:12px;margin:16px 0;}
+                .score-box .num{font-size:48px;font-weight:900;color:#b8860b;}
+                .rec-box{background:#faf6ed;padding:16px;border-radius:12px;border:1px solid #b8860b;margin:16px 0;}
+                .rec-box ul{list-style:none;padding:0;}
+                .rec-box ul li{padding:4px 0;border-bottom:1px solid #eee;}
+                .footer{text-align:center;color:#888;margin-top:30px;border-top:1px solid #ddd;padding-top:16px;}
+                .q-table td{font-size:13px;}
+                .badge{display:inline-block;padding:2px 14px;border-radius:30px;font-weight:700;font-size:12px;}
+                .badge.excellent{background:#d4edda;color:#155724;}
+                .badge.good{background:#fff3cd;color:#856404;}
+                .badge.fair{background:#fce4d6;color:#7b4a1a;}
+                .badge.poor{background:#f8d7da;color:#721c24;}
+            </style>
+            </head>
+            <body>
+                <div class="header">
+                    <h1>📊 Diagnostic Assessment Report</h1>
+                    <p><strong>Establishment:</strong> ${data.client.restaurant} | <strong>Owner:</strong> ${data.client.owner}</p>
+                    <p>📧 ${data.client.email} | 📱 ${phoneFull} | ${data.client.city || '-'}</p>
+                    <p>Activity: ${data.client.activity || '-'} | Branches: ${data.client.branches || '-'} | Employees: ${data.client.employees || '-'}</p>
+                    <p style="color:#888;font-size:13px;">Report date: ${new Date(data.timestamp).toLocaleString('en-US')}</p>
+                </div>
+
+                <h2>Area Results</h2>
+                <table>${sectionsHtml}</table>
+
+                <div class="score-box">
+                    <div class="num">${data.finalScore}%</div>
+                    <div style="font-size:20px;font-weight:700;">${classInfo.text}</div>
+                </div>
+
+                <h2>Recommendations</h2>
+                <div class="rec-box"><ul>${recHtml}</ul></div>
+
+                <h2>Question Details</h2>
+                <table class="q-table">
+                    <thead><tr><th>#</th><th>Question</th><th>Score</th><th>Rating</th><th>Notes</th></tr></thead>
+                    <tbody>${questionsHtml}</tbody>
+                </table>
+
+                <div class="footer">
+                    Generated by <strong>FAROUK GRUP</strong> Consulting & Business © ${new Date().getFullYear()}
+                </div>
+            </body>
+            </html>
+            `;
+
+            const blob = new Blob(['\uFEFF' + htmlContent], { type: 'text/html' });
+            const link = document.createElement('a');
+            const filename = `Report_${data.client.restaurant}_${new Date().toISOString().slice(0,10)}`;
+
+            if (type === 'word') {
+                link.download = `${filename}.doc`;
+                link.href = URL.createObjectURL(blob);
+                link.click();
+                URL.revokeObjectURL(link.href);
+            } else {
+                // PDF fallback: open print dialog
+                alert('To export as PDF, use the "Print" option and choose "Save as PDF" from your browser.');
+                const win = window.open('', '_blank');
+                win.document.write(htmlContent);
+                win.document.close();
+                win.focus();
+                win.print();
+            }
+        }
+
+        // ===== KEYBOARD SUPPORT =====
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+                const btn = document.activeElement?.closest('.question-row')?.querySelector('input[type="radio"]');
+                if (btn) {
+                    const radios = document.querySelectorAll(`input[name="${btn.name}"]`);
+                    let found = false;
+                    for (let i = 0; i < radios.length; i++) {
+                        if (radios[i] === btn) {
+                            if (i < radios.length - 1) { radios[i + 1].checked = true;
+                                found = true; }
+                            break;
+                        }
+                    }
+                    if (!found && radios.length) radios[0].checked = true;
+                    e.preventDefault();
+                }
+            }
+        });
+
+        console.log('🩺 Restaurant Diagnostic Assessment - FAROUK GRUP');
+        console.log('ℹ️ Make sure to update the Google Script URL in the code.');
+    </script>
+</body>
+</html>
