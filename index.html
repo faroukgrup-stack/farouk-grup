@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>مجموعة فاروق للاستشارات والأعمال</title>
+<script src="protect.js"></script>
+
 <meta name="description" content="مجموعة فاروق للاستشارات والأعمال - خدمات متكاملة في إدارة المطاعم، التخطيط المالي، والتطوير المؤسسي في إسطنبول وتركيا، تأسيس الامتياز التجاري، خدمات المحاسبة في اسطنبول، محاسبة شركات، أدوات ادارية.">
 <meta name="keywords" content="فاروق جروب, Farouk Grup, استشارات مطاعم, إدارة مالية, تطوير أعمال, استشارات إدارية">
 <meta name="author" content="Farouk Azem">
@@ -298,9 +300,9 @@ nav.scrolled .logo h1{
 
 /* ============ HERO ============ */
 .hero{
-    background:linear-gradient(rgba(0,0,0,0.72),rgba(0,0,0,0.55)),
-    url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1600') center/cover;
-    padding:130px 20px 90px;
+    background:linear-gradient(rgba(0,0,0,0.78),rgba(0,0,0,0.58)),
+    url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1600') center/cover;
+    padding:140px 20px 100px;
     text-align:center;
     color:#fff;
     border-bottom:4px solid var(--gold);
@@ -310,11 +312,9 @@ nav.scrolled .logo h1{
 .hero::before{
     content:'';
     position:absolute;
-    top:-50%;
-    left:-50%;
-    width:200%;
-    height:200%;
-    background:radial-gradient(circle at 30% 50%, rgba(184,134,11,0.08) 0%, transparent 50%);
+    top:-50%; left:-50%;
+    width:200%; height:200%;
+    background:radial-gradient(circle at 30% 50%, rgba(184,134,11,0.12) 0%, transparent 55%);
     animation:heroGlow 8s ease-in-out infinite;
 }
 @keyframes heroGlow{
@@ -326,7 +326,7 @@ nav.scrolled .logo h1{
     color:var(--gold-light);
     margin-bottom:15px;
     font-weight:900;
-    text-shadow:2px 2px 10px rgba(0,0,0,0.3);
+    text-shadow:2px 2px 12px rgba(0,0,0,0.45);
     position:relative;
     animation:fadeInUp 0.8s ease;
 }
@@ -336,97 +336,143 @@ nav.scrolled .logo h1{
 }
 .hero p{
     max-width:750px;
-    margin:auto auto 30px;
+    margin:auto auto 40px;
     opacity:0.95;
     font-size:1.25rem;
     position:relative;
     animation:fadeInUp 0.8s ease 0.2s both;
+    text-shadow:0 2px 8px rgba(0,0,0,0.35);
 }
 
-/* ===== HERO BUTTONS CONTAINER ===== */
+/* ===== HERO BUTTONS - Redesigned ===== */
 .hero-buttons {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     gap: 16px;
     margin-top: 10px;
     position: relative;
     z-index: 2;
 }
 
-/* تنسيق الأزرار الأساسي */
 .consult-btn-hero {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    padding: 14px 28px;
-    border-radius: 50px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    color: #111;
+    gap: 12px;
+    padding: 16px 32px;
+    border-radius: 60px;
     font-weight: 900;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.25,0.8,0.25,1);
     font-size: 1.05rem;
-    box-shadow: 0 5px 20px rgba(184, 134, 11, 0.4);
     position: relative;
-    animation: fadeInUp 0.8s ease 0.4s both, pulseBtn 2.5s ease-in-out infinite;
-    min-width: 200px;
-    border: none;
+    min-width: 230px;
     cursor: pointer;
-}
-@keyframes pulseBtn{
-    0%,100%{box-shadow:0 5px 20px rgba(184,134,11,0.5)}
-    50%{box-shadow:0 8px 35px rgba(184,134,11,0.75)}
+    letter-spacing: 0.4px;
+    overflow: hidden;
 }
 
-/* إزالة الأنيميشن من الأزرار الثانوية لتجنب التشتت */
-.consult-btn-hero.secondary,
-.consult-btn-hero.tertiary {
-    animation: fadeInUp 0.8s ease 0.6s both;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+/* الزر الذهبي الرئيسي */
+.consult-btn-hero.primary {
+    background: linear-gradient(135deg, #c9a227 0%, #e8d48b 50%, #b8860b 100%);
+    background-size: 200% 200%;
+    color: #111;
+    border: none;
+    box-shadow: 0 8px 28px rgba(184,134,11,0.5), inset 0 1px 0 rgba(255,255,255,0.35);
+    animation: fadeInUp 0.8s ease 0.4s both, pulseGold 3s ease-in-out infinite, goldShine 4s ease infinite;
+}
+@keyframes pulseGold{
+    0%,100%{ box-shadow: 0 8px 28px rgba(184,134,11,0.5), inset 0 1px 0 rgba(255,255,255,0.35); }
+    50%{ box-shadow: 0 10px 40px rgba(184,134,11,0.7), 0 0 0 6px rgba(184,134,11,0.12), inset 0 1px 0 rgba(255,255,255,0.35); }
+}
+@keyframes goldShine{
+    0%{ background-position: 0% 50%; }
+    50%{ background-position: 100% 50%; }
+    100%{ background-position: 0% 50%; }
+}
+.consult-btn-hero.primary:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 14px 40px rgba(184,134,11,0.6);
 }
 
-/* زر "دراسة سريعة" (ثانوي) */
+/* زر ثانوي - إطار ذهبي مع تأثير ملء */
 .consult-btn-hero.secondary {
     background: transparent;
-    border: 2px solid var(--gold);
+    border: 2.5px solid var(--gold);
     color: var(--gold-light);
-    box-shadow: none;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+    animation: fadeInUp 0.8s ease 0.55s both;
+    position: relative;
+    z-index: 1;
+}
+.consult-btn-hero.secondary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    border-radius: 60px;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.25,0.8,0.25,1);
+    z-index: -1;
+}
+.consult-btn-hero.secondary:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
 }
 .consult-btn-hero.secondary:hover {
-    background: rgba(184, 134, 11, 0.15);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(184, 134, 11, 0.25);
-    color: #fff;
+    color: #111;
+    border-color: transparent;
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(184,134,11,0.4);
+}
+.consult-btn-hero.secondary:hover i {
+    color: #111;
 }
 
-/* زر "تقييم مطعمك" (ثالثي) */
+/* زر ثالثي - زجاجي فاخر */
 .consult-btn-hero.tertiary {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(255,255,255,0.28);
     color: #fff;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 22px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15);
+    animation: fadeInUp 0.8s ease 0.7s both;
 }
 .consult-btn-hero.tertiary:hover {
-    background: rgba(255, 255, 255, 0.18);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    background: rgba(255,255,255,0.18);
     border-color: var(--gold-light);
+    color: #fff;
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.4), 0 0 20px rgba(184,134,11,0.2);
 }
 
 .consult-btn-hero i {
     font-size: 1.2rem;
+    transition: 0.3s;
 }
-.consult-btn-hero.primary i {
-    color: #111;
+.consult-btn-hero.primary i { color: #111; }
+.consult-btn-hero.secondary i { color: var(--gold-light); }
+.consult-btn-hero.tertiary i { color: #fff; }
+
+/* تأثير لمعة خفيفة على الزر الرئيسي */
+.consult-btn-hero.primary::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 40%;
+    height: 200%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.25), transparent);
+    transform: rotate(25deg);
+    animation: btnShine 3.5s ease-in-out infinite;
 }
-.consult-btn-hero.secondary i {
-    color: var(--gold-light);
-}
-.consult-btn-hero.tertiary i {
-    color: #fff;
+@keyframes btnShine {
+    0% { left: -60%; }
+    40%,100% { left: 120%; }
 }
 
 /* ============ CLIENT TICKER ============ */
@@ -491,116 +537,166 @@ nav.scrolled .logo h1{
     margin-top:10px;
 }
 
-/* ============ SERVICES (2 Cards) ============ */
+/* ============ SERVICES (2 Cards) - Redesigned ============ */
 .services{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(420px,500px));
-    gap:40px;
+    grid-template-columns:repeat(auto-fit,minmax(380px,1fr));
+    gap:35px;
     margin-bottom:60px;
     justify-content:center;
 }
 .service-card{
     background:#fff;
-    padding:50px 40px;
+    padding:0;
     text-align:center;
-    border-radius:20px;
+    border-radius:24px;
     border:1px solid #eee;
-    transition:0.4s;
-    box-shadow:0 10px 30px rgba(0,0,0,0.04);
+    transition:0.4s cubic-bezier(0.25,0.8,0.25,1);
+    box-shadow:0 12px 40px rgba(0,0,0,0.06);
     position:relative;
     overflow:hidden;
     cursor:default;
+    display:flex;
+    flex-direction:column;
 }
 .service-card::before{
     content:'';
     position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    height:4px;
+    top:0; left:0; right:0;
+    height:5px;
     background:linear-gradient(90deg,var(--gold),var(--gold-light));
     transform:scaleX(0);
-    transition:transform 0.4s;
+    transition:transform 0.45s ease;
+    z-index:2;
 }
-.service-card:hover::before{
-    transform:scaleX(1);
+.service-card:hover::before{ transform:scaleX(1); }
+.service-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 28px 55px rgba(0,0,0,0.12);
+    border-color:rgba(184,134,11,0.35);
+}
+.service-card-header{
+    background:linear-gradient(145deg,#1a1a1a 0%,#2a2a2a 100%);
+    padding:32px 28px 28px;
+    position:relative;
+    overflow:hidden;
+}
+.service-card-header::after{
+    content:'';
+    position:absolute;
+    bottom:-40px; left:-20px;
+    width:120px; height:120px;
+    background:radial-gradient(circle,rgba(184,134,11,0.15) 0%,transparent 70%);
+    border-radius:50%;
 }
 .service-card .card-badge{
     position:absolute;
-    top:20px;
-    left:20px;
-    background:var(--gold-soft);
-    color:var(--gold);
-    padding:6px 16px;
+    top:18px; left:18px;
+    background:rgba(184,134,11,0.2);
+    color:var(--gold-light);
+    padding:5px 14px;
     border-radius:50px;
-    font-size:0.8rem;
+    font-size:0.75rem;
     font-weight:700;
+    border:1px solid rgba(184,134,11,0.3);
+    z-index:1;
 }
-.service-card i{
-    font-size:3.5rem;
-    color:var(--gold);
-    margin-bottom:20px;
-    transition:0.3s;
-    display:inline-block;
-}
-.service-card:hover i{
-    transform:scale(1.1) rotate(-5deg);
-}
-.service-card h3{
-    font-size:1.6rem;
-    margin-bottom:15px;
-    font-weight:900;
-}
-.service-card ul{
-    text-align:right;
-    margin-top:15px;
-    list-style:none;
-    padding-right:0;
-}
-.service-card ul li{
-    margin-bottom:10px;
-    padding-right:25px;
-    position:relative;
-}
-.service-card ul li:before{
-    content:'\f00c';
-    font-family:'Font Awesome 6 Free';
-    font-weight:900;
-    color:var(--gold);
-    position:absolute;
-    right:0;
-}
-.service-card:hover{
-    transform:translateY(-12px);
-    box-shadow:0 25px 50px rgba(0,0,0,0.12);
-    border-color:var(--gold-light);
-}
-
-.inquiry-btn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    padding:14px 28px;
-    border-radius:50px;
+.service-icon-wrap{
+    width:80px; height:80px;
+    margin:0 auto 16px;
     background:linear-gradient(135deg,var(--gold),var(--gold-light));
-    color:#111;
-    font-weight:900;
-    text-decoration:none;
-    transition:0.3s;
-    box-shadow:0 5px 15px rgba(184,134,11,0.5);
-    margin-top:20px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 8px 25px rgba(184,134,11,0.4);
+    transition:0.35s;
+    position:relative; z-index:1;
+}
+.service-card:hover .service-icon-wrap{
+    transform:scale(1.08) rotate(-6deg);
+    box-shadow:0 12px 30px rgba(184,134,11,0.55);
+}
+.service-icon-wrap i{ font-size:2.2rem; color:#111; margin:0; }
+.service-card h3{
+    font-size:1.55rem; margin:0; font-weight:900;
+    color:#fff; position:relative; z-index:1;
+}
+.service-card-header .card-desc{
+    color:rgba(255,255,255,0.7);
+    font-size:0.9rem; margin-top:8px;
+    position:relative; z-index:1;
+}
+.service-card-body{
+    padding:28px 26px 32px;
+    flex:1; display:flex; flex-direction:column;
+}
+.service-features{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px 14px;
+    text-align:right;
+    margin-bottom:8px;
+}
+.feature-item{
+    display:flex; align-items:flex-start; gap:10px;
+    padding:10px 12px;
+    background:#fafafa;
+    border-radius:12px;
+    border:1px solid #f0f0f0;
+    transition:0.25s;
+}
+.feature-item:hover{
+    background:var(--gold-soft);
+    border-color:rgba(184,134,11,0.25);
+    transform:translateX(-3px);
+}
+.feature-item .feat-icon{
+    width:32px; height:32px; min-width:32px;
+    background:linear-gradient(135deg,var(--gold),var(--gold-light));
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    color:#111; font-size:0.85rem;
+}
+.feature-item span{
+    font-size:0.88rem; font-weight:600; color:#333;
+    line-height:1.45; padding-top:4px;
+}
+.service-benefits{
+    list-style:none; text-align:right; margin:0 0 10px; padding:0;
+}
+.service-benefits li{
+    display:flex; align-items:flex-start; gap:12px;
+    margin-bottom:14px; padding:12px 14px;
+    background:#fafafa; border-radius:12px;
+    border:1px solid #f0f0f0; transition:0.25s;
+}
+.service-benefits li:hover{
+    background:var(--gold-soft);
+    border-color:rgba(184,134,11,0.25);
+}
+.service-benefits .ben-icon{
+    width:34px; height:34px; min-width:34px;
+    background:linear-gradient(135deg,var(--gold),var(--gold-light));
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:#111; font-size:0.9rem;
+}
+.service-benefits li span{
+    font-size:0.92rem; color:#444; line-height:1.6; font-weight:500;
+}
+.inquiry-btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:14px 28px; border-radius:50px;
+    background:linear-gradient(135deg,var(--gold),var(--gold-light));
+    color:#111; font-weight:900; text-decoration:none;
+    transition:0.3s; box-shadow:0 6px 18px rgba(184,134,11,0.4);
+    margin-top:auto; align-self:center;
 }
 .inquiry-btn:hover{
     background:linear-gradient(135deg,#111,#222);
-    color:var(--gold);
-    transform:translateY(-3px);
-    box-shadow:0 10px 25px rgba(184,134,11,0.6);
+    color:var(--gold); transform:translateY(-3px);
+    box-shadow:0 12px 28px rgba(184,134,11,0.5);
 }
-.inquiry-btn i{
-    font-size:1rem;
-    margin:0;
-}
+.inquiry-btn i{ font-size:1rem; margin:0; }
 
 /* ============ STATISTICS ============ */
 .stats-bar{
@@ -1095,7 +1191,7 @@ hr{
 @media (max-width:992px){
     .services{
         grid-template-columns:1fr;
-        max-width:550px;
+        max-width:520px;
         margin-left:auto;
         margin-right:auto;
     }
@@ -1214,8 +1310,17 @@ hr{
     .section-title h2{
         font-size:1.7rem;
     }
-    .service-card{
-        padding:30px 20px;
+    .service-features{
+        grid-template-columns:1fr;
+    }
+    .feature-item span{
+        font-size:0.85rem;
+    }
+    .service-card-header{
+        padding:26px 20px 22px;
+    }
+    .service-card-body{
+        padding:22px 18px 26px;
     }
     .stats-bar{
         gap:20px;
@@ -1350,41 +1455,96 @@ hr{
     <div class="services">
         <!-- بطاقة المطاعم -->
         <div class="service-card" data-aos="zoom-in">
-            <span class="card-badge">إستشارات</span>
-            <i class="fas fa-utensils"></i>
-            <h3>تطوير المطاعم</h3>
-            <ul>
-                <li>تحليل السوق وفهم الزبائن</li>
-                <li>تطوير قائمة الطعام وتحسين الجودة</li>
-                <li>تحسين الخدمة وتجربة الزبون</li>
-                <li>الدراسات المالية للمصاريف والنفقات</li>
-                <li>تدريب الموظفين والعاملين على المهام</li>
-                <li>وضع خطط لتسريع الإنتاج</li>
-                <li>قوائم تقييم الموظفين</li>
-                <li>إنشاء دليل الموظف</li>
-                <li>خطط تسويقية فعالة</li>
-                <li>تأسيس منظومة الامتياز التجاري</li>
-            </ul>
-            <a href="re-dev.html" target="_self" class="inquiry-btn">
-                <i class="fas fa-crown"></i> التفاصيل هنا
-            </a>
+            <div class="service-card-header">
+                <span class="card-badge">إستشارات</span>
+                <div class="service-icon-wrap">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <h3>تطوير المطاعم</h3>
+                <p class="card-desc">حلول متكاملة لرفع أداء مطعمك وزيادة أرباحه</p>
+            </div>
+            <div class="service-card-body">
+                <div class="service-features">
+                    <div class="feature-item">
+                        <div class="feat-icon"><i class="fas fa-chart-pie"></i></div>
+                        <span>تحليل السوق وفهم الزبائن</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feat-icon"><i class="fas fa-book-open"></i></div>
+                        <span>تطوير قائمة الطعام وتحسين الجودة</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feat-icon"><i class="fas fa-concierge-bell"></i></div>
+                        <span>تحسين الخدمة وتجربة الزبون</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feat-icon"><i class="fas fa-calculator"></i></div>
+                        <span>الدراسات المالية للمصاريف والنفقات</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feat-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                        <span>تدريب الموظفين والعاملين على المهام</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feat-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        <span>وضع خطط لتسريع الإنتاج</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feat-icon"><i class="fas fa-clipboard-list"></i></div>
+                        <span>قوائم تقييم الموظفين</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feat-icon"><i class="fas fa-book"></i></div>
+                        <span>إنشاء دليل الموظف</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feat-icon"><i class="fas fa-bullhorn"></i></div>
+                        <span>خطط تسويقية فعالة</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feat-icon"><i class="fas fa-store"></i></div>
+                        <span>تأسيس منظومة الامتياز التجاري</span>
+                    </div>
+                </div>
+                <a href="re-dev.html" target="_self" class="inquiry-btn">
+                    <i class="fas fa-crown"></i> التفاصيل هنا
+                </a>
+            </div>
         </div>
 
         <!-- بطاقة المحاسبة -->
         <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-            <span class="card-badge">توفير التكاليف</span>
-            <i class="fas fa-file-invoice-dollar"></i>
-            <h3>محاسبة الشركات</h3>
-            <p style="margin-bottom:10px;">وفر تكاليف تشغيل قسم محاسبة كامل</p>
-            <ul>
-                <li>نقدم لك خدمات محاسبية احترافية مما يتيح لك الدفع فقط مقابل الخدمات التي تحتاجها.</li>
-                <li>احصل على تقارير مالية تفصيلية، واستشارات مالية متخصصة، وخدمات أخرى عديدة.</li>
-                <li>لا تحتاج إلى عقود طويلة الأجل أو التزامات مالية كبيرة.</li>
-                <li>كل هذه الخدمات تُقدم حسب الساعة، وحسب احتياج عملك مما يتيح لك تخصيص ميزانيتك وتلبية احتياجات عملك المتغيرة.</li>
-            </ul>
-            <a href="Financial.html" target="_self" class="inquiry-btn">
-                <i class="fas fa-chart-pie"></i> الباقة الأساسية
-            </a>
+            <div class="service-card-header">
+                <span class="card-badge">توفير التكاليف</span>
+                <div class="service-icon-wrap">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                </div>
+                <h3>محاسبة الشركات</h3>
+                <p class="card-desc">وفر تكاليف تشغيل قسم محاسبة كامل</p>
+            </div>
+            <div class="service-card-body">
+                <ul class="service-benefits">
+                    <li>
+                        <div class="ben-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                        <span>نقدم لك خدمات محاسبية احترافية مما يتيح لك الدفع فقط مقابل الخدمات التي تحتاجها.</span>
+                    </li>
+                    <li>
+                        <div class="ben-icon"><i class="fas fa-file-alt"></i></div>
+                        <span>احصل على تقارير مالية تفصيلية، واستشارات مالية متخصصة، وخدمات أخرى عديدة.</span>
+                    </li>
+                    <li>
+                        <div class="ben-icon"><i class="fas fa-calendar-check"></i></div>
+                        <span>لا تحتاج إلى عقود طويلة الأجل أو التزامات مالية كبيرة.</span>
+                    </li>
+                    <li>
+                        <div class="ben-icon"><i class="fas fa-sliders-h"></i></div>
+                        <span>كل هذه الخدمات تُقدم حسب الساعة، وحسب احتياج عملك مما يتيح لك تخصيص ميزانيتك وتلبية احتياجات عملك المتغيرة.</span>
+                    </li>
+                </ul>
+                <a href="Financial.html" target="_self" class="inquiry-btn">
+                    <i class="fas fa-chart-pie"></i> الباقة الأساسية
+                </a>
+            </div>
         </div>
     </div>
 
@@ -1618,7 +1778,7 @@ hr{
 
         <div class="copyright">
             جميع الحقوق محفوظة  © 2026 <span>FAROUK GRUP</span>
-            <p style="margin-top:5px;opacity:0.8;">Adnan Kahveci, Beylikdüzü / İstanbul, Türkiye V3.2</p>
+            <p style="margin-top:5px;opacity:0.8;">Adnan Kahveci, Beylikdüzü / İstanbul, Türkiye V3.3</p>
         </div>
     </div>
 </footer>
