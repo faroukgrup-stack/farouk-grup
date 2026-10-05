@@ -4,687 +4,757 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>طلب استشارة | FAROUK GRUP</title>
+<script src="protect.js"></script>
+<meta name="description" content="احجز استشارتك الآن مع مجموعة فاروق - استشارات هاتفية وميدانية لتطوير المطاعم والأعمال في إسطنبول وتركيا.">
 
-<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-<!-- AOS Library -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 :root {
     --gold: #b8860b;
     --gold-light: #d4b15a;
-    --gold-soft: rgba(184, 134, 11, 0.1);
+    --gold-soft: rgba(184,134,11,0.12);
     --dark: #0f0f0f;
     --dark-light: #1a1a1a;
     --white: #ffffff;
-    --offwhite: #f9f9f9;
+    --offwhite: #f7f7f7;
     --text: #333;
+    --whatsapp: #25D366;
 }
 
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
 body {
     font-family: 'Tajawal', sans-serif;
     background: var(--offwhite);
     color: var(--text);
-    line-height: 1.6;
+    line-height: 1.7;
     overflow-x: hidden;
 }
 
-/* Navigation */
+/* ===== NAV ===== */
 nav {
-    background: var(--white);
-    padding: 1rem 5%;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(12px);
+    padding: 14px 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+    border-bottom: 1px solid #eee;
     position: sticky;
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 20px rgba(0,0,0,0.05);
 }
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.logo img {
-    height: 50px;
-    width: auto;
-}
-
+.logo { display: flex; align-items: center; gap: 12px; }
+.logo img { height: 46px; width: auto; }
 .logo h1 {
     font-family: 'Alexandria', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--gold);
-    letter-spacing: 1px;
 }
-
-nav a {
+.nav-links { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.nav-links a {
     text-decoration: none;
     color: #444;
-    margin: 0 0.8rem;
+    margin: 0 6px;
     font-weight: 600;
+    font-size: 0.95rem;
     transition: 0.3s;
+    padding: 6px 0;
 }
-nav a:hover { color: var(--gold); }
-nav a i { margin-left: 5px; }
+.nav-links a:hover { color: var(--gold); }
+.nav-links a i { margin-left: 5px; }
 
-/* Hero Section */
+/* ===== HERO ===== */
 .hero {
-    background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 100%), url('https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1600') center/cover;
-    padding: 6rem 1rem;
+    background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.65)),
+                url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1600') center/cover;
+    padding: 110px 20px 90px;
     text-align: center;
-    color: white;
+    color: #fff;
     border-bottom: 4px solid var(--gold);
     position: relative;
     overflow: hidden;
 }
-
 .hero::before {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(184,134,11,0.1) 0%, transparent 60%);
-    animation: rotate 30s linear infinite;
+    top: -40%; left: -40%;
+    width: 180%; height: 180%;
+    background: radial-gradient(circle at 40% 50%, rgba(184,134,11,0.15) 0%, transparent 55%);
+    animation: heroGlow 10s ease-in-out infinite;
 }
-
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+@keyframes heroGlow {
+    0%,100% { transform: translate(0,0); }
+    50% { transform: translate(25px,-15px); }
 }
-
-.hero h2 {
-    font-size: 3rem;
-    font-weight: 900;
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(184,134,11,0.2);
+    border: 1px solid rgba(184,134,11,0.4);
     color: var(--gold-light);
-    margin-bottom: 1rem;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 22px;
     position: relative;
     z-index: 2;
 }
-
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--gold-light);
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 3px 15px rgba(0,0,0,0.4);
+}
 .hero p {
     font-size: 1.2rem;
-    max-width: 800px;
-    margin: 0 auto 2rem;
+    max-width: 680px;
+    margin: 0 auto 12px;
     opacity: 0.95;
     position: relative;
     z-index: 2;
 }
+.hero .sub { font-size: 1.05rem; opacity: 0.8; margin-bottom: 0; }
 
-/* Page Header */
-.page-header {
-    text-align: center;
-    padding: 4rem 1rem 2rem;
-    position: relative;
+/* ===== TRUST BAR ===== */
+.trust-bar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px 50px;
+    background: #fff;
+    padding: 28px 20px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+    border-bottom: 1px solid #eee;
 }
+.trust-item { display: flex; align-items: center; gap: 12px; }
+.trust-item i {
+    width: 44px; height: 44px;
+    background: var(--gold-soft);
+    color: var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+}
+.trust-item span { font-weight: 700; color: #333; font-size: 0.95rem; }
 
-.page-header h2 {
-    font-size: 2.8rem;
+/* ===== SECTION ===== */
+.section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 70px 20px 40px;
+}
+.section-header { text-align: center; margin-bottom: 50px; }
+.section-header h2 {
+    font-size: 2.4rem;
     font-weight: 900;
     color: var(--dark);
-    margin-bottom: 0.5rem;
-    display: inline-block;
+    margin-bottom: 12px;
+}
+.section-header h2 span {
     background: linear-gradient(135deg, var(--gold), var(--gold-light));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+.section-header p { color: #666; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
 
-.page-header p {
-    max-width: 700px;
-    margin: 0 auto;
-    color: #666;
-    font-size: 1.1rem;
-}
-
-/* Container */
-.container {
-    max-width: 1200px;
-    margin: 3rem auto;
-    padding: 0 1.5rem;
-}
-
-/* Consult Cards - تصميم جديد كلياً */
+/* ===== CONSULT CARDS ===== */
 .consult-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-bottom: 4rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
+    margin-bottom: 20px;
 }
-
 .consult-card {
-    background: var(--white);
-    border-radius: 30px;
-    padding: 3rem 2rem;
-    text-align: center;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
-    position: relative;
+    background: #fff;
+    border-radius: 28px;
     overflow: hidden;
-    border: 1px solid rgba(184,134,11,0.2);
+    box-shadow: 0 15px 45px rgba(0,0,0,0.07);
+    border: 1px solid #eee;
+    transition: all 0.4s cubic-bezier(0.25,0.8,0.25,1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
-
-.consult-card::before {
+.consult-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 28px 60px rgba(0,0,0,0.12);
+    border-color: rgba(184,134,11,0.35);
+}
+.card-top {
+    background: linear-gradient(145deg, #1a1a1a 0%, #2a2a2a 100%);
+    padding: 36px 28px 30px;
+    text-align: center;
+    position: relative;
+}
+.card-top.featured {
+    background: linear-gradient(145deg, #1a1a1a 0%, #2d2508 100%);
+}
+.card-top::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, var(--gold-soft) 0%, transparent 100%);
-    opacity: 0;
-    transition: opacity 0.3s;
+    bottom: -1px; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
 }
-
-.consult-card:hover::before {
-    opacity: 1;
+.card-badge {
+    position: absolute;
+    top: 16px; left: 16px;
+    background: rgba(184,134,11,0.25);
+    color: var(--gold-light);
+    padding: 5px 14px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border: 1px solid rgba(184,134,11,0.35);
 }
-
-.consult-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 30px 60px rgba(184,134,11,0.15);
-    border-color: var(--gold);
+.card-badge.hot {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: #111;
+    border: none;
 }
-
-.consult-card i {
-    font-size: 3.5rem;
-    color: var(--gold);
-    margin-bottom: 1.5rem;
-    position: relative;
-    z-index: 2;
+.icon-circle {
+    width: 88px; height: 88px;
+    margin: 8px auto 18px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 10px 30px rgba(184,134,11,0.45);
+    transition: 0.35s;
 }
-
-.consult-card h3 {
-    font-size: 1.8rem;
+.consult-card:hover .icon-circle {
+    transform: scale(1.08) rotate(-5deg);
+}
+.icon-circle i { font-size: 2.3rem; color: #111; }
+.card-top h3 {
+    font-size: 1.55rem;
     font-weight: 900;
-    margin-bottom: 1rem;
-    position: relative;
-    z-index: 2;
+    color: #fff;
+    margin-bottom: 6px;
 }
+.card-top .duration { color: rgba(255,255,255,0.7); font-size: 0.9rem; }
 
-.consult-card p {
-    color: #666;
-    margin-bottom: 2rem;
-    position: relative;
-    z-index: 2;
+.card-body {
+    padding: 28px 26px 32px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
+.card-body .desc {
+    color: #555;
+    font-size: 0.98rem;
+    margin-bottom: 22px;
+    line-height: 1.7;
+}
+.features { list-style: none; margin-bottom: 28px; flex: 1; }
+.features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    color: #444;
+    font-weight: 500;
+}
+.features li i {
+    color: var(--gold);
+    font-size: 1rem;
+    margin-top: 3px;
+    min-width: 18px;
+}
+.price-box {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 16px;
+    background: var(--gold-soft);
+    border-radius: 16px;
+}
+.price-box .price {
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1.1;
+}
+.price-box .currency { font-size: 1.1rem; font-weight: 700; color: #666; }
+.price-box .note { font-size: 0.8rem; color: #888; margin-top: 4px; }
 
-.price-btn {
-    display: inline-block;
-    padding: 1rem 2.5rem;
+.cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 28px;
     border-radius: 50px;
     background: linear-gradient(135deg, var(--gold), var(--gold-light));
     color: #111;
     font-weight: 900;
     text-decoration: none;
-    font-size: 1.2rem;
-    transition: 0.3s;
-    box-shadow: 0 5px 20px rgba(184,134,11,0.4);
-    position: relative;
-    z-index: 2;
+    font-size: 1.1rem;
+    transition: all 0.35s;
+    box-shadow: 0 8px 25px rgba(184,134,11,0.4);
     border: none;
+    cursor: pointer;
+    width: 100%;
+    font-family: 'Tajawal', sans-serif;
 }
-
-.price-btn:hover {
+.cta-btn:hover {
     background: linear-gradient(135deg, #111, #222);
     color: var(--gold);
-    transform: scale(1.05);
-    box-shadow: 0 10px 30px rgba(184,134,11,0.6);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(184,134,11,0.5);
 }
+.cta-btn i { font-size: 1.15rem; }
 
-/* Franchise Section - تصميم فاخر يشبه صندوق الكنز */
-.franchise-wrapper {
-    padding: 4rem 1rem;
-    background: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
-    border-radius: 60px 60px 0 0;
-    margin-top: 4rem;
+/* ===== BOTTOM CTA ===== */
+.bottom-cta {
+    background: linear-gradient(145deg, #1a1a1a, #111);
+    border-radius: 28px;
+    padding: 48px 32px;
+    text-align: center;
+    margin: 50px auto 30px;
+    max-width: 900px;
+    border: 1px solid rgba(184,134,11,0.25);
     position: relative;
     overflow: hidden;
 }
-
-.franchise-wrapper::before {
+.bottom-cta::before {
     content: '';
     position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(184,134,11,0.2) 0%, transparent 50%);
-    animation: rotate 40s linear infinite;
+    top: -50%; right: -30%;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(184,134,11,0.15) 0%, transparent 70%);
 }
-
-.franchise-box {
-    max-width: 1000px;
-    margin: 0 auto;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(10px);
-    border: 2px solid var(--gold);
-    border-radius: 50px;
-    padding: 3rem;
-    position: relative;
-    z-index: 2;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-}
-
-.franchise-header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.crown-icon {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 1.5rem;
-    background: var(--gold-soft);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    color: var(--gold);
-    border: 3px solid var(--gold);
-    box-shadow: 0 0 30px rgba(184,134,11,0.3);
-}
-
-.franchise-header h2 {
-    font-size: 2.2rem;
+.bottom-cta h3 {
+    font-size: 1.8rem;
     font-weight: 900;
     color: var(--gold-light);
-    margin-bottom: 0.5rem;
-}
-
-.franchise-header p {
-    color: #ddd;
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-.franchise-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin: 2rem 0;
-}
-
-.franchise-block {
-    background: rgba(255,255,255,0.03);
-    border-radius: 30px;
-    padding: 2rem;
-    border: 1px solid rgba(184,134,11,0.2);
-}
-
-.franchise-block h3 {
-    font-size: 1.4rem;
-    font-weight: 900;
-    color: var(--gold);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.franchise-block ul {
-    list-style: none;
-}
-
-.franchise-block ul li {
-    margin-bottom: 0.8rem;
-    padding-right: 1.8rem;
+    margin-bottom: 12px;
     position: relative;
-    color: #eee;
 }
-
-.franchise-block ul li::before {
-    content: '✓';
-    color: var(--gold);
-    position: absolute;
-    right: 0;
-    font-weight: 900;
+.bottom-cta p {
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 28px;
+    font-size: 1.05rem;
+    position: relative;
 }
-
-.franchise-action {
-    text-align: center;
-    margin-top: 2rem;
-}
-
-.price-wrapper {
-    margin-bottom: 2rem;
-}
-
-.old-price {
-    display: block;
-    font-size: 1.2rem;
-    color: #aaa;
-    text-decoration: line-through;
-    margin-bottom: 0.5rem;
-}
-
-.new-price {
-    display: block;
-    font-size: 3rem;
-    font-weight: 900;
-    color: var(--gold-light);
-    text-shadow: 0 0 20px rgba(184,134,11,0.5);
-}
-
-.franchise-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.price-btn.large {
-    padding: 1.2rem 3rem;
-    font-size: 1.3rem;
-}
-
-.inquiry-btn {
-    display: inline-block;
-    padding: 1.2rem 3rem;
+.wa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 36px;
     border-radius: 50px;
-    border: 2px solid var(--gold);
-    color: var(--gold);
-    font-weight: 800;
+    background: var(--whatsapp);
+    color: #fff;
+    font-weight: 900;
     text-decoration: none;
     font-size: 1.1rem;
     transition: 0.3s;
-    background: transparent;
+    box-shadow: 0 8px 25px rgba(37,211,102,0.4);
+    position: relative;
 }
-
-.inquiry-btn:hover {
-    background: var(--gold);
-    color: #111;
+.wa-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(184,134,11,0.4);
+    box-shadow: 0 12px 35px rgba(37,211,102,0.55);
+    background: #1ebe57;
 }
+.wa-btn i { font-size: 1.4rem; }
 
-/* Featured Badge */
-.featured-badge {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    color: #111;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-    font-weight: 900;
-    border: 3px solid white;
-    z-index: 10;
-}
-
-.featured-badge i {
-    font-size: 2rem;
-    margin-bottom: 0.2rem;
-}
-
-.featured-badge span {
-    font-size: 0.9rem;
-}
-
-/* Footer */
+/* ===== FOOTER ===== */
 footer {
-    background: var(--dark);
+    background: linear-gradient(145deg, #111, #1a1a1a);
     color: #ddd;
-    padding: 4rem 1rem 2rem;
+    padding: 50px 20px 30px;
     border-top: 3px solid var(--gold);
+    margin-top: 60px;
 }
-
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.footer-content {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-}
-
+.footer-inner { max-width: 1100px; margin: 0 auto; }
 .footer-row {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    gap: 2rem;
+    gap: 24px;
 }
-
-.footer-social {
-    display: flex;
-    gap: 1.5rem;
-}
-
 .footer-social a {
     color: var(--gold);
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    margin: 0 8px;
     transition: 0.3s;
+    display: inline-block;
 }
-.footer-social a:hover {
-    color: var(--gold-light);
-    transform: translateY(-3px);
-}
-
-.footer-logo-box {
-    text-align: center;
-}
-
-.footer-logo-box h2 {
+.footer-social a:hover { color: var(--gold-light); transform: translateY(-3px); }
+.footer-logo h2 {
     color: var(--gold);
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     font-weight: 800;
-    margin-bottom: 0.5rem;
-}
-
-.footer-logo-box div {
-    width: 60px;
-    height: 2px;
-    background: var(--gold);
-    margin: 0 auto;
-}
-
-.footer-payment .payment-card {
-    background: rgba(255,255,255,0.05);
-    padding: 0.8rem 1.5rem;
-    border-radius: 50px;
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-.footer-payment img {
-    height: 25px;
-}
-
-hr {
-    border: none;
-    border-top: 1px solid rgba(184,134,11,0.2);
-}
-
-.copyright {
     text-align: center;
-    font-size: 0.9rem;
-    color: #777;
+}
+.footer-logo div {
+    width: 55px; height: 2px;
+    background: var(--gold);
+    margin: 8px auto 0;
+}
+.payment-box {
+    background: rgba(255,255,255,0.04);
+    padding: 10px 18px;
+    border-radius: 12px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    border: 1px solid rgba(255,255,255,0.06);
+}
+.payment-box img { height: 22px; }
+hr {
+    border: 0;
+    border-top: 1px solid rgba(184,134,11,0.15);
+    margin: 24px 0;
+}
+.copyright { text-align: center; font-size: 0.85rem; color: #777; }
+.copyright span { color: var(--gold); font-weight: bold; }
+
+/* Floating WhatsApp */
+.floating-wa {
+    position: fixed;
+    bottom: 28px; left: 28px;
+    z-index: 999;
+    width: 58px; height: 58px;
+    background: var(--whatsapp);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.9rem;
+    color: #fff;
+    box-shadow: 0 6px 25px rgba(37,211,102,0.45);
+    text-decoration: none;
+    transition: 0.3s;
+    animation: waPulse 2s ease-in-out infinite;
+}
+@keyframes waPulse {
+    0%,100% { box-shadow: 0 6px 25px rgba(37,211,102,0.45); }
+    50% { box-shadow: 0 6px 40px rgba(37,211,102,0.7); transform: scale(1.06); }
+}
+.floating-wa:hover { transform: scale(1.1); animation: none; }
+
+/* ===== PAYMENT MODAL (like FoodCost) ===== */
+.payment-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 5000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.payment-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+.payment-popup {
+    background: #1a1f2e;
+    border-radius: 24px;
+    width: 95%;
+    max-width: 520px;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    border: 1px solid rgba(184,134,11,0.35);
+}
+.payment-header {
+    background: #0f1420;
+    color: #fff;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    border-bottom: 1px solid rgba(184,134,11,0.25);
+}
+.payment-header h3 {
+    font-family: 'Alexandria', sans-serif;
+    font-size: 1.15rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--gold-light);
+}
+.payment-header .close-payment {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.8rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 5px;
+    transition: 0.2s;
+    font-family: 'Tajawal', sans-serif;
+}
+.payment-header .close-payment:hover { color: var(--gold-light); }
+.payment-body {
+    flex: 1;
+    position: relative;
+    background: #fafafa;
+}
+.payment-body iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
-.copyright span {
-    color: var(--gold);
-    font-weight: bold;
-}
-
-/* Responsive */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.8rem;
-    }
-    .logo {
-        flex-wrap: nowrap;
-        gap: 8px;
-        width: 100%;
-        justify-content: center;
-    }
-    .logo img {
-        height: 35px;
-    }
-    .logo h1 {
-        font-size: 1rem;
-    }
-    nav > div:last-child {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        gap: 6px;
-    }
-    nav a {
-        margin: 0;
-        font-size: 0.9rem;
-        padding: 4px 8px;
-        white-space: nowrap;
-    }
-    .hero h2 {
-        font-size: 2.2rem;
-    }
-    .page-header h2 {
-        font-size: 2rem;
-    }
-    .franchise-box {
-        padding: 2rem 1rem;
-    }
-    .franchise-buttons {
-        flex-direction: column;
-    }
-    .price-btn.large, .inquiry-btn {
-        width: 100%;
-        text-align: center;
-    }
-    .footer-row {
-        flex-direction: column;
-        text-align: center;
-    }
-    .footer-social {
-        justify-content: center;
-    }
-    .footer-payment {
-        justify-content: center;
-    }
+    nav { flex-direction: column; gap: 12px; padding: 12px 4%; }
+    .logo h1 { font-size: 0.95rem; }
+    .logo img { height: 38px; }
+    .nav-links { justify-content: center; gap: 4px; }
+    .nav-links a { font-size: 0.88rem; margin: 0 4px; }
+    .hero { padding: 90px 16px 70px; }
+    .hero h1 { font-size: 2.1rem; }
+    .hero p { font-size: 1.05rem; }
+    .trust-bar { gap: 18px 30px; padding: 22px 16px; }
+    .section-header h2 { font-size: 1.9rem; }
+    .consult-grid { gap: 24px; }
+    .card-top { padding: 28px 20px 24px; }
+    .card-body { padding: 22px 18px 26px; }
+    .price-box .price { font-size: 2.1rem; }
+    .bottom-cta { padding: 36px 20px; border-radius: 22px; }
+    .bottom-cta h3 { font-size: 1.5rem; }
+    .footer-row { flex-direction: column; text-align: center; }
+    .floating-wa { bottom: 20px; left: 20px; width: 52px; height: 52px; font-size: 1.6rem; }
+    .payment-popup { width: 96%; height: 88vh; max-width: 500px; }
 }
-
-/* blink-gold style */
-.blink-gold {
-    font-weight: 900;
-    font-size: 1.2rem;
-    background: linear-gradient(90deg, var(--gold), var(--dark), var(--gold));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: blinkGold 1.2s linear infinite;
-}
-@keyframes blinkGold {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+@media (max-width: 480px) {
+    .hero h1 { font-size: 1.8rem; }
+    .icon-circle { width: 76px; height: 76px; }
+    .icon-circle i { font-size: 2rem; }
 }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
     <div class="logo">
-        <img src="https://lh3.googleusercontent.com/d/1e6u-DPTinDJl_Q9wW3QvGgzFbXO_2sXa" alt="FAROUK GRUP LOGO">
+        <img src="https://lh3.googleusercontent.com/d/1e6u-DPTinDJl_Q9wW3QvGgzFbXO_2sXa" alt="FAROUK GRUP">
         <h1>مجموعة فاروق للاستشارات والأعمال</h1>
     </div>
-    <div>
+    <div class="nav-links">
         <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
         <a href="https://training.farouk-grup.com/"><i class="fas fa-graduation-cap"></i> الدورات</a>
-        <a href="https://training.farouk-grup.com/home/Our-store"><i class="fa-solid fa-bag-shopping"></i> متجرنا</a>
+        <a href="https://training.farouk-grup.com/Our-store.html"><i class="fa-solid fa-bag-shopping"></i> متجرنا</a>
         <a href="Contact-Us.html" style="color:var(--gold)"><i class="fas fa-phone-alt"></i> تواصل معنا</a>
     </div>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
-    <h2>احجز الآن</h2>
-    <p>اختر نوع الاستشارة أو الخدمة المناسبة لاحتياج مشروعك</p>
-    <p>استشارات عملية مباشرة تساعدك على اتخاذ قرارات دقيقة وتحقيق نتائج ملموسة</p>
+    <div class="hero-badge">
+        <i class="fas fa-calendar-check"></i>
+        احجز جلستك خلال دقائق
+    </div>
+    <h1>اطلب استشارتك الآن</h1>
+    <p>اختر نوع الاستشارة الأنسب لمشروعك واحصل على خطة عمل واضحة وقابلة للتنفيذ</p>
+    <p class="sub">استشارات عملية مباشرة تساعدك على اتخاذ قرارات دقيقة وتحقيق نتائج ملموسة</p>
 </section>
 
-<div class="container">
-    <div class="consult-grid">
-        <div class="consult-card" data-aos="fade-up">
-            <i class="fas fa-phone"></i>
-            <h3>استشارة عبر الهاتف</h3>
-            <p>جلسة مباشرة لمدة 60 دقيقة لمناقشة التحديات التشغيلية أو المالية أو الاستراتيجية في مشروعك مع خطة تنفيذ واضحة.</p>
-            <a href="https://alfan.link/faroukazem?link=DPkrFL" target="_blank" class="price-btn">99 دولار</a>
-        </div>
-
-        <div class="consult-card" data-aos="fade-up" data-aos-delay="100">
-            <i class="fas fa-map-marker-alt"></i>
-            <h3>استشارة ميدانية</h3>
-            <p>زيارة داخل إسطنبول لتحليل المشروع ميدانياً وتقييم العمليات والتكاليف ووضع خطة تحسين قابلة للتنفيذ.</p>
-            <a href="https://alfan.link/faroukazem?link=wQQtR8" target="_blank" class="price-btn">249 دولار</a>
-        </div>
+<!-- TRUST BAR -->
+<div class="trust-bar">
+    <div class="trust-item">
+        <i class="fas fa-user-tie"></i>
+        <span>+15 عاماً خبرة</span>
+    </div>
+    <div class="trust-item">
+        <i class="fas fa-check-circle"></i>
+        <span>+50 مشروع ناجح</span>
+    </div>
+    <div class="trust-item">
+        <i class="fas fa-clock"></i>
+        <span>رد سريع خلال 24 ساعة</span>
+    </div>
+    <div class="trust-item">
+        <i class="fas fa-shield-alt"></i>
+        <span>سرية تامة للمعلومات</span>
     </div>
 </div>
-    
+
+<!-- CONSULTATION PACKAGES -->
+<div class="section">
+    <div class="section-header" data-aos="fade-up">
+        <h2>اختر <span>باقة الاستشارة</span> المناسبة</h2>
+        <p>جلسات عملية تركز على نتائج ملموسة لمطعمك أو مشروعك</p>
+    </div>
+
+    <div class="consult-grid">
+        <!-- Phone Consultation -->
+        <div class="consult-card" data-aos="fade-up">
+            <div class="card-top">
+                <span class="card-badge">الأكثر طلباً</span>
+                <div class="icon-circle">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <h3>استشارة عبر الهاتف</h3>
+                <div class="duration"><i class="far fa-clock"></i> 60 دقيقة · مباشرة</div>
+            </div>
+            <div class="card-body">
+                <p class="desc">جلسة مباشرة لمناقشة التحديات التشغيلية أو المالية أو الاستراتيجية في مشروعك، مع خطة تنفيذ واضحة وخطوات عملية.</p>
+                <ul class="features">
+                    <li><i class="fas fa-check"></i> تحليل سريع للتحديات الحالية</li>
+                    <li><i class="fas fa-check"></i> توصيات عملية قابلة للتنفيذ فوراً</li>
+                    <li><i class="fas fa-check"></i> خطة عمل مختصرة بعد الجلسة</li>
+                    <li><i class="fas fa-check"></i> إمكانية المتابعة عبر واتساب</li>
+                </ul>
+                <div class="price-box">
+                    <div class="price">99 <span class="currency">دولار</span></div>
+                    <div class="note">دفعة واحدة · بدون التزامات إضافية</div>
+                </div>
+                <button type="button" class="cta-btn" data-payment="https://alfan.link/faroukazem?link=DPkrFL" data-title="استشارة هاتفية – 99$">
+                    <i class="fas fa-calendar-plus"></i>
+                    احجز الاستشارة الهاتفية
+                </button>
+            </div>
+        </div>
+
+        <!-- On-site Consultation -->
+        <div class="consult-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="card-top featured">
+                <span class="card-badge hot">موصى به</span>
+                <div class="icon-circle">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>استشارة ميدانية</h3>
+                <div class="duration"><i class="far fa-clock"></i> زيارة داخل إسطنبول</div>
+            </div>
+            <div class="card-body">
+                <p class="desc">زيارة ميدانية لتحليل المشروع على أرض الواقع، تقييم العمليات والتكاليف، ووضع خطة تحسين مفصلة وقابلة للتنفيذ.</p>
+                <ul class="features">
+                    <li><i class="fas fa-check"></i> تقييم ميداني للعمليات والهدر</li>
+                    <li><i class="fas fa-check"></i> تحليل التكاليف وهيكلة الأسعار</li>
+                    <li><i class="fas fa-check"></i> خطة تحسين مكتوبة ومفصلة</li>
+                    <li><i class="fas fa-check"></i> توصيات تشغيلية فورية</li>
+                    <li><i class="fas fa-check"></i> متابعة أولية بعد الزيارة</li>
+                </ul>
+                <div class="price-box">
+                    <div class="price">249 <span class="currency">دولار</span></div>
+                    <div class="note">يشمل الزيارة + التقرير المكتوب</div>
+                </div>
+                <button type="button" class="cta-btn" data-payment="https://alfan.link/faroukazem?link=wQQtR8" data-title="استشارة ميدانية – 249$">
+                    <i class="fas fa-map-marked-alt"></i>
+                    احجز الاستشارة الميدانية
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="bottom-cta" data-aos="fade-up">
+        <h3>لست متأكداً أي باقة تناسبك؟</h3>
+        <p>تواصل معنا مباشرة عبر واتساب وسنساعدك في اختيار الاستشارة الأنسب لمشروعك خلال دقائق</p>
+        <a href="https://wa.me/905550196682?text=مرحباً، أريد الاستفسار عن باقات الاستشارة" target="_blank" class="wa-btn">
+            <i class="fab fa-whatsapp"></i>
+            تواصل عبر واتساب الآن
+        </a>
+    </div>
+</div>
+
+<!-- FOOTER -->
 <footer>
-    <div class="footer-container">
-        <div class="footer-content">
-            <div class="footer-row">
-                <div class="footer-social">
-                    <a href="https://www.instagram.com/faroukazem/" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.facebook.com/profile.php?id=100091571594026&sk=about" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://wa.me/905550196682" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                </div>
-
-                <div class="footer-logo-box">
-                    <h2>مجموعة فاروق للاستشارات والأعمال</h2>
-                    <div></div>
-                </div>
-
-                <div class="footer-payment">
-                    <div class="payment-card">
-                        <img src="https://img.icons8.com/color/48/visa.png" alt="Visa">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard">
-                        <img src="https://img.icons8.com/color/48/000000/apple-pay.png" alt="Apple Pay" style="height:45px;">
-                    </div>
-                </div>
+    <div class="footer-inner">
+        <div class="footer-row">
+            <div class="footer-social">
+                <a href="https://www.instagram.com/faroukazem/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=100091571594026" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/905550196682" target="_blank"><i class="fab fa-whatsapp"></i></a>
             </div>
-
-            <hr>
-
-            <div class="copyright">
-                جميع الحقوق محفوظة © 2026 <span>FAROUK GRUP</span>
-                <p>Adnan Kahveci, Beylikdüzü / İstanbul, Türkiye</p>
+            <div class="footer-logo">
+                <h2>مجموعة فاروق للاستشارات والأعمال</h2>
+                <div></div>
             </div>
+            <div class="payment-box">
+                <img src="https://img.icons8.com/color/48/visa.png" alt="Visa">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" style="height:18px;">
+                <img src="https://img.icons8.com/color/48/000000/apple-pay.png" alt="Apple Pay" style="height:40px;">
+            </div>
+        </div>
+        <hr>
+        <div class="copyright">
+            جميع الحقوق محفوظة © 2026 <span>FAROUK GRUP</span>
+            <p style="margin-top:6px;opacity:0.8;">Adnan Kahveci, Beylikdüzü / İstanbul, Türkiye</p>
         </div>
     </div>
 </footer>
 
-<!-- AOS JS -->
+<!-- Floating WhatsApp -->
+<a href="https://wa.me/905550196682?text=مرحباً، أريد طلب استشارة" target="_blank" class="floating-wa" title="تواصل عبر واتساب">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- ===== نافذة الدفع المنبثقة ===== -->
+<div class="payment-overlay" id="paymentModal">
+    <div class="payment-popup">
+        <div class="payment-header">
+            <h3 id="paymentTitle"><i class="fas fa-lock"></i> إتمام الحجز</h3>
+            <button class="close-payment" id="closePaymentBtn" aria-label="إغلاق">&times;</button>
+        </div>
+        <div class="payment-body">
+            <iframe id="paymentIframe" src="" allow="payment" allowfullscreen title="نافذة الدفع"></iframe>
+        </div>
+    </div>
+</div>
+
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    AOS.init({ duration: 800, once: true, offset: 100 });
+    AOS.init({ duration: 800, once: true, offset: 80 });
+
+    (function() {
+        const modal = document.getElementById('paymentModal');
+        const iframe = document.getElementById('paymentIframe');
+        const titleEl = document.getElementById('paymentTitle');
+        const closeBtn = document.getElementById('closePaymentBtn');
+        const openBtns = document.querySelectorAll('.cta-btn[data-payment]');
+
+        function openModal(url, title) {
+            iframe.src = url;
+            titleEl.innerHTML = '<i class="fas fa-lock"></i> ' + (title || 'إتمام الحجز');
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('open');
+            iframe.src = '';
+            document.body.style.overflow = '';
+        }
+
+        openBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                openModal(btn.getAttribute('data-payment'), btn.getAttribute('data-title'));
+            });
+        });
+
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) closeModal();
+        });
+        window.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+        });
+    })();
 </script>
 </body>
 </html>
