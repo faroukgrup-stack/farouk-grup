@@ -2,499 +2,521 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>استشارات الأعمال | FAROUK GRUP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>تواصل معنا | FAROUK GRUP</title>
 <script src="protect.js"></script>
+<meta name="description" content="تواصل مع مجموعة فاروق للاستشارات والأعمال. استشارات في تطوير المطاعم، المحاسبة، والديكور. نرد خلال 24 ساعة.">
 
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-:root{
+:root {
     --gold: #b8860b;
     --gold-light: #d4b15a;
-    --gold-soft: rgba(184,134,11,0.1);
+    --gold-soft: rgba(184,134,11,0.12);
     --dark: #0f0f0f;
-    --dark-light: #2a2a2a;
+    --dark-light: #1a1a1a;
     --white: #ffffff;
-    --offwhite: #f9f9f9;
-    --gray: #eaeaea;
-    --text: #333333;
+    --offwhite: #f7f7f7;
+    --text: #333;
+    --muted: #666;
+    --whatsapp: #25D366;
 }
-
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html {
+    scroll-behavior:smooth;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
 }
-
-body{
+body {
     font-family: 'Tajawal', sans-serif;
     background: var(--offwhite);
     color: var(--text);
-    line-height: 1.6;
+    line-height: 1.7;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
 }
 
-/* Navigation */
-nav{
-    background: var(--white);
-    padding: 1rem 5%;
+nav {
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(12px);
+    padding: 12px 4%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--gray);
+    border-bottom: 1px solid #eee;
     position: sticky;
     top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    z-index: 1000;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+    width: 100%;
 }
-
-.logo{
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.logo img{
-    height: 50px;
-    width: auto;
-    object-fit: contain;
-}
-
-.logo h1{
+.logo { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.logo img { height: 42px; width: auto; flex-shrink: 0; }
+.logo h1 {
     font-family: 'Alexandria', sans-serif;
-    font-size: 1.2rem;
+    font-size: 0.95rem;
     font-weight: 700;
     color: var(--gold);
-    letter-spacing: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-
-nav a{
+.nav-links { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
+.nav-links a {
     text-decoration: none;
-    color: var(--text);
-    margin: 0 0.8rem;
+    color: #444;
+    margin: 0 4px;
     font-weight: 600;
-    transition: color 0.3s;
+    font-size: 0.9rem;
+    transition: 0.3s;
+    white-space: nowrap;
 }
-nav a:hover{
-    color: var(--gold);
-}
-nav a i{
-    margin-left: 0.3rem;
-}
+.nav-links a:hover { color: var(--gold); }
+.nav-links a i { margin-left: 4px; }
 
-/* Hero Section */
-.hero{
-    background: linear-gradient(135deg, rgba(0,0,0,0.9), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1600') center/cover;
-    color: white;
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.65)),
+                url('https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1600') center/cover no-repeat;
+    padding: 90px 16px 70px;
     text-align: center;
-    padding: 4rem 1rem;
+    color: #fff;
     border-bottom: 4px solid var(--gold);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
 }
-
-.hero h2{
-    font-size: 2.5rem;
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -40%; left: -40%;
+    width: 180%; height: 180%;
+    background: radial-gradient(circle at 40% 50%, rgba(184,134,11,0.12) 0%, transparent 55%);
+    pointer-events: none;
+}
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(184,134,11,0.2);
+    border: 1px solid rgba(184,134,11,0.4);
+    color: var(--gold-light);
+    padding: 7px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 2;
+}
+.hero h1 {
+    font-size: clamp(1.6rem, 5vw, 2.5rem);
     font-weight: 900;
     color: var(--gold-light);
-    margin-bottom: 0.5rem;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 3px 12px rgba(0,0,0,0.4);
 }
-
-.hero p{
-    font-size: 1.2rem;
-    opacity: 0.9;
-    max-width: 700px;
+.hero p {
+    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+    max-width: 620px;
     margin: 0 auto;
+    opacity: 0.95;
+    position: relative;
+    z-index: 2;
 }
 
-/* Main Container */
-.container{
-    max-width: 1200px;
-    margin: 3rem auto;
-    padding: 0 1.5rem;
+.trust-bar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px 28px;
+    background: #fff;
+    padding: 18px 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+    border-bottom: 1px solid #eee;
+    width: 100%;
+}
+.trust-item { display: flex; align-items: center; gap: 10px; }
+.trust-item i {
+    width: 36px; height: 36px;
+    background: var(--gold-soft);
+    color: var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+.trust-item span { font-weight: 700; color: #333; font-size: 0.88rem; }
+
+.section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 16px 30px;
+    width: 100%;
 }
 
-/* Form Card */
-.form-card{
-    background: var(--white);
-    border-radius: 2rem;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+.form-card {
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.07);
     overflow: hidden;
     display: flex;
     flex-wrap: wrap;
-    border: 1px solid rgba(184,134,11,0.2);
+    border: 1px solid rgba(184,134,11,0.15);
+    width: 100%;
 }
 
-/* Right: Contact Info */
-.contact-info{
-    flex: 1 1 300px;
-    background: linear-gradient(145deg, var(--dark), var(--dark-light));
-    color: var(--white);
-    padding: 2.5rem 2rem;
+.contact-info {
+    flex: 1 1 280px;
+    background: linear-gradient(145deg, #111, #1a1a1a);
+    color: #fff;
+    padding: 36px 24px;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 18px;
 }
-
-.contact-info h3{
-    font-size: 1.8rem;
+.contact-info h3 {
+    font-size: 1.5rem;
     font-weight: 900;
     color: var(--gold-light);
-    margin-bottom: 1rem;
+    margin-bottom: 4px;
+    padding-bottom: 10px;
     border-bottom: 2px solid var(--gold);
-    padding-bottom: 0.5rem;
 }
-
-.contact-info p{
+.contact-info > p {
     opacity: 0.9;
-    line-height: 1.8;
+    font-size: 0.95rem;
+    line-height: 1.7;
 }
-
-.info-item{
+.info-item {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin: 0.8rem 0;
+    gap: 12px;
 }
-
-.info-item i{
-    font-size: 1.5rem;
+.info-item i {
+    font-size: 1.2rem;
     color: var(--gold);
-    width: 2rem;
+    width: 28px;
+    text-align: center;
+    flex-shrink: 0;
 }
-
-.info-item span, .info-item a{
-    color: var(--white);
+.info-item span,
+.info-item a {
+    color: #fff;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 0.95rem;
     transition: color 0.3s;
 }
+.info-item a:hover { color: var(--gold-light); }
 
-.info-item a:hover{
-    color: var(--gold);
-}
-
-.social-links-info{
+.social-links {
     display: flex;
-    gap: 1.2rem;
-    margin-top: 1rem;
+    gap: 12px;
+    margin-top: 4px;
 }
-
-.social-links-info a{
-    color: var(--white);
-    background: rgba(255,255,255,0.1);
+.social-links a {
+    color: #fff;
+    background: rgba(255,255,255,0.08);
     width: 40px;
     height: 40px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s;
+    transition: 0.3s;
+    text-decoration: none;
 }
-
-.social-links-info a:hover{
+.social-links a:hover {
     background: var(--gold);
-    color: var(--dark);
+    color: #111;
     transform: translateY(-3px);
 }
 
-/* Left: Form */
-.form-container{
-    flex: 2 1 500px;
-    padding: 2.5rem 2rem;
+.trust-box {
+    margin-top: auto;
+    background: rgba(255,255,255,0.04);
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(184,134,11,0.25);
 }
-
-.form-container h2{
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--gold);
-    margin-bottom: 1.5rem;
+.trust-box p {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 10px;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    opacity: 0.95;
+}
+.trust-box p:last-child { margin-bottom: 0; }
+.trust-box i { color: var(--gold); }
+
+.wa-quick {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 8px;
+    padding: 12px 18px;
+    border-radius: 50px;
+    background: var(--whatsapp);
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: 0.3s;
+    box-shadow: 0 4px 16px rgba(37,211,102,0.35);
+}
+.wa-quick:hover {
+    transform: translateY(-2px);
+    background: #1ebe57;
 }
 
-.form-container h2 i{
-    font-size: 2rem;
+.form-container {
+    flex: 2 1 420px;
+    padding: 36px 28px;
 }
-
-.form-group{
-    margin-bottom: 1.2rem;
+.form-container h2 {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--gold);
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
-
-label{
+.form-group { margin-bottom: 16px; }
+label {
     display: block;
-    margin-bottom: 0.4rem;
+    margin-bottom: 6px;
     font-weight: 700;
     color: var(--dark);
+    font-size: 0.95rem;
 }
-
-label i{
+label i {
     color: var(--gold);
-    margin-left: 0.4rem;
+    margin-left: 6px;
 }
-
-input, select, textarea{
+input, select, textarea {
     width: 100%;
-    padding: 0.9rem 1rem;
-    border: 2px solid var(--gray);
+    padding: 12px 14px;
+    border: 2px solid #e8e8e8;
     border-radius: 12px;
     font-family: 'Tajawal', sans-serif;
     font-size: 1rem;
-    transition: all 0.3s;
-    background: var(--offwhite);
+    transition: 0.3s;
+    background: #fafafa;
+    color: var(--text);
 }
-
-input:focus, select:focus, textarea:focus{
+input:focus, select:focus, textarea:focus {
     outline: none;
     border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(184,134,11,0.2);
-    background: var(--white);
+    box-shadow: 0 0 0 3px rgba(184,134,11,0.15);
+    background: #fff;
 }
-
-textarea{
-    min-height: 100px;
+textarea {
+    min-height: 110px;
     resize: vertical;
 }
-
-.btn-submit{
+.btn-submit {
     background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    color: var(--dark);
+    color: #111;
     border: none;
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
+    padding: 14px 24px;
+    font-size: 1.1rem;
     font-weight: 900;
     border-radius: 50px;
     cursor: pointer;
     width: 100%;
-    transition: all 0.3s;
-    margin-top: 1rem;
+    transition: 0.3s;
+    margin-top: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.7rem;
-    box-shadow: 0 5px 15px rgba(184,134,11,0.4);
+    gap: 10px;
+    box-shadow: 0 6px 20px rgba(184,134,11,0.4);
+    font-family: 'Tajawal', sans-serif;
 }
-
-.btn-submit:hover{
-    background: linear-gradient(135deg, var(--dark), #333);
+.btn-submit:hover:not(:disabled) {
+    background: linear-gradient(135deg, #111, #222);
     color: var(--gold);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(184,134,11,0.5);
+    box-shadow: 0 10px 28px rgba(184,134,11,0.5);
 }
-
-.btn-submit i{
-    font-size: 1.3rem;
+.btn-submit:disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
 }
+.form-note {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 0.85rem;
+    color: #888;
+}
+.form-note i { color: var(--gold); }
 
 /* Popup */
 .popup-message {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.7);
-    z-index: 1000;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(6px);
+    z-index: 5000;
     justify-content: center;
     align-items: center;
+    padding: 16px;
 }
-
 .popup-content {
-    background: linear-gradient(145deg, var(--dark), var(--dark-light));
-    color: white;
-    padding: 2rem;
-    border-radius: 2rem;
+    background: linear-gradient(145deg, #111, #1a1a1a);
+    color: #fff;
+    padding: 36px 28px;
+    border-radius: 22px;
     text-align: center;
     max-width: 400px;
+    width: 100%;
     border: 2px solid var(--gold);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-    animation: popupFadeIn 0.3s ease;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    animation: popupIn 0.3s ease;
 }
-
 .popup-content i {
-    font-size: 4rem;
+    font-size: 3.5rem;
     color: var(--gold);
-    margin-bottom: 1rem;
+    margin-bottom: 12px;
 }
-
 .popup-content h3 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
     color: var(--gold-light);
 }
-
 .popup-content p {
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    margin-bottom: 22px;
     opacity: 0.9;
 }
-
 .popup-content button {
-    background: var(--gold);
-    color: var(--dark);
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: #111;
     border: none;
-    padding: 0.8rem 2rem;
-    font-size: 1.1rem;
-    font-weight: 700;
+    padding: 12px 28px;
+    font-size: 1.05rem;
+    font-weight: 800;
     border-radius: 50px;
     cursor: pointer;
-    transition: all 0.3s;
-    border: 1px solid var(--gold-light);
+    transition: 0.3s;
+    font-family: 'Tajawal', sans-serif;
 }
-
 .popup-content button:hover {
-    background: var(--gold-light);
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
     transform: translateY(-2px);
 }
-
-@keyframes popupFadeIn {
-    from { opacity: 0; transform: scale(0.9); }
+@keyframes popupIn {
+    from { opacity: 0; transform: scale(0.92); }
     to { opacity: 1; transform: scale(1); }
 }
 
-/* ===================== */
-/* FOOTER - متطابق مع صفحة طلب استشارة */
-/* ===================== */
 footer {
-    background: var(--dark);
+    background: linear-gradient(145deg, #111, #1a1a1a);
     color: #ddd;
-    padding: 4rem 1rem 2rem;
+    padding: 40px 16px 24px;
     border-top: 3px solid var(--gold);
+    margin-top: 50px;
+    width: 100%;
 }
-
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.footer-content {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-}
-
+.footer-inner { max-width: 1100px; margin: 0 auto; }
 .footer-row {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    gap: 2rem;
+    gap: 18px;
+    text-align: center;
 }
-
-.footer-social {
-    display: flex;
-    gap: 1.5rem;
-}
-
 .footer-social a {
     color: var(--gold);
-    font-size: 1.8rem;
+    font-size: 1.45rem;
+    margin: 0 6px;
+    transition: 0.3s;
+    display: inline-block;
+}
+.footer-social a:hover { color: var(--gold-light); }
+.footer-logo h2 {
+    color: var(--gold);
+    font-size: 1rem;
+    font-weight: 800;
+}
+.footer-logo div {
+    width: 45px; height: 2px;
+    background: var(--gold);
+    margin: 6px auto 0;
+}
+.payment-box {
+    background: rgba(255,255,255,0.04);
+    padding: 8px 14px;
+    border-radius: 10px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    border: 1px solid rgba(255,255,255,0.06);
+}
+.payment-box img { height: 20px; }
+hr {
+    border: 0;
+    border-top: 1px solid rgba(184,134,11,0.15);
+    margin: 18px 0;
+}
+.copyright { text-align: center; font-size: 0.8rem; color: #777; }
+.copyright span { color: var(--gold); font-weight: bold; }
+
+.floating-wa {
+    position: fixed;
+    bottom: 16px; left: 16px;
+    z-index: 999;
+    width: 50px; height: 50px;
+    background: var(--whatsapp);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem;
+    color: #fff;
+    box-shadow: 0 5px 20px rgba(37,211,102,0.4);
+    text-decoration: none;
     transition: 0.3s;
 }
-.footer-social a:hover {
-    color: var(--gold-light);
-    transform: translateY(-3px);
-}
-
-.footer-logo-box {
-    text-align: center;
-}
-
-.footer-logo-box h2 {
+.floating-wa:hover { transform: scale(1.08); }
+.floating-home {
+    position: fixed;
+    bottom: 16px; right: 16px;
+    z-index: 999;
+    width: 50px; height: 50px;
+    background: var(--dark);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem;
     color: var(--gold);
-    font-size: 1.2rem;
-    font-weight: 800;
-    margin-bottom: 0.5rem;
+    text-decoration: none;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.3);
+    transition: 0.3s;
 }
-
-.footer-logo-box div {
-    width: 60px;
-    height: 2px;
+.floating-home:hover {
     background: var(--gold);
-    margin: 0 auto;
+    color: #111;
 }
 
-.footer-payment .payment-card {
-    background: rgba(255,255,255,0.05);
-    padding: 0.8rem 1.5rem;
-    border-radius: 50px;
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-.footer-payment img {
-    height: 25px;
-}
-
-hr {
-    border: none;
-    border-top: 1px solid rgba(184,134,11,0.2);
-}
-
-.copyright {
-    text-align: center;
-    font-size: 0.9rem;
-    color: #777;
-}
-
-.copyright span {
-    color: var(--gold);
-    font-weight: bold;
-}
-/* ===================== */
-/* نهاية تنسيق الفوتر */
-/* ===================== */
-
-/* Responsive */
-@media (max-width: 768px){
-    nav{
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.8rem;
-    }
-    .logo{
-        flex-wrap: nowrap;
-        gap: 8px;
-        width: 100%;
-        justify-content: center;
-    }
-    .logo img{
-        height: 35px;
-    }
-    .logo h1{
-        font-size: 1rem;
-    }
-    nav > div:last-child{
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        gap: 6px;
-    }
-    .hero h2{
-        font-size: 2rem;
-    }
-    .form-card{
-        border-radius: 1.5rem;
-    }
-    .contact-info{
-        padding: 2rem 1.5rem;
-    }
-    /* Responsive Footer */
-    .footer-row {
-        flex-direction: column;
-        text-align: center;
-    }
-    .footer-social {
-        justify-content: center;
-    }
-    .footer-payment {
-        justify-content: center;
-    }
+@media (max-width: 768px) {
+    nav { flex-direction: column; gap: 10px; padding: 10px 3%; }
+    .logo { width: 100%; justify-content: center; }
+    .logo h1 { font-size: 0.85rem; max-width: 70vw; }
+    .nav-links { width: 100%; justify-content: center; }
+    .nav-links a { font-size: 0.82rem; margin: 0 3px; }
+    .hero { padding: 70px 14px 55px; }
+    .form-container { padding: 28px 18px; }
+    .contact-info { padding: 28px 18px; }
 }
 </style>
 </head>
@@ -502,46 +524,78 @@ hr {
 
 <nav>
     <div class="logo">
-        <img src="https://lh3.googleusercontent.com/d/1e6u-DPTinDJl_Q9wW3QvGgzFbXO_2sXa" alt="FAROUK GRUP LOGO">
+        <img src="https://lh3.googleusercontent.com/d/1e6u-DPTinDJl_Q9wW3QvGgzFbXO_2sXa" alt="FAROUK GRUP">
         <h1>مجموعة فاروق للاستشارات والأعمال</h1>
     </div>
-    <div>
+    <div class="nav-links">
         <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+        <a href="consultation.html"><i class="fas fa-hand-holding-heart"></i> طلب استشارة</a>
         <a href="https://training.farouk-grup.com/"><i class="fas fa-graduation-cap"></i> الدورات</a>
-        <a href="https://training.farouk-grup.com/Our-store" style="color: var(--gold);"><i class="fa-solid fa-bag-shopping"></i> متجرنا</a>
+        <a href="https://training.farouk-grup.com/Our-store.html"><i class="fa-solid fa-bag-shopping"></i> متجرنا</a>
     </div>
 </nav>
 
 <section class="hero">
-    <h2>استشارات احترافية لنمو أعمالك</h2>
-    <p>نقدم حلولاً مبتكرة في تطوير المطاعم، المحاسبة، والديكور الداخلي. املأ النموذج وسنعود إليك خلال 24 ساعة.</p>
+    <div class="hero-badge">
+        <i class="fas fa-headset"></i>
+        نحن هنا لمساعدتك
+    </div>
+    <h1>تواصل معنا</h1>
+    <p>نقدم حلولاً في تطوير المطاعم، المحاسبة، والاستشارات الإدارية. املأ النموذج وسنعود إليك خلال 24 ساعة.</p>
 </section>
 
-<div class="container">
+<div class="trust-bar">
+    <div class="trust-item">
+        <i class="fas fa-clock"></i>
+        <span>رد خلال 24 ساعة</span>
+    </div>
+    <div class="trust-item">
+        <i class="fas fa-shield-alt"></i>
+        <span>خصوصية تامة</span>
+    </div>
+    <div class="trust-item">
+        <i class="fas fa-user-tie"></i>
+        <span>+15 عام خبرة</span>
+    </div>
+    <div class="trust-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>إسطنبول، تركيا</span>
+    </div>
+</div>
+
+<div class="section">
     <div class="form-card">
         <div class="contact-info">
-            <h3>تواصل معنا</h3>
-            <p>فريقنا جاهز للإجابة على جميع استفساراتكم وتقديم الاستشارات المناسبة لكم.</p>
+            <h3>معلومات التواصل</h3>
+            <p>فريقنا جاهز للإجابة على استفساراتك وتقديم الاستشارة المناسبة لمشروعك.</p>
+
             <div class="info-item">
                 <i class="fas fa-map-marker-alt"></i>
-                <span>اسطنبول، تركيا</span>
+                <span>إسطنبول، تركيا</span>
             </div>
             <div class="info-item">
                 <i class="fas fa-phone-alt"></i>
-                <a href="tel:+905550196682">90-555-019-6682+</a>
+                <a href="tel:+905550196682">90-555-019-66-82+</a>
             </div>
             <div class="info-item">
                 <i class="fas fa-envelope"></i>
                 <a href="mailto:faroukgrup@gmail.com">faroukgrup@gmail.com</a>
             </div>
-            <div class="social-links-info">
-                <a href="https://www.instagram.com/faroukazem/" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.facebook.com/profile.php?id=100091571594026" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://wa.me/905550196682" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+            <div class="social-links">
+                <a href="https://www.instagram.com/faroukazem/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=100091571594026" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/905550196682" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
             </div>
-            <div style="margin-top: 2rem; background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 1rem; border: 1px solid rgba(184,134,11,0.3);">
-                <p style="display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-shield-alt" style="color: var(--gold);"></i> خصوصية تامة</p>
-                <p style="display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-clock" style="color: var(--gold);"></i> رد خلال 24 ساعة</p>
+
+            <a href="https://wa.me/905550196682?text=مرحباً، أريد الاستفسار" target="_blank" class="wa-quick">
+                <i class="fab fa-whatsapp"></i>
+                تواصل عبر واتساب مباشرة
+            </a>
+
+            <div class="trust-box">
+                <p><i class="fas fa-shield-alt"></i> خصوصية تامة لمعلوماتك</p>
+                <p><i class="fas fa-clock"></i> نرد خلال 24 ساعة كحد أقصى</p>
             </div>
         </div>
 
@@ -550,7 +604,7 @@ hr {
             <form id="consultForm">
                 <div class="form-group">
                     <label><i class="fas fa-user"></i> الاسم الكامل</label>
-                    <input type="text" name="name" placeholder="أدخل اسمك" required>
+                    <input type="text" name="name" placeholder="أدخل اسمك الكامل" required>
                 </div>
                 <div class="form-group">
                     <label><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
@@ -578,8 +632,8 @@ hr {
                     <i class="fas fa-paper-plane"></i> إرسال الطلب
                 </button>
             </form>
-            <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: #888;">
-                <i class="fas fa-lock" style="color: var(--gold);"></i> معلوماتك آمنة ولن تُستخدم لأغراض تسويقية.
+            <p class="form-note">
+                <i class="fas fa-lock"></i> معلوماتك آمنة ولن تُستخدم لأغراض تسويقية.
             </p>
         </div>
     </div>
@@ -591,52 +645,45 @@ hr {
         <i class="fas fa-check-circle"></i>
         <h3>شكراً لك!</h3>
         <p>تم إرسال طلبك بنجاح. سنتواصل معك خلال 24 ساعة.</p>
-        <button onclick="closePopup()">حسناً</button>
+        <button type="button" onclick="closePopup()">حسناً</button>
     </div>
 </div>
 
-<!-- ===================== -->
-<!-- FOOTER الجديد - مطابق لصفحة طلب استشارة -->
-<!-- ===================== -->
 <footer>
-    <div class="footer-container">
-        <div class="footer-content">
-            <div class="footer-row">
-                <div class="footer-social">
-                    <a href="https://www.instagram.com/faroukazem/" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.facebook.com/profile.php?id=100091571594026&sk=about" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://wa.me/905550196682" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                </div>
-
-                <div class="footer-logo-box">
-                    <h2>مجموعة فاروق للاستشارات والأعمال</h2>
-                    <div></div>
-                </div>
-
-                <div class="footer-payment">
-                    <div class="payment-card">
-                        <img src="https://img.icons8.com/color/48/visa.png" alt="Visa">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard">
-                        <img src="https://img.icons8.com/color/48/000000/apple-pay.png" alt="Apple Pay" style="height:45px;">
-                    </div>
-                </div>
+    <div class="footer-inner">
+        <div class="footer-row">
+            <div class="footer-social">
+                <a href="https://www.instagram.com/faroukazem/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=100091571594026" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/905550196682" target="_blank"><i class="fab fa-whatsapp"></i></a>
             </div>
-
-            <hr>
-
-            <div class="copyright">
-                جميع الحقوق محفوظة © 2026 <span>FAROUK GRUP</span>
-                <p>Adnan Kahveci, Beylikdüzü / İstanbul, Türkiye</p>
+            <div class="footer-logo">
+                <h2>مجموعة فاروق للاستشارات والأعمال</h2>
+                <div></div>
             </div>
+            <div class="payment-box">
+                <img src="https://img.icons8.com/color/48/visa.png" alt="Visa">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" style="height:16px;">
+                <img src="https://img.icons8.com/color/48/000000/apple-pay.png" alt="Apple Pay" style="height:36px;">
+            </div>
+        </div>
+        <hr>
+        <div class="copyright">
+            جميع الحقوق محفوظة © 2026 <span>FAROUK GRUP</span>
+            <p style="margin-top:5px;opacity:0.8;">Adnan Kahveci, Beylikdüzü / İstanbul, Türkiye</p>
         </div>
     </div>
 </footer>
-<!-- ===================== -->
-<!-- نهاية الفوتر الجديد -->
-<!-- ===================== -->
+
+<a href="https://wa.me/905550196682?text=مرحباً، أريد الاستفسار" target="_blank" class="floating-wa" title="واتساب">
+    <i class="fab fa-whatsapp"></i>
+</a>
+<a href="index.html" class="floating-home" title="الرئيسية">
+    <i class="fas fa-home"></i>
+</a>
 
 <script>
-// Google Script URL
+// Google Script URL - لا تغيّر هذا الرابط
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzMg0e8XKzZUko4poRLsRSBTgk-s1ekeaWWqJIYDbXD7om6gAP4wKax8ow-W4B7hSgpJQ/exec";
 
 const form = document.getElementById('consultForm');
