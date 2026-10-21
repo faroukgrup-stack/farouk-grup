@@ -1,501 +1,504 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes">
-    <title>Instant Project Assessment | FAROUK GRUP</title>
-    <script src="protect.js"></script>
-
-    <meta name="description" content="Quick project evaluation tool. Enter your basic data and get a general project assessment.">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --bg-dark: #0b0e17;
-            --bg-panel: rgba(18, 24, 36, 0.85);
-            --border-light: rgba(180, 133, 84, 0.25);
-            --accent-glow: #b48554;
-            --accent-soft: #cfa776;
-            --text-light: #f0f4fa;
-            --text-muted: #aab7d4;
-            --gold: #b8860b;
-            --gold-light: #d4b15a;
-            --dark: #0f0f0f;
-            --shadow-soft: 0 15px 35px -10px rgba(0,0,0,0.6), 0 0 0 1px rgba(180,133,84,0.15);
-            --shadow-glow: 0 15px 35px -10px rgba(0,0,0,0.8), 0 0 20px rgba(180,133,84,0.3);
-            --transition: all 0.3s ease;
-            --success: #28a745;
-            --warning: #ffc107;
-            --danger: #dc3545;
-        }
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background: radial-gradient(circle at 70% 30%, #141c2b, #0a0e16);
-            color: var(--text-light);
-            line-height: 1.6;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-        .glow-bg {
-            position: fixed; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 0;
-        }
-        .glow-bg span {
-            position: absolute; width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(180,133,84,0.15) 0%, transparent 70%);
-            border-radius: 50%; filter: blur(80px);
-            animation: glowMove 20s infinite alternate ease-in-out;
-        }
-        .glow-bg span:nth-child(1) { top: -100px; left: -100px; width: 500px; height: 500px; }
-        .glow-bg span:nth-child(2) { bottom: -150px; right: -150px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(100,150,200,0.1) 0%, transparent 70%); }
-        @keyframes glowMove {
-            0% { transform: translate(0,0) scale(1); opacity: 0.5; }
-            100% { transform: translate(40px,-30px) scale(1.2); opacity: 0.8; }
-        }
-
-        .hero-mini {
-            background: linear-gradient(135deg, var(--dark) 0%, #1a1a1a 100%);
-            color: white; text-align: center; padding: 3rem 1rem;
-            border-bottom: 4px solid var(--gold); position: relative; overflow: hidden; z-index: 2;
-        }
-        .hero-mini::before {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(184,134,11,0.2) 0%, transparent 60%);
-            animation: rotate 40s linear infinite;
-        }
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .hero-mini h2 { font-size: 2.5rem; font-weight: 900; color: var(--gold-light); margin-bottom: 0.5rem; position: relative; z-index: 2; }
-        .hero-mini p { font-size: 1.2rem; max-width: 700px; margin: 0 auto; opacity: 0.95; position: relative; z-index: 2; }
-
-        .calc-wrapper { max-width: 900px; margin: 2rem auto; padding: 0 1rem; position: relative; z-index: 2; }
-        .calc-box {
-            background: var(--bg-panel); backdrop-filter: blur(15px);
-            border: 2px solid var(--border-light); border-radius: 30px; padding: 2rem;
-            box-shadow: var(--shadow-soft);
-        }
-        .calc-box h2 {
-            font-size: 1.8rem; font-weight: 900;
-            background: linear-gradient(135deg, #f0e6d2, #cfa776);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 1.5rem; text-align: center;
-        }
-        .form-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
-        .form-group { flex: 1 1 200px; margin-bottom: 0.8rem; }
-        label { display: block; margin-bottom: 0.3rem; font-weight: 700; color: var(--accent-soft); font-size: 0.9rem; }
-        label i { margin-right: 0.3rem; }
-        input, select {
-            width: 100%; padding: 0.8rem 1rem; border: 2px solid var(--border-light);
-            border-radius: 30px; font-family: 'Tajawal', sans-serif; font-size: 0.95rem;
-            background: rgba(10,14,23,0.7); color: var(--text-light); transition: var(--transition);
-        }
-        input:focus, select:focus {
-            outline: none; border-color: var(--accent-glow);
-            box-shadow: 0 0 0 3px rgba(180,133,84,0.2);
-        }
-        .btn-calculate {
-            display: block; width: 100%; padding: 1.2rem; border-radius: 50px;
-            background: rgba(180,133,84,0.2); border: 1px solid var(--border-light);
-            color: var(--accent-soft); font-weight: 900; font-size: 1.2rem; cursor: pointer;
-            transition: var(--transition); backdrop-filter: blur(10px); margin: 2rem 0 1rem;
-        }
-        .btn-calculate:hover {
-            background: rgba(180,133,84,0.4); color: #fff;
-            border-color: var(--accent-glow); box-shadow: 0 0 25px rgba(180,133,84,0.3);
-            transform: translateY(-3px);
-        }
-
-        /* Results */
-        .results-section { margin-top: 2rem; }
-        .result-card {
-            background: rgba(22, 30, 46, 0.8); border: 1px solid var(--border-light);
-            border-radius: 20px; padding: 2rem; text-align: center;
-            box-shadow: var(--shadow-soft); margin-bottom: 1.5rem;
-        }
-        .status { font-size: 1rem; padding: 0.3rem 1rem; border-radius: 20px; display: inline-block; margin: 0.5rem 0; }
-        .status-good { background: var(--success); color: white; }
-        .status-bad { background: var(--danger); color: white; }
-        .status-warning { background: var(--warning); color: #111; }
-
-        .cta-buttons { display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; justify-content: center; }
-        .cta-btn {
-            background: rgba(180,133,84,0.15); border: 1px solid var(--border-light);
-            border-radius: 50px; padding: 1rem 2rem; color: var(--accent-soft);
-            font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
-            transition: var(--transition); backdrop-filter: blur(10px);
-        }
-        .cta-btn:hover {
-            background: rgba(180,133,84,0.4); color: #fff;
-            border-color: var(--accent-glow); box-shadow: 0 0 15px rgba(180,133,84,0.3);
-        }
-        .floating-home {
-            position: fixed; bottom: 20px; right: 20px; background: rgba(180,133,84,0.9); color: white;
-            padding: 12px 20px; border-radius: 50px; text-decoration: none; font-weight: bold;
-            backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 9999;
-            display: flex; align-items: center; gap: 8px; transition: 0.3s;
-        }
-        .floating-home:hover { background: #b48554; transform: scale(1.05); }
-        .footer-simple {
-            text-align: center; padding: 1.5rem; margin-top: 2rem;
-            background: rgba(10,14,23,0.5); backdrop-filter: blur(5px);
-            border-top: 1px solid var(--border-light); color: var(--text-muted); font-size: 0.85rem;
-        }
-        .footer-simple span { color: var(--accent-soft); font-weight: 700; }
-
-        @media (max-width: 768px) {
-            .hero-mini h2 { font-size: 2rem; }
-            .calc-box { padding: 1.5rem; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instant Project Evaluation | FAROUK GRUP</title>
+<script src="protect.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;900&family=Alexandria:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{--gold:#b8860b;--gold-light:#d4b15a;--dark:#121212;--line:#eadfc8;--muted:#666;--bg:#f6f4ef;--success:#1a7a3a;--warning:#7a6a1a;--danger:#6a1a1a;--orange:#b45309;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter','Tajawal',sans-serif;background:var(--bg);color:#1c1c1c;min-height:100vh;padding-bottom:80px;line-height:1.8;}
+.header-tool{background:linear-gradient(160deg,#121212,#1c1c1c);border-bottom:4px solid var(--gold);text-align:center;padding:28px 16px 22px;position:relative;overflow:hidden;}
+.header-tool::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 50%,rgba(184,134,11,.15) 0%,transparent 60%);pointer-events:none;}
+.logo-badge{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;position:relative;z-index:1;}
+.logo-badge img{height:48px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4));}
+.header-tool h1{font-family:'Alexandria',sans-serif;color:var(--gold-light);font-size:1.7rem;font-weight:900;}
+.sub{display:inline-block;margin-top:10px;background:var(--gold);color:#111;padding:4px 18px;border-radius:50px;font-weight:800;font-size:.85rem;position:relative;z-index:1;}
+.wrap{max-width:1050px;margin:0 auto;padding:0 16px 40px;}
+.card{background:#fff;border:1px solid var(--line);border-top:none;border-radius:0 0 20px 20px;box-shadow:0 12px 40px rgba(0,0,0,.06);padding:22px 22px 28px;}
+.intro-card{background:linear-gradient(160deg,#fffdf8,#fff8ea);border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:12px;padding:18px 22px;margin-bottom:22px;}
+.intro-card h3{color:var(--gold);font-size:1.05rem;margin-bottom:10px;}
+.intro-card p{color:#555;font-size:.92rem;margin-bottom:10px;}
+.intro-card ul{list-style:none;padding:0;margin:0;}
+.intro-card ul li{padding:6px 0;font-size:.9rem;color:#444;border-bottom:1px dashed #f0e6d0;}
+.intro-card ul li:last-child{border-bottom:none;}
+.intro-card ul li strong{color:#8a6808;}
+.section-title{font-family:'Alexandria',sans-serif;color:#8a6808;font-size:1.05rem;font-weight:900;margin:22px 0 12px;padding-left:10px;border-left:4px solid var(--gold);}
+.notice{background:#fffdf8;border:1px solid var(--line);border-radius:12px;padding:12px 16px;color:var(--muted);margin-bottom:18px;font-size:.93rem;}
+.notice strong{color:var(--gold);}
+.req{color:#e74c3c;font-weight:900;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:8px;}
+.field{display:flex;flex-direction:column;}
+.field label{display:flex;align-items:center;gap:6px;font-size:.82rem;font-weight:700;color:#555;margin-bottom:5px;}
+.field label i{color:var(--gold);font-size:.85rem;}
+.field label .info{color:#999;cursor:help;font-size:.8rem;}
+.field label .info:hover{color:var(--gold);}
+.field input,.field select{width:100%;padding:10px 14px;border-radius:30px;border:1px solid #e4d8c0;background:#fff;color:#1c1c1c;font-family:inherit;font-size:.95rem;transition:.25s;}
+.field input:focus,.field select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,134,11,.15);}
+.field .helper{font-size:.75rem;color:#888;margin-top:3px;line-height:1.5;}
+.phone-row{display:flex;gap:8px;}
+.phone-row input[type="text"]{width:140px;flex:none;direction:ltr;}
+.btn{width:100%;margin-top:22px;border:none;border-radius:50px;cursor:pointer;padding:16px;font-family:inherit;font-weight:900;font-size:1.15rem;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#111;box-shadow:0 8px 24px rgba(184,134,11,.28);transition:.3s;}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(184,134,11,.4);}
+.btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.result{display:none;margin-top:26px;background:linear-gradient(160deg,#fffdf8,#fff8ea);border:1px solid var(--line);border-radius:20px;padding:28px 22px;box-shadow:0 12px 40px rgba(0,0,0,.08);animation:fadeUp .6s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.result-head{text-align:center;margin-bottom:20px;}
+.result-head h3{font-family:'Alexandria',sans-serif;color:var(--gold);font-size:1.5rem;font-weight:900;}
+.result-head p{color:#666;font-size:.95rem;margin-top:4px;}
+.score-circle-wrap{display:flex;flex-direction:column;align-items:center;margin:14px 0;}
+.score-circle{width:150px;height:150px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));display:flex;align-items:center;justify-content:center;font-size:2.8rem;font-weight:900;color:#111;box-shadow:0 0 50px rgba(184,134,11,.3),inset 0 -6px 12px rgba(0,0,0,.1);}
+.score-label{margin-top:10px;font-size:.85rem;font-weight:700;color:var(--muted);}
+.badge{display:inline-block;margin-top:6px;padding:8px 22px;border-radius:50px;font-weight:900;font-size:1rem;}
+.badge.good{background:var(--success);color:#e9fff1;}
+.badge.mid{background:var(--warning);color:#fff6d0;}
+.badge.fair{background:var(--orange);color:#fff3e0;}
+.badge.bad{background:var(--danger);color:#ffe4e0;}
+.breakdown-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:18px 0;}
+.breakdown-item{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;}
+.breakdown-item .label{font-size:.85rem;color:#444;font-weight:600;}
+.breakdown-item .points{font-size:1rem;font-weight:900;color:var(--gold);}
+.breakdown-item.full .points{color:var(--success);}
+.breakdown-item.zero .points{color:#999;}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:22px 0 10px;}
+.metric-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;}
+.metric-card .metric-icon{font-size:1.4rem;color:var(--gold);margin-bottom:6px;}
+.metric-card .metric-label{font-size:.78rem;color:#777;font-weight:600;margin-bottom:4px;}
+.metric-card .metric-value{font-size:1.15rem;font-weight:900;color:var(--gold);}
+.metric-card .metric-value.neg{color:#c0392b;}
+.metric-card .metric-value.pos{color:var(--success);}
+.snapshot{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin:18px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;}
+.snapshot-item{text-align:center;padding:8px 0;border-right:1px solid #f0e6d0;}
+.snapshot-item:last-child{border-right:none;}
+.snapshot-item .snap-label{font-size:.78rem;color:#777;font-weight:600;}
+.snapshot-item .snap-value{font-size:1.1rem;font-weight:900;color:#333;margin-top:4px;}
+.snapshot-item .snap-value.gold{color:var(--gold);}
+.snapshot-item .snap-value.red{color:#c0392b;}
+.details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;color:#444;line-height:2;font-size:.93rem;}
+.details>div{padding:4px 0;border-bottom:1px dashed #f0e6d0;}
+.details>div:last-child{border-bottom:none;}
+.yearly-table-wrap{overflow-x:auto;margin:12px 0 4px;border-radius:12px;border:1px solid var(--line);}
+.yearly-table{width:100%;border-collapse:collapse;font-size:.82rem;min-width:850px;}
+.yearly-table thead th{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#111;padding:8px 6px;font-weight:800;text-align:center;border-bottom:2px solid #8a6808;}
+.yearly-table tbody td{padding:7px 6px;text-align:center;border-bottom:1px solid #f5efdf;}
+.yearly-table tbody tr:nth-child(even){background:#fdfaf2;}
+.yearly-table tbody tr:hover{background:#fff8ea;}
+.yearly-table tbody tr.initial-row{background:#fef2f2;font-weight:700;}
+.yearly-table tbody tr.terminal-row{background:#f0f9f0;font-weight:700;}
+.yearly-table .neg{color:#c0392b;}
+.yearly-table .pos{color:var(--success);}
+.chart-wrap{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin:18px 0;height:320px;}
+.explain-box{background:linear-gradient(160deg,#f0f9ff,#e0f2fe);border:1px solid #bfdbfe;border-left:5px solid #3b82f6;border-radius:12px;padding:16px 20px;margin:18px 0;font-size:.92rem;color:#1e3a8a;line-height:1.9;}
+.explain-box strong{color:#1e40af;}
+.explain-box ul{padding-left:20px;margin:8px 0;}
+.export-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px;padding-top:18px;border-top:1px solid var(--line);}
+.export-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:50px;border:1.5px solid transparent;font-family:inherit;font-weight:800;font-size:.95rem;cursor:pointer;transition:.3s;}
+.export-btn.word{background:#f0f4ff;color:#1e3a8a;border-color:#c7d2fe;}
+.export-btn.word:hover{background:#1e3a8a;color:#fff;transform:translateY(-2px);box-shadow:0 8px 20px rgba(30,58,138,.3);}
+.export-btn.excel{background:#f0fdf4;color:#166534;border-color:#bbf7d0;}
+.export-btn.excel:hover{background:#166534;color:#fff;transform:translateY(-2px);box-shadow:0 8px 20px rgba(22,101,52,.3);}
+.floating-home{position:fixed;bottom:18px;right:18px;z-index:50;background:linear-gradient(135deg,#c9a227,#b8860b);color:#111;text-decoration:none;font-weight:800;padding:12px 18px;border-radius:50px;box-shadow:0 6px 18px rgba(0,0,0,.2);display:flex;align-items:center;gap:8px;}
+.loading{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:90;align-items:center;justify-content:center;color:#fff;flex-direction:column;gap:12px;backdrop-filter:blur(4px);}
+.loading.show{display:flex;}
+.loading i{font-size:2.5rem;color:var(--gold-light);}
+.loading p{font-size:1rem;font-weight:600;}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#dc3545;color:#fff;padding:10px 22px;border-radius:40px;display:none;z-index:80;font-weight:700;font-size:.9rem;box-shadow:0 6px 20px rgba(0,0,0,.2);}
+@media (max-width:640px){.header-tool h1{font-size:1.25rem;}.phone-row{flex-direction:column;}.phone-row input[type="text"]{width:100%;}.score-circle{width:120px;height:120px;font-size:2.2rem;}.yearly-table{font-size:.75rem;}.chart-wrap{height:260px;}}
+</style>
 </head>
 <body>
-<div class="glow-bg"><span></span><span></span></div>
 
-<section class="hero-mini">
-    <h2>Instant Project Assessment</h2>
-    <p>Enter your basic data to get a quick and concise evaluation of your project's feasibility</p>
-</section>
+<header class="header-tool">
+    <div class="logo-badge">
+        <img src="https://lh3.googleusercontent.com/d/1e6u-DPTinDJl_Q9wW3QvGgzFbXO_2sXa" alt="FAROUK GRUP">
+        <h1>Instant Project Evaluation</h1>
+    </div>
+    <div class="sub">Accurate feasibility study in seconds</div>
+</header>
 
-<section class="calc-wrapper">
-    <div class="calc-box" data-aos="fade-up">
-        <h2>Basic Inputs</h2>
+<div class="wrap"><div class="card">
 
-        <div class="form-row">
-            <div class="form-group">
-                <label><i class="fas fa-coins"></i> Currency</label>
-                <select id="currencySelect">
-                    <option value="$" selected>Dollar ($)</option>
-                    <option value="€">Euro (€)</option>
-                    <option value="₺">Turkish Lira (₺)</option>
-                    <option value="ج.م">Egyptian Pound (ج.م)</option>
-                    <option value="ر.س">Saudi Riyal (ر.س)</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-building"></i> Project Name</label>
-                <input type="text" id="companyName" value="My New Project" placeholder="Project Name">
+    <div class="intro-card">
+        <h3><i class="fas fa-lightbulb"></i> How does the tool work?</h3>
+        <p>The tool computes five internationally recognized financial indicators to evaluate your project's feasibility:</p>
+        <ul>
+            <li><strong>NPV (Net Present Value):</strong> The current value of all future cash flows. Positive NPV = viable project.</li>
+            <li><strong>IRR (Internal Rate of Return):</strong> The annual return generated by the project. Must exceed the discount rate (cost of capital).</li>
+            <li><strong>PI (Profitability Index):</strong> Return per unit of investment. Must be ≥ 1.</li>
+            <li><strong>Payback Period:</strong> Time required to recover capital. Shorter is better.</li>
+            <li><strong>EBITDA:</strong> Operating profit before depreciation and taxes. Reflects operational efficiency.</li>
+        </ul>
+    </div>
+
+    <div class="notice">
+        <strong>Notice:</strong> Fields marked <span class="req">*</span> are required. Results are shown instantly and a detailed report can be printed.
+    </div>
+
+    <div class="section-title"><i class="fas fa-user-circle"></i> Client Information</div>
+    <div class="grid">
+        <div class="field"><label><i class="fas fa-user"></i> Full Name <span class="req">*</span></label><input id="clientName" placeholder="Full Name"></div>
+        <div class="field"><label><i class="fas fa-envelope"></i> Email <span class="info" title="Optional — for contact only">?</span></label><input id="clientEmail" type="email" placeholder="example@domain.com"></div>
+        <div class="field" style="grid-column:1/-1;">
+            <label><i class="fas fa-phone"></i> Phone Number <span class="req">*</span></label>
+            <div class="phone-row">
+                <input id="countryCode" list="countryCodes" placeholder="Country code" style="direction:ltr">
+                <datalist id="countryCodes">
+                    <option value="+90">🇹🇷 +90 Turkey</option>
+                    <option value="+966">🇸🇦 +966 Saudi Arabia</option>
+                    <option value="+971">🇦🇪 +971 UAE</option>
+                    <option value="+962">🇯🇴 +962 Jordan</option>
+                    <option value="+961">🇱🇧 +961 Lebanon</option>
+                    <option value="+20">🇪🇬 +20 Egypt</option>
+                    <option value="+212">🇲🇦 +212 Morocco</option>
+                    <option value="+216">🇹🇳 +216 Tunisia</option>
+                    <option value="+213">🇩🇿 +213 Algeria</option>
+                    <option value="+1">🇺🇸 +1 USA</option>
+                    <option value="+44">🇬🇧 +44 UK</option>
+                    <option value="+49">🇩🇪 +49 Germany</option>
+                    <option value="+33">🇫🇷 +33 France</option>
+                    <option value="+34">🇪🇸 +34 Spain</option>
+                    <option value="+39">🇮🇹 +39 Italy</option>
+                    <option value="+61">🇦🇺 +61 Australia</option>
+                    <option value="+965">🇰🇼 +965 Kuwait</option>
+                    <option value="+968">🇴🇲 +968 Oman</option>
+                    <option value="+974">🇶🇦 +974 Qatar</option>
+                    <option value="+973">🇧🇭 +973 Bahrain</option>
+                    <option value="+964">🇮🇶 +964 Iraq</option>
+                    <option value="+963">🇸🇾 +963 Syria</option>
+                    <option value="+970">🇵🇸 +970 Palestine</option>
+                    <option value="+218">🇱🇾 +218 Libya</option>
+                    <option value="+249">🇸🇩 +249 Sudan</option>
+                    <option value="+967">🇾🇪 +967 Yemen</option>
+                </datalist>
+                <input id="clientPhone" type="tel" placeholder="555 000 1234">
             </div>
         </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label><i class="fas fa-industry"></i> Fixed Capital</label>
-                <input type="number" id="fixedCapital" value="150000" step="1000">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-file-invoice"></i> Setup Capital</label>
-                <input type="number" id="setupCapital" value="100000" step="1000">
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label><i class="fas fa-chart-line"></i> Monthly Cash Sales</label>
-                <input type="number" id="monthlySales" value="220000" step="1000">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-users"></i> Number of Employees</label>
-                <input type="number" id="employees" value="2" step="1">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-user-tie"></i> Average Net Salary</label>
-                <input type="number" id="netSalary" value="30000" step="1000">
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label><i class="fas fa-hand-holding-usd"></i> Employee Cost Factor</label>
-                <input type="number" id="salaryBurden" value="1.61" step="0.01">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-store"></i> Monthly Rent (Net)</label>
-                <input type="number" id="netRent" value="50000" step="1000">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-percent"></i> VAT on Rent (%)</label>
-                <input type="number" id="rentTax" value="20" step="1">
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label><i class="fas fa-percent"></i> Variable Costs (% of Sales)</label>
-                <input type="number" id="totalVariableCostPercent" value="0.3" step="0.01" min="0" max="1">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-tools"></i> Monthly Operating Expenses</label>
-                <input type="number" id="opexMonthly" value="15000" step="1000">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-piggy-bank"></i> Monthly Cash Reserve</label>
-                <input type="number" id="cashReserve" value="7000" step="1000">
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label><i class="fas fa-clock"></i> Working Capital Coverage (Months)</label>
-                <input type="number" id="wcMonths" value="3" step="1" min="0">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-calendar-alt"></i> Useful Life (Years)</label>
-                <input type="number" id="lifeYears" value="8" step="1" min="1" max="20">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-arrow-up"></i> Annual Sales Growth (%)</label>
-                <input type="number" id="growthRate" value="10" step="0.1">
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label><i class="fas fa-arrow-down"></i> Annual Expense Growth (%)</label>
-                <input type="number" id="expGrowth" value="5" step="0.1">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-percent"></i> Discount Rate (%)</label>
-                <input type="number" id="discountRate" value="10" step="0.1">
-            </div>
-            <div class="form-group">
-                <label><i class="fas fa-percent"></i> Income Tax (%)</label>
-                <input type="number" id="taxRate" value="25" step="0.1">
-            </div>
-        </div>
-
-        <button class="btn-calculate" id="calculateBtn"><i class="fas fa-calculator"></i> Calculate Assessment</button>
-
-        <!-- Results section -->
-        <div id="resultsSection" style="display: none;" class="results-section">
-            <div class="result-card" id="projectScoreCard"></div>
-            <div style="text-align: center; color: var(--text-muted); margin: 1rem 0;">
-                For complete analysis, charts, and detailed reports, choose one of the options below.
-            </div>
-            <div class="cta-buttons">
-                <a href="https://portal.farouk-grup.com/finance-hub" class="cta-btn" target="_blank">
-                    <i class="fas fa-chart-pie"></i> Comprehensive Platform – All Details
-                </a>
-                <a href="Contact-Us-En.html" class="cta-btn">
-                    <i class="fas fa-headset"></i> Contact Us for a Consultation
-                </a>
-            </div>
-        </div>
-
-        <div id="initialMessage" style="margin-top:1.5rem; color:var(--text-muted); text-align:center;">
-            <i class="fas fa-robot" style="color: var(--accent-soft);"></i> Click the button to get a quick assessment
+        <div class="field"><label><i class="fas fa-briefcase"></i> Project Name</label><input id="companyName" type="text" value="My New Project"></div>
+        <div class="field"><label><i class="fas fa-coins"></i> Currency</label>
+            <select id="currencySelect">
+                <option value="$" selected>USD ($)</option>
+                <option value="€">EUR (€)</option>
+                <option value="₺">TRY (₺)</option>
+                <option value="EGP">EGP (ج.م)</option>
+                <option value="SAR">SAR (ر.س)</option>
+                <option value="AED">AED (د.إ)</option>
+            </select>
         </div>
     </div>
-</section>
 
-<footer class="footer-simple">
-    All Rights Reserved © 2026 <span>FAROUK GRUP</span>
-</footer>
+    <div class="section-title"><i class="fas fa-piggy-bank"></i> Initial Investment</div>
+    <div class="grid">
+        <div class="field"><label><i class="fas fa-building"></i> Fixed Capital <span class="info" title="Physical assets: equipment, furniture, decor, devices">?</span></label><input id="fixedCapital" type="number" value="150000" step="any"><span class="helper">Equipment, furniture, decor — depreciated over the life</span></div>
+        <div class="field"><label><i class="fas fa-file-contract"></i> Setup Capital <span class="info" title="License fees, advance rent, insurance">?</span></label><input id="setupCapital" type="number" value="100000" step="any"><span class="helper">Licenses, advance rent, insurance, legal fees</span></div>
+        <div class="field"><label><i class="fas fa-wallet"></i> Monthly Cash Reserve <span class="info" title="Additional monthly emergency fund">?</span></label><input id="cashReserve" type="number" value="7000" step="any"><span class="helper">For emergencies — counted in working capital</span></div>
+    </div>
 
-<!-- Floating home button -->
-<a href="En.html" class="floating-home"><i class="fas fa-home"></i> Home</a>
+    <div class="section-title"><i class="fas fa-cogs"></i> Operations & Revenue</div>
+    <div class="grid">
+        <div class="field"><label><i class="fas fa-shopping-cart"></i> Expected Monthly Sales <span class="info" title="Expected average monthly cash revenue">?</span></label><input id="monthlySales" type="number" value="220000" step="any"><span class="helper">Expected monthly cash revenue (average)</span></div>
+        <div class="field"><label><i class="fas fa-users"></i> Number of Employees</label><input id="employees" type="number" value="5" step="any"></div>
+        <div class="field"><label><i class="fas fa-money-bill-wave"></i> Average Net Salary <span class="info" title="Net salary received by the employee">?</span></label><input id="netSalary" type="number" value="15000" step="any"><span class="helper">Net salary received by the employee</span></div>
+        <div class="field"><label><i class="fas fa-percent"></i> Employee Cost Factor <span class="info" title="Multiplier covering insurance and taxes">?</span></label><input id="salaryBurden" type="number" value="1.61" step="0.01"><span class="helper">Multiplier covering insurance and taxes (1.61 common)</span></div>
+        <div class="field"><label><i class="fas fa-home"></i> Monthly Rent (Net)</label><input id="netRent" type="number" value="50000" step="any"></div>
+        <div class="field"><label><i class="fas fa-receipt"></i> Rent Tax (%)</label><input id="rentTax" type="number" value="20" step="any"></div>
+        <div class="field"><label><i class="fas fa-chart-pie"></i> Variable Costs (%) <span class="info" title="Percentage of raw materials and packaging out of sales">?</span></label><input id="totalVariableCostPercent" type="number" value="0.30" step="0.01"><span class="helper">Raw materials & packaging as % of sales (0.30 = 30%)</span></div>
+        <div class="field"><label><i class="fas fa-bolt"></i> Monthly Operating Expenses</label><input id="opexMonthly" type="number" value="15000" step="any"><span class="helper">Electricity, water, internet, marketing, maintenance</span></div>
+    </div>
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-AOS.init({ duration: 800, once: true, offset: 100 });
+    <div class="section-title"><i class="fas fa-chart-line"></i> Financial Assumptions</div>
+    <div class="grid">
+        <div class="field"><label><i class="fas fa-calendar-check"></i> Working Capital Months <span class="info" title="Months of fixed expenses to keep in cash">?</span></label><input id="wcMonths" type="number" value="3" step="any"><span class="helper">Months of fixed expenses held in cash</span></div>
+        <div class="field"><label><i class="fas fa-hourglass-half"></i> Productive Life (Years)</label><input id="lifeYears" type="number" value="8" step="any"></div>
+        <div class="field"><label><i class="fas fa-arrow-trend-up"></i> Annual Sales Growth (%)</label><input id="growthRate" type="number" value="10" step="any"></div>
+        <div class="field"><label><i class="fas fa-arrow-trend-down"></i> Annual Expense Growth (%)</label><input id="expGrowth" type="number" value="5" step="any"></div>
+        <div class="field"><label><i class="fas fa-balance-scale"></i> Discount Rate (%) <span class="info" title="Cost of capital — return from an alternative similar investment">?</span></label><input id="discountRate" type="number" value="10" step="any"><span class="helper">WACC — return required from a similar investment</span></div>
+        <div class="field"><label><i class="fas fa-landmark"></i> Income Tax (%)</label><input id="taxRate" type="number" value="25" step="any"></div>
+        <div class="field"><label><i class="fas fa-recycle"></i> Salvage Value Rate (%) <span class="info" title="Percentage of fixed capital recoverable at end of life">?</span></label><input id="salvageRate" type="number" value="15" step="any"><span class="helper">% of fixed assets recovered at end of life</span></div>
+    </div>
 
-// Financial functions (unchanged)
-function calculateIRR(cashFlows, guess = 0.1, maxIter = 10000, tol = 1e-8) {
-    let hasPositive = false, hasNegative = false;
-    for (let i = 0; i < cashFlows.length; i++) {
-        if (cashFlows[i] > 0) hasPositive = true;
-        if (cashFlows[i] < 0) hasNegative = true;
-    }
-    if (!hasPositive || !hasNegative) return NaN;
-    let low = -0.99; let high = 1e6;
-    let fLow = 0, fHigh = 0;
-    for (let i = 0; i < cashFlows.length; i++) {
-        fLow += cashFlows[i] / Math.pow(1 + low, i);
-        fHigh += cashFlows[i] / Math.pow(1 + high, i);
-    }
-    if (fLow * fHigh > 0) {
-        while (fLow * fHigh > 0 && high < 1e12) {
-            high *= 2;
-            fHigh = 0;
-            for (let i = 0; i < cashFlows.length; i++) fHigh += cashFlows[i] / Math.pow(1 + high, i);
-        }
-        if (fLow * fHigh > 0) return NaN;
-    }
-    for (let iter = 0; iter < maxIter; iter++) {
-        let mid = (low + high) / 2;
-        let fMid = 0;
-        for (let i = 0; i < cashFlows.length; i++) fMid += cashFlows[i] / Math.pow(1 + mid, i);
-        if (Math.abs(fMid) < tol) return mid;
-        if (fMid > 0) low = mid;
-        else high = mid;
-    }
-    return (low + high) / 2;
-}
+    <button class="btn" id="go"><i class="fas fa-calculator"></i> Calculate Financial Evaluation</button>
 
-function computeProjectFromInputs(inputs) {
-    const fixedCap = inputs.fixedCapital;
-    const setupCap = inputs.setupCapital;
-    const monthlySales = inputs.monthlySales;
-    const employees = inputs.employees;
-    const netSalary = inputs.netSalary;
-    const salaryBurden = inputs.salaryBurden;
-    const netRent = inputs.netRent;
-    const rentTax = inputs.rentTax;
-    const totalVariableCostPercent = inputs.totalVariableCostPercent;
-    const opexMonthly = inputs.opexMonthly;
-    const cashReserve = inputs.cashReserve;
-    const wcMonths = inputs.wcMonths;
-    const growth = inputs.growth;
-    const expGrowth = inputs.expGrowth;
-    const discount = inputs.discount;
-    const taxRate = inputs.taxRate;
-    const lifeYears = inputs.lifeYears;
-
-    const salariesMonthly = employees * netSalary * salaryBurden;
-    const rentMonthly = netRent * (1 + rentTax);
-    const fixedMonthly = salariesMonthly + rentMonthly + opexMonthly;
-    const totalFixedMonthly = fixedMonthly + cashReserve;
-    const workingCapitalRequired = totalFixedMonthly * wcMonths;
-    const totalInvestment = fixedCap + setupCap + workingCapitalRequired;
-    const revenue1 = monthlySales * 12;
-    const fixedExpenses1 = (salariesMonthly + rentMonthly + opexMonthly) * 12;
-    const depreciation = fixedCap / lifeYears;
-
-    let fcf = [];
-    let cashFlows = [-totalInvestment];
-    for (let i = 1; i <= lifeYears; i++) {
-        let rev = revenue1 * Math.pow(1 + growth, i - 1);
-        let fixedExp = fixedExpenses1 * Math.pow(1 + expGrowth, i - 1);
-        let varExp = rev * totalVariableCostPercent;
-        let ebit_ = rev - fixedExp - varExp - depreciation;
-        let tax_ = ebit_ > 0 ? ebit_ * taxRate : 0;
-        let nopat_ = ebit_ - tax_;
-        let fcf_ = nopat_ + depreciation;
-        fcf.push(fcf_);
-        cashFlows.push(fcf_);
-    }
-
-    let npv = -totalInvestment;
-    for (let i = 1; i <= lifeYears; i++) {
-        npv += fcf[i-1] / Math.pow(1 + discount, i);
-    }
-
-    const irrValue = calculateIRR(cashFlows);
-
-    let cum = 0, paybackYear = null, paybackFraction = 0;
-    for (let i = 0; i < cashFlows.length; i++) {
-        cum += cashFlows[i];
-        if (cum >= 0 && paybackYear === null) {
-            paybackYear = i;
-            let prevCum = cum - cashFlows[i];
-            paybackFraction = -prevCum / cashFlows[i];
-            break;
-        }
-    }
-    const payback = paybackYear !== null ? paybackYear - 1 + paybackFraction : null;
-
-    const pvFuture = cashFlows.slice(1).reduce((acc, val, idx) => acc + val / Math.pow(1 + discount, idx + 1), 0);
-    const pi = pvFuture / Math.abs(cashFlows[0]);
-
-    return { npv, irr: irrValue, payback, pi, totalInvestment, years: lifeYears };
-}
-
-function evaluateProject(res, inputs) {
-    let score = 0;
-    const details = [];
-
-    if (res.npv > 0) {
-        score += 25;
-        details.push("✅ NPV is positive");
-    } else {
-        details.push("❌ NPV is negative");
-    }
-
-    if (!isNaN(res.irr) && res.irr > inputs.discount) {
-        score += 25;
-        details.push("✅ IRR > Discount Rate");
-    } else {
-        details.push("❌ IRR ≤ Discount Rate");
-    }
-
-    if (res.pi >= 1) {
-        score += 25;
-        details.push("✅ PI ≥ 1");
-    } else {
-        details.push("❌ PI < 1");
-    }
-
-    const halfLife = inputs.lifeYears / 2;
-    if (res.payback !== null && res.payback < halfLife) {
-        score += 25;
-        details.push(`✅ Payback Period (${res.payback.toFixed(1)} years) < Half-life (${halfLife} years)`);
-    } else if (res.payback !== null) {
-        details.push(`❌ Payback Period (${res.payback.toFixed(1)} years) ≥ Half-life (${halfLife} years)`);
-    } else {
-        details.push("❌ No payback within project life");
-    }
-
-    let grade = "", gradeClass = "", icon = "";
-    if (score >= 80) {
-        grade = "Excellent";
-        gradeClass = "status-good";
-        icon = "🟢";
-    } else if (score >= 50) {
-        grade = "Acceptable";
-        gradeClass = "status-warning";
-        icon = "🟡";
-    } else {
-        grade = "High Risk";
-        gradeClass = "status-bad";
-        icon = "🔴";
-    }
-
-    return { score, grade, gradeClass, icon, details };
-}
-
-document.getElementById('calculateBtn').addEventListener('click', function() {
-    const currency = document.getElementById('currencySelect').value;
-    const inputs = {
-        fixedCapital: parseFloat(document.getElementById('fixedCapital').value) || 0,
-        setupCapital: parseFloat(document.getElementById('setupCapital').value) || 0,
-        monthlySales: parseFloat(document.getElementById('monthlySales').value) || 0,
-        employees: parseFloat(document.getElementById('employees').value) || 0,
-        netSalary: parseFloat(document.getElementById('netSalary').value) || 0,
-        salaryBurden: parseFloat(document.getElementById('salaryBurden').value) || 1,
-        netRent: parseFloat(document.getElementById('netRent').value) || 0,
-        rentTax: parseFloat(document.getElementById('rentTax').value) / 100 || 0,
-        totalVariableCostPercent: parseFloat(document.getElementById('totalVariableCostPercent').value) || 0,
-        opexMonthly: parseFloat(document.getElementById('opexMonthly').value) || 0,
-        cashReserve: parseFloat(document.getElementById('cashReserve').value) || 0,
-        wcMonths: parseFloat(document.getElementById('wcMonths').value) || 3,
-        growth: parseFloat(document.getElementById('growthRate').value) / 100 || 0,
-        expGrowth: parseFloat(document.getElementById('expGrowth').value) / 100 || 0,
-        discount: parseFloat(document.getElementById('discountRate').value) / 100 || 0.1,
-        taxRate: parseFloat(document.getElementById('taxRate').value) / 100 || 0.25,
-        lifeYears: parseInt(document.getElementById('lifeYears').value) || 8
-    };
-
-    const res = computeProjectFromInputs(inputs);
-    const evaluation = evaluateProject(res, inputs);
-
-    document.getElementById('initialMessage').style.display = 'none';
-    document.getElementById('resultsSection').style.display = 'block';
-
-    let detailsHtml = evaluation.details.map(d => `<div style="margin:0.3rem 0; font-size:0.95rem;">${d}</div>`).join('');
-
-    document.getElementById('projectScoreCard').innerHTML = `
-        <div style="font-size:1.4rem; font-weight:900; color:var(--accent-soft); margin-bottom:1rem;">Project Assessment</div>
-        <div style="font-size:3rem; font-weight:900; color:var(--accent-soft);">${evaluation.score} / 100</div>
-        <div class="status ${evaluation.gradeClass}" style="font-size:1.2rem; margin:0.8rem 0;">${evaluation.icon} ${evaluation.grade}</div>
-        <div style="margin-top:1rem; border-top:1px solid var(--border-light); padding-top:1rem; text-align:left; display: inline-block;">
-            ${detailsHtml}
+    <div class="result" id="result">
+        <div class="result-head">
+            <h3>📊 Feasibility Evaluation Result</h3>
+            <p>Comprehensive financial analysis based on international investment standards</p>
         </div>
-    `;
+        <div class="score-circle-wrap">
+            <div class="score-circle" id="score">0</div>
+            <div class="score-label">out of 100 points</div>
+            <div class="badge mid" id="badge"></div>
+        </div>
+        <div class="section-title"><i class="fas fa-list-check"></i> Score Breakdown</div>
+        <div class="breakdown-grid" id="breakdownGrid"></div>
+        <div class="section-title"><i class="fas fa-chart-bar"></i> Key Financial Indicators</div>
+        <div class="metrics-grid" id="metricsGrid"></div>
+        <div class="section-title"><i class="fas fa-calendar-day"></i> Monthly Snapshot (Year 1)</div>
+        <div class="snapshot" id="snapshot"></div>
+        <div class="section-title"><i class="fas fa-comment-dots"></i> Interpretation</div>
+        <div class="details" id="details"></div>
+        <div class="explain-box">
+            <strong><i class="fas fa-graduation-cap"></i> How to read these numbers?</strong>
+            <ul>
+                <li><strong>Positive NPV:</strong> The project creates economic value — higher is better.</li>
+                <li><strong>IRR &gt; Discount Rate:</strong> Return is above the cost of capital — viable investment.</li>
+                <li><strong>PI ≥ 1:</strong> Each unit of investment returns more than its current value.</li>
+                <li><strong>Short Payback:</strong> Faster capital recovery = lower risk.</li>
+                <li><strong>Break-even:</strong> Minimum monthly sales to cover costs (no profit or loss).</li>
+            </ul>
+        </div>
+        <div class="section-title"><i class="fas fa-table"></i> Annual Cash Flows</div>
+        <div class="yearly-table-wrap"><table class="yearly-table" id="yearlyTable"></table></div>
+        <div class="section-title"><i class="fas fa-chart-column"></i> Cash Flow Chart</div>
+        <div class="chart-wrap"><canvas id="cashflowChart"></canvas></div>
+        <div class="export-btns">
+            <button class="export-btn word" onclick="exportReport('word')"><i class="fas fa-file-word"></i> Export Word</button>
+            <button class="export-btn excel" onclick="exportReport('excel')"><i class="fas fa-file-excel"></i> Export Excel</button>
+        </div>
+    </div>
+</div></div>
 
-    document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
-});
+<a href="/" class="floating-home"><i class="fas fa-home"></i> Home</a>
+<div class="loading" id="loading"><i class="fas fa-spinner fa-pulse"></i><p>Analyzing project data...</p></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGwSOWJdstNkslj0Lq5RqoPL5W4PoM3h2kzuDbsYJrQ25pR6EVn9SEjAF5as-cFhuh/exec";
+let lastResult = null;
+let chartInstance = null;
+
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2600);}
+function clientOk(){const name=document.getElementById('clientName').value.trim(),phone=document.getElementById('clientPhone').value.trim(),cc=document.getElementById('countryCode').value.trim();if(name.length<2){toast('Please enter full name');return false;}if(!cc.startsWith('+')){toast('Please select country code');return false;}if(phone.length<6){toast('Please enter valid phone');return false;}return true;}
+function formatNum(n){if(n===null||n===undefined||isNaN(n))return '—';return Math.round(n).toLocaleString('en-US');}
+function formatNum2(n){if(n===null||n===undefined||isNaN(n))return '—';return n.toLocaleString('en-US',{maximumFractionDigits:2,minimumFractionDigits:0});}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function sanitizeFile(s){return String(s||'project').replace(/[\\/:*?"<>|]/g,'_').trim().substring(0,40)||'project';}
+
+function calculateIRR(cashFlows){
+    const hasPos=cashFlows.some(v=>v>0),hasNeg=cashFlows.some(v=>v<0);
+    if(!hasPos||!hasNeg)return null;
+    function npvAt(rate){let s=0;for(let i=0;i<cashFlows.length;i++)s+=cashFlows[i]/Math.pow(1+rate,i);return s;}
+    let low=-0.99,high=1.0,fLow=npvAt(low),fHigh=npvAt(high),tries=0;
+    while(fLow*fHigh>0&&tries<50){high*=1.5;fHigh=npvAt(high);tries++;if(high>100)return null;}
+    if(fLow*fHigh>0)return null;
+    for(let iter=0;iter<200;iter++){const mid=(low+high)/2,fMid=npvAt(mid);if(Math.abs(fMid)<1e-8)return mid;if(fLow*fMid<0){high=mid;fHigh=fMid;}else{low=mid;fLow=fMid;}}
+    return (low+high)/2;
+}
+
+function computeProject(inputs){
+    const fixedCap=inputs.fixedCapital,setupCap=inputs.setupCapital,monthlySales=inputs.monthlySales;
+    const salariesMonthly=inputs.employees*inputs.netSalary*inputs.salaryBurden;
+    const rentMonthly=inputs.netRent*(1+inputs.rentTax);
+    const fixedMonthly=salariesMonthly+rentMonthly+inputs.opexMonthly;
+    const workingCapitalRequired=(fixedMonthly+inputs.cashReserve)*inputs.wcMonths;
+    const totalInvestment=fixedCap+setupCap+workingCapitalRequired;
+    const revenue1=monthlySales*12,fixedExpenses1=fixedMonthly*12;
+    const depreciation=fixedCap/inputs.lifeYears;
+    const salvageValue=fixedCap*inputs.salvageRate;
+    const years=[],cashFlows=[-totalInvestment];
+    let cumulative=-totalInvestment;const cumulativeFlows=[-totalInvestment];
+    for(let i=1;i<=inputs.lifeYears;i++){
+        const rev=revenue1*Math.pow(1+inputs.growth,i-1);
+        const fixedE=fixedExpenses1*Math.pow(1+inputs.expGrowth,i-1);
+        const varExp=rev*inputs.totalVariableCostPercent;
+        const ebitda=rev-fixedE-varExp,ebit=ebitda-depreciation;
+        const tax=ebit>0?ebit*inputs.taxRate:0,nopat=ebit-tax;
+        let fcf=nopat+depreciation,terminal=0;
+        if(i===inputs.lifeYears){terminal=salvageValue+workingCapitalRequired;fcf+=terminal;}
+        cashFlows.push(fcf);cumulative+=fcf;cumulativeFlows.push(cumulative);
+        years.push({year:i,revenue:rev,fixed:fixedE,variable:varExp,ebitda,depreciation,ebit,tax,nopat,fcf,terminal,cumulative,pv:fcf/Math.pow(1+inputs.discount,i)});
+    }
+    let npv=-totalInvestment;years.forEach(y=>{npv+=y.pv;});
+    const irr=calculateIRR(cashFlows);
+    let payback=null;
+    for(let k=1;k<cashFlows.length;k++){const prev=cumulativeFlows[k-1],cur=cumulativeFlows[k];if(prev<0&&cur>=0){payback=(k-1)+Math.abs(prev)/cashFlows[k];break;}}
+    let pvFuture=0;years.forEach(y=>{pvFuture+=y.pv;});
+    const pi=pvFuture/totalInvestment;
+    let breakEvenMonthly=null;
+    if(inputs.totalVariableCostPercent<1)breakEvenMonthly=fixedMonthly/(1-inputs.totalVariableCostPercent);
+    const monthlyEBITDA=(revenue1-fixedExpenses1-revenue1*inputs.totalVariableCostPercent)/12;
+    const monthlyNetProfit=monthlyEBITDA-(depreciation/12);
+    const ebitdaMargin=years[0].revenue>0?(years[0].ebitda/years[0].revenue):0;
+    return{npv,irr,payback,pi,totalInvestment,workingCapitalRequired,salvageValue,years,lifeYears:inputs.lifeYears,breakEvenMonthly,monthlyEBITDA,monthlyNetProfit,ebitdaMargin,cashFlows,cumulativeFlows,fixedMonthly,revenue1};
+}
+
+function evaluateProject(res,inputs){
+    let score=0;const breakdown=[],details=[];
+    if(res.npv>0){score+=30;breakdown.push({label:'Positive NPV',points:30,max:30,status:'full'});details.push('✅ NPV = '+formatNum(res.npv)+' — Project creates positive economic value');}
+    else{breakdown.push({label:'Negative NPV',points:0,max:30,status:'zero'});details.push('❌ NPV = '+formatNum(res.npv)+' — Project does not create value over its life');}
+    if(res.irr!==null&&!isNaN(res.irr)&&res.irr>inputs.discount){score+=25;breakdown.push({label:'IRR > Discount Rate',points:25,max:25,status:'full'});details.push('✅ IRR = '+(res.irr*100).toFixed(1)+'% (above discount rate '+(inputs.discount*100).toFixed(0)+'%)');}
+    else if(res.irr===null||isNaN(res.irr)){breakdown.push({label:'IRR Not Determined',points:0,max:25,status:'zero'});details.push('❌ IRR not determined — cash flows do not generate a positive return rate');}
+    else{breakdown.push({label:'IRR ≤ Discount Rate',points:0,max:25,status:'zero'});details.push('❌ IRR = '+(res.irr*100).toFixed(1)+'% (at or below '+(inputs.discount*100).toFixed(0)+'%)');}
+    if(res.pi>=1){score+=20;breakdown.push({label:'PI ≥ 1',points:20,max:20,status:'full'});details.push('✅ PI = '+res.pi.toFixed(2)+' — Each unit of investment returns '+res.pi.toFixed(2)+' in present value');}
+    else{breakdown.push({label:'PI < 1',points:0,max:20,status:'zero'});details.push('❌ PI = '+res.pi.toFixed(2)+' — Return is less than investment');}
+    const halfLife=inputs.lifeYears/2;
+    if(res.payback!==null&&res.payback<halfLife){score+=15;breakdown.push({label:'Fast Payback',points:15,max:15,status:'full'});details.push('✅ Payback = '+res.payback.toFixed(1)+' years (less than half-life '+halfLife+' years)');}
+    else if(res.payback!==null){breakdown.push({label:'Slow Payback',points:0,max:15,status:'zero'});details.push('❌ Payback = '+res.payback.toFixed(1)+' years (longer than half-life)');}
+    else{breakdown.push({label:'No Payback',points:0,max:15,status:'zero'});details.push('❌ No payback during project life');}
+    if(res.ebitdaMargin>0.1){score+=10;breakdown.push({label:'Healthy EBITDA Margin',points:10,max:10,status:'full'});details.push('✅ EBITDA margin = '+(res.ebitdaMargin*100).toFixed(1)+'% (good operational efficiency)');}
+    else if(res.ebitdaMargin>0){score+=5;breakdown.push({label:'Weak EBITDA Margin',points:5,max:10,status:''});details.push('⚠️ EBITDA margin = '+(res.ebitdaMargin*100).toFixed(1)+'% (weak — needs improvement)');}
+    else{breakdown.push({label:'Operating Loss',points:0,max:10,status:'zero'});details.push('❌ Negative EBITDA — Project does not cover its operating costs');}
+    let grade,cls;
+    if(score>=80){grade='Excellent — High Feasibility';cls='good';}
+    else if(score>=60){grade='Good — Moderate Feasibility';cls='mid';}
+    else if(score>=40){grade='Acceptable — Needs Improvement';cls='fair';}
+    else{grade='High Risk';cls='bad';}
+    return{score,grade,cls,details,breakdown};
+}
+
+document.getElementById('go').onclick=async function(){
+    if(!clientOk())return;
+    const varPct=parseFloat(document.getElementById('totalVariableCostPercent').value);
+    if(isNaN(varPct)||varPct<0||varPct>=1){toast('Variable costs must be between 0 and 1 (e.g., 0.30 = 30%)');return;}
+    const lifeYears=parseInt(document.getElementById('lifeYears').value);
+    if(isNaN(lifeYears)||lifeYears<1){toast('Productive life must be at least 1 year');return;}
+    const btn=this;btn.disabled=true;document.getElementById('loading').classList.add('show');
+    const currency=document.getElementById('currencySelect').value;
+    const inputs={
+        fixedCapital:parseFloat(document.getElementById('fixedCapital').value)||0,
+        setupCapital:parseFloat(document.getElementById('setupCapital').value)||0,
+        monthlySales:parseFloat(document.getElementById('monthlySales').value)||0,
+        employees:parseFloat(document.getElementById('employees').value)||0,
+        netSalary:parseFloat(document.getElementById('netSalary').value)||0,
+        salaryBurden:parseFloat(document.getElementById('salaryBurden').value)||1,
+        netRent:parseFloat(document.getElementById('netRent').value)||0,
+        rentTax:(parseFloat(document.getElementById('rentTax').value)||0)/100,
+        totalVariableCostPercent:varPct,
+        opexMonthly:parseFloat(document.getElementById('opexMonthly').value)||0,
+        cashReserve:parseFloat(document.getElementById('cashReserve').value)||0,
+        wcMonths:parseFloat(document.getElementById('wcMonths').value)||3,
+        growth:(parseFloat(document.getElementById('growthRate').value)||0)/100,
+        expGrowth:(parseFloat(document.getElementById('expGrowth').value)||0)/100,
+        discount:(parseFloat(document.getElementById('discountRate').value)||10)/100,
+        taxRate:(parseFloat(document.getElementById('taxRate').value)||25)/100,
+        salvageRate:(parseFloat(document.getElementById('salvageRate').value)||15)/100,
+        lifeYears
+    };
+    const res=computeProject(inputs);
+    const evaluation=evaluateProject(res,inputs);
+    const client={name:document.getElementById('clientName').value.trim(),email:document.getElementById('clientEmail').value.trim(),countryCode:document.getElementById('countryCode').value.trim(),phone:document.getElementById('clientPhone').value.trim(),projectName:document.getElementById('companyName').value.trim(),currency};
+    lastResult={client,inputs,results:res,evaluation,timestamp:new Date().toISOString()};
+    const payload={formType:'feasibility',timestamp:lastResult.timestamp,name:client.name,email:client.email,countryCode:client.countryCode,phone:client.phone,projectName:client.projectName,currency,score:evaluation.score,grade:evaluation.grade,npv:Math.round(res.npv),irr:(res.irr===null||isNaN(res.irr))?null:res.irr,payback:res.payback!==null?Number(res.payback.toFixed(2)):null,pi:Number(res.pi.toFixed(2)),totalInvestment:Math.round(res.totalInvestment),lifeYears:res.lifeYears,fixedCapital:inputs.fixedCapital,setupCapital:inputs.setupCapital,monthlySales:inputs.monthlySales,employees:inputs.employees};
+    try{await fetch(GOOGLE_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});}catch(e){console.warn(e);}
+    renderResult(res,evaluation,client,inputs);
+    btn.style.display='none';
+    document.getElementById('loading').classList.remove('show');
+    btn.disabled=false;
+};
+
+function renderResult(res,evaluation,client,inputs){
+    document.getElementById('score').textContent=evaluation.score;
+    const b=document.getElementById('badge');b.className='badge '+evaluation.cls;b.textContent=evaluation.grade;
+    document.getElementById('breakdownGrid').innerHTML=evaluation.breakdown.map(item=>{
+        const cls=item.points===item.max?'full':(item.points===0?'zero':'');
+        return `<div class="breakdown-item ${cls}"><span class="label">${item.label}</span><span class="points">${item.points} / ${item.max}</span></div>`;
+    }).join('');
+    const irrDisplay=(res.irr===null||res.irr===undefined||isNaN(res.irr)||!isFinite(res.irr))?'Not Determined':(res.irr*100).toFixed(2)+'%';
+    const irrCls=(res.irr!==null&&res.irr>inputs.discount)?'pos':'neg';
+    const paybackDisplay=(res.payback!==null&&isFinite(res.payback))?res.payback.toFixed(1)+' years':'None';
+    const paybackCls=(res.payback!==null&&res.payback<inputs.lifeYears/2)?'pos':'neg';
+    const piCls=res.pi>=1?'pos':'neg';
+    const npvCls=res.npv>0?'pos':'neg';
+    document.getElementById('metricsGrid').innerHTML=
+        `<div class="metric-card"><div class="metric-icon"><i class="fas fa-coins"></i></div><div class="metric-label">NPV</div><div class="metric-value ${npvCls}">${formatNum(res.npv)} ${client.currency}</div></div>`+
+        `<div class="metric-card"><div class="metric-icon"><i class="fas fa-percentage"></i></div><div class="metric-label">IRR</div><div class="metric-value ${irrCls}">${irrDisplay}</div></div>`+
+        `<div class="metric-card"><div class="metric-icon"><i class="fas fa-scale-balanced"></i></div><div class="metric-label">PI</div><div class="metric-value ${piCls}">${res.pi.toFixed(2)}</div></div>`+
+        `<div class="metric-card"><div class="metric-icon"><i class="fas fa-clock"></i></div><div class="metric-label">Payback</div><div class="metric-value ${paybackCls}">${paybackDisplay}</div></div>`+
+        `<div class="metric-card"><div class="metric-icon"><i class="fas fa-sack-dollar"></i></div><div class="metric-label">Total Investment</div><div class="metric-value">${formatNum(res.totalInvestment)} ${client.currency}</div></div>`;
+    const beDisplay=res.breakEvenMonthly!==null?formatNum(res.breakEvenMonthly)+' '+client.currency+'/month':'Not possible';
+    const monthlyEBITDACls=res.monthlyEBITDA>0?'gold':'red';
+    const monthlyNetCls=res.monthlyNetProfit>0?'gold':'red';
+    document.getElementById('snapshot').innerHTML=
+        `<div class="snapshot-item"><div class="snap-label">Fixed Monthly Costs</div><div class="snap-value">${formatNum(res.fixedMonthly)} ${client.currency}</div></div>`+
+        `<div class="snapshot-item"><div class="snap-label">Monthly EBITDA (Year 1)</div><div class="snap-value ${monthlyEBITDACls}">${formatNum(res.monthlyEBITDA)} ${client.currency}</div></div>`+
+        `<div class="snapshot-item"><div class="snap-label">Monthly Net Profit (after depreciation)</div><div class="snap-value ${monthlyNetCls}">${formatNum(res.monthlyNetProfit)} ${client.currency}</div></div>`+
+        `<div class="snapshot-item"><div class="snap-label">Monthly Break-even</div><div class="snap-value gold">${beDisplay}</div></div>`;
+    document.getElementById('details').innerHTML=evaluation.details.map(d=>`<div>${d}</div>`).join('');
+    renderYearlyTable(res,client.currency);
+    renderChart(res,client.currency);
+    const box=document.getElementById('result');box.style.display='block';
+    setTimeout(()=>box.scrollIntoView({behavior:'smooth',block:'start'}),100);
+}
+
+function renderYearlyTable(res,cur){
+    const table=document.getElementById('yearlyTable');
+    let html='<thead><tr><th>Year</th><th>Revenue</th><th>Fixed Costs</th><th>Variable Costs</th><th>EBITDA</th><th>Depreciation</th><th>EBIT</th><th>Tax</th><th>FCF</th><th>Cumulative</th></tr></thead><tbody>';
+    html+='<tr class="initial-row"><td>0</td><td colspan="7" style="text-align:center;color:#c0392b;">Initial Investment</td><td class="neg">('+formatNum(res.totalInvestment)+')</td><td class="neg">('+formatNum(res.totalInvestment)+')</td></tr>';
+    res.years.forEach(y=>{
+        const isLast=y.year===res.lifeYears,cls=isLast?'terminal-row':'';
+        const fcfCls=y.fcf>=0?'pos':'neg',cumCls=y.cumulative>=0?'pos':'neg';
+        html+=`<tr class="${cls}"><td>${y.year}${isLast?' *':''}</td><td>${formatNum(y.revenue)}</td><td>${formatNum(y.fixed)}</td><td>${formatNum(y.variable)}</td><td class="${y.ebitda>=0?'pos':'neg'}">${formatNum(y.ebitda)}</td><td>${formatNum(y.depreciation)}</td><td class="${y.ebit>=0?'pos':'neg'}">${formatNum(y.ebit)}</td><td>${formatNum(y.tax)}</td><td class="${fcfCls}">${formatNum(y.fcf)}</td><td class="${cumCls}">${formatNum(y.cumulative)}</td></tr>`;
+    });
+    html+='</tbody><tfoot><tr style="background:#faf7f1;"><td colspan="10" style="text-align:center;font-size:.75rem;color:#777;padding:8px;">* Final year includes salvage value + working capital recovery</td></tr></tfoot>';
+    table.innerHTML=html;
+}
+
+function renderChart(res,cur){
+    if(chartInstance)chartInstance.destroy();
+    const labels=['0',...res.years.map(y=>String(y.year))];
+    const cashflowData=res.cashFlows,cumulativeData=res.cumulativeFlows;
+    const ctx=document.getElementById('cashflowChart').getContext('2d');
+    chartInstance=new Chart(ctx,{type:'bar',data:{labels,datasets:[
+        {type:'bar',label:'Annual Cash Flow',data:cashflowData,backgroundColor:cashflowData.map(v=>v>=0?'rgba(26,122,58,0.75)':'rgba(192,57,43,0.75)'),borderColor:cashflowData.map(v=>v>=0?'rgba(26,122,58,1)':'rgba(192,57,43,1)'),borderWidth:1,borderRadius:6,yAxisID:'y'},
+        {type:'line',label:'Cumulative',data:cumulativeData,borderColor:'#b8860b',backgroundColor:'rgba(184,134,11,0.1)',borderWidth:3,tension:0.3,fill:false,pointBackgroundColor:'#b8860b',pointRadius:4,pointHoverRadius:6,yAxisID:'y'}
+    ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#333',font:{family:'Inter',size:13},padding:14}},tooltip:{callbacks:{label:function(ctx){return ctx.dataset.label+': '+formatNum(ctx.parsed.y)+' '+cur;}}}},scales:{y:{beginAtZero:false,ticks:{color:'#666',callback:v=>Math.round(v).toLocaleString('en-US')},grid:{color:'rgba(0,0,0,0.05)'}},x:{ticks:{color:'#666',font:{family:'Inter'}},grid:{display:false},title:{display:true,text:'Year',color:'#666',font:{family:'Inter',size:12}}}}}});
+}
+
+function exportReport(type){
+    if(!lastResult){toast('Please run evaluation first');return;}
+    const {client,inputs,results,evaluation,timestamp}=lastResult;
+    const dateStr=new Date(timestamp).toLocaleString('en-US');
+    const safeName=sanitizeFile(client.projectName);
+    const fileName=`Feasibility_Report_${safeName}_${new Date(timestamp).toISOString().slice(0,10)}`;
+    const cur=client.currency;
+    const clientRows=`<tr><th>Name</th><td>${esc(client.name)}</td></tr><tr><th>Email</th><td>${esc(client.email||'-')}</td></tr><tr><th>Phone</th><td dir="ltr">${esc(client.countryCode+' '+client.phone)}</td></tr><tr><th>Project</th><td>${esc(client.projectName)}</td></tr><tr><th>Currency</th><td>${esc(cur)}</td></tr><tr><th>Date</th><td>${esc(dateStr)}</td></tr>`;
+    const inputRows=`<tr><th>Fixed Capital</th><td>${formatNum2(inputs.fixedCapital)} ${cur}</td></tr><tr><th>Setup Capital</th><td>${formatNum2(inputs.setupCapital)} ${cur}</td></tr><tr><th>Monthly Sales</th><td>${formatNum2(inputs.monthlySales)} ${cur}</td></tr><tr><th>Employees</th><td>${inputs.employees}</td></tr><tr><th>Avg Net Salary</th><td>${formatNum2(inputs.netSalary)} ${cur}</td></tr><tr><th>Employee Cost Factor</th><td>${inputs.salaryBurden}</td></tr><tr><th>Monthly Rent (Net)</th><td>${formatNum2(inputs.netRent)} ${cur}</td></tr><tr><th>Rent Tax</th><td>${(inputs.rentTax*100).toFixed(1)}%</td></tr><tr><th>Variable Costs</th><td>${(inputs.totalVariableCostPercent*100).toFixed(1)}%</td></tr><tr><th>Monthly Operating Expenses</th><td>${formatNum2(inputs.opexMonthly)} ${cur}</td></tr><tr><th>Monthly Cash Reserve</th><td>${formatNum2(inputs.cashReserve)} ${cur}</td></tr><tr><th>Working Capital Months</th><td>${inputs.wcMonths}</td></tr><tr><th>Productive Life</th><td>${inputs.lifeYears} years</td></tr><tr><th>Annual Sales Growth</th><td>${(inputs.growth*100).toFixed(1)}%</td></tr><tr><th>Annual Expense Growth</th><td>${(inputs.expGrowth*100).toFixed(1)}%</td></tr><tr><th>Discount Rate</th><td>${(inputs.discount*100).toFixed(1)}%</td></tr><tr><th>Income Tax</th><td>${(inputs.taxRate*100).toFixed(1)}%</td></tr><tr><th>Salvage Value Rate</th><td>${(inputs.salvageRate*100).toFixed(1)}%</td></tr>`;
+    const irrTxt=(results.irr===null||isNaN(results.irr))?'Not Determined':(results.irr*100).toFixed(2)+'%';
+    const paybackTxt=results.payback!==null?results.payback.toFixed(2)+' years':'None';
+    const resultRows=`<tr><th>Total Investment</th><td>${formatNum2(results.totalInvestment)} ${cur}</td></tr><tr><th>Working Capital Required</th><td>${formatNum2(results.workingCapitalRequired)} ${cur}</td></tr><tr><th>Salvage Value</th><td>${formatNum2(results.salvageValue)} ${cur}</td></tr><tr><th>NPV</th><td>${formatNum2(results.npv)} ${cur}</td></tr><tr><th>IRR</th><td>${irrTxt}</td></tr><tr><th>PI</th><td>${results.pi.toFixed(2)}</td></tr><tr><th>Payback</th><td>${paybackTxt}</td></tr><tr><th>Fixed Monthly Costs</th><td>${formatNum2(results.fixedMonthly)} ${cur}</td></tr><tr><th>Monthly EBITDA (Year 1)</th><td>${formatNum2(results.monthlyEBITDA)} ${cur}</td></tr><tr><th>Monthly Break-even</th><td>${results.breakEvenMonthly!==null?formatNum2(results.breakEvenMonthly)+' '+cur:'Not possible'}</td></tr>`;
+    const breakdownRows=evaluation.breakdown.map(item=>`<tr><th>${esc(item.label)}</th><td>${item.points} / ${item.max}</td></tr>`).join('');
+    const yearlyRows=results.years.map(y=>`<tr${y.year===results.lifeYears?' style="background:#f0f9f0;font-weight:700;"':''}><td>${y.year}</td><td>${formatNum(y.revenue)}</td><td>${formatNum(y.fixed)}</td><td>${formatNum(y.variable)}</td><td>${formatNum(y.ebitda)}</td><td>${formatNum(y.depreciation)}</td><td>${formatNum(y.ebit)}</td><td>${formatNum(y.tax)}</td><td>${formatNum(y.fcf)}</td><td>${formatNum(y.cumulative)}</td></tr>`).join('');
+    const detailsHtml=evaluation.details.map(d=>`<li>${esc(d)}</li>`).join('');
+    const htmlContent=`<!DOCTYPE html><html dir="ltr" lang="en"><head><meta charset="utf-8"><title>Feasibility Report - ${esc(client.projectName)}</title>
+    <style>*{box-sizing:border-box;}body{font-family:Arial,sans-serif;padding:28px;background:#fff;color:#1c1c1c;line-height:1.7;}.header{text-align:center;border-bottom:4px solid #b8860b;padding-bottom:16px;margin-bottom:22px;}.header h1{color:#b8860b;font-size:24px;margin:0 0 6px;}.header p{margin:3px 0;color:#555;font-size:13px;}h2{color:#8a6808;font-size:15px;margin:22px 0 10px;border-left:4px solid #b8860b;padding-left:10px;}table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px;}th,td{border:1px solid #e4d8c0;padding:7px 10px;text-align:left;}th{background:#f5f0e0;color:#333;font-weight:700;}.score-box{text-align:center;padding:18px;background:linear-gradient(160deg,#fff8ea,#fef4dd);border:2px solid #b8860b;border-radius:14px;margin:16px 0;}.score-box .num{font-size:46px;font-weight:900;color:#b8860b;line-height:1;}.score-box .lbl{font-size:12px;color:#666;margin-top:4px;}.score-box .grade{font-size:18px;font-weight:700;margin-top:8px;color:#333;}ul{padding:0 0 0 20px;margin:8px 0;}ul li{padding:4px 0;font-size:13px;}.yearly-table{font-size:11px;}.yearly-table th,.yearly-table td{padding:4px 6px;text-align:center;}.footer{text-align:center;color:#888;margin-top:30px;border-top:1px solid #ddd;padding-top:14px;font-size:12px;}.footer strong{color:#b8860b;}</style></head><body>
+    <div class="header"><h1>📊 Feasibility Study Report</h1><p><strong>FAROUK GRUP Consulting</strong></p><p>${esc(dateStr)}</p></div>
+    <h2>📋 Client Information</h2><table>${clientRows}</table>
+    <div class="score-box"><div class="num">${evaluation.score}</div><div class="lbl">out of 100 points</div><div class="grade">${evaluation.grade}</div></div>
+    <h2>📊 Score Breakdown</h2><table>${breakdownRows}</table>
+    <h2>💰 Project Inputs</h2><table>${inputRows}</table>
+    <h2>📈 Financial Results</h2><table>${resultRows}</table>
+    <h2>✅ Evaluation Details</h2><ul>${detailsHtml}</ul>
+    <h2>📅 Annual Cash Flows (${cur})</h2><table class="yearly-table"><thead><tr><th>Year</th><th>Revenue</th><th>Fixed</th><th>Variable</th><th>EBITDA</th><th>Depreciation</th><th>EBIT</th><th>Tax</th><th>FCF</th><th>Cumulative</th></tr></thead><tbody>${yearlyRows}</tbody></table>
+    <p style="font-size:11px;color:#888;margin-top:6px;">* Final year includes salvage value + working capital recovery</p>
+    <div class="footer">Created by <strong>FAROUK GRUP Consulting</strong> © ${new Date().getFullYear()}<br>farouk-grup.com</div></body></html>`;
+    if(type==='word'){
+        const blob=new Blob(['\uFEFF'+htmlContent],{type:'application/msword;charset=utf-8'});
+        downloadBlob(blob,fileName+'.doc');
+    }else if(type==='excel'){
+        const excelHtml=`<!DOCTYPE html><html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40" dir="ltr" lang="en"><head><meta charset="utf-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Feasibility Report</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><style>td,th{font-family:Arial,sans-serif;border:1px solid #b8860b;padding:6px 10px;font-size:12px;}th{background:#f5f0e0;color:#333;font-weight:bold;}.title{background:#b8860b;color:#fff;font-size:16px;font-weight:bold;text-align:center;padding:10px;}.section{background:#d4b15a;color:#111;font-weight:bold;font-size:13px;}.score{font-size:22px;font-weight:bold;color:#b8860b;text-align:center;}.center{text-align:center;}</style></head><body><table>
+        <tr><td class="title" colspan="10">📊 Feasibility Study Report — FAROUK GRUP</td></tr>
+        <tr><td class="title" colspan="10">${esc(dateStr)}</td></tr>
+        <tr><td class="section" colspan="10">📋 Client Info</td></tr>${clientRows.replace(/<tr><th>/g,'<tr><th colspan="2">').replace(/<\/th><td>/g,'</th><td colspan="8">')}
+        <tr><td class="section" colspan="10">📊 Evaluation Result</td></tr>
+        <tr><th colspan="2">Score</th><td class="score" colspan="8">${evaluation.score} / 100</td></tr>
+        <tr><th colspan="2">Grade</th><td class="score" colspan="8">${esc(evaluation.grade)}</td></tr>
+        <tr><td class="section" colspan="10">📊 Score Breakdown</td></tr>${evaluation.breakdown.map(b=>`<tr><th colspan="2">${esc(b.label)}</th><td colspan="8" class="center">${b.points} / ${b.max}</td></tr>`).join('')}
+        <tr><td class="section" colspan="10">💰 Project Inputs</td></tr>${inputRows.replace(/<tr><th>/g,'<tr><th colspan="2">').replace(/<\/th><td>/g,'</th><td colspan="8">')}
+        <tr><td class="section" colspan="10">📈 Financial Results</td></tr>${resultRows.replace(/<tr><th>/g,'<tr><th colspan="2">').replace(/<\/th><td>/g,'</th><td colspan="8">')}
+        <tr><td class="section" colspan="10">📅 Annual Cash Flows (${esc(cur)})</td></tr>
+        <tr><th>Year</th><th>Revenue</th><th>Fixed</th><th>Variable</th><th>EBITDA</th><th>Depreciation</th><th>EBIT</th><th>Tax</th><th>FCF</th><th>Cumulative</th></tr>${yearlyRows}
+        <tr><td colspan="10" style="text-align:center;color:#888;font-size:10px;padding:10px;">FAROUK GRUP Consulting © ${new Date().getFullYear()} — farouk-grup.com</td></tr>
+        </table></body></html>`;
+        const blob=new Blob(['\uFEFF'+excelHtml],{type:'application/vnd.ms-excel;charset=utf-8'});
+        downloadBlob(blob,fileName+'.xls');
+    }
+}
+
+function downloadBlob(blob,filename){const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},200);}
 </script>
 </body>
 </html>
