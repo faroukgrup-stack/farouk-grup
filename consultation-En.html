@@ -50,463 +50,138 @@ nav {
 }
 .logo { display: flex; align-items: center; gap: 12px; }
 .logo img { height: 46px; width: auto; }
-.logo h1 {
-    font-family: 'Alexandria', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--gold);
-}
+.logo h1 { font-family: 'Alexandria', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--gold); }
 .nav-links { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.nav-links a {
-    text-decoration: none;
-    color: #444;
-    margin: 0 6px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: 0.3s;
-    padding: 6px 0;
-}
+.nav-links a { text-decoration: none; color: #444; margin: 0 6px; font-weight: 600; font-size: 0.95rem; transition: 0.3s; padding: 6px 0; }
 .nav-links a:hover { color: var(--gold); }
 .nav-links a i { margin-right: 5px; }
 
 .hero {
-    background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.65)),
-                url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1600') center/cover;
-    padding: 110px 20px 90px;
-    text-align: center;
-    color: #fff;
-    border-bottom: 4px solid var(--gold);
-    position: relative;
-    overflow: hidden;
+    background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1600') center/cover;
+    padding: 110px 20px 90px; text-align: center; color: #fff; border-bottom: 4px solid var(--gold); position: relative; overflow: hidden;
 }
-.hero::before {
-    content: '';
-    position: absolute;
-    top: -40%; left: -40%;
-    width: 180%; height: 180%;
-    background: radial-gradient(circle at 40% 50%, rgba(184,134,11,0.15) 0%, transparent 55%);
-    animation: heroGlow 10s ease-in-out infinite;
-}
-@keyframes heroGlow {
-    0%,100% { transform: translate(0,0); }
-    50% { transform: translate(25px,-15px); }
-}
-.hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(184,134,11,0.2);
-    border: 1px solid rgba(184,134,11,0.4);
-    color: var(--gold-light);
-    padding: 8px 20px;
-    border-radius: 50px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    margin-bottom: 22px;
-    position: relative;
-    z-index: 2;
-}
-.hero h1 {
-    font-size: 3rem;
-    font-weight: 900;
-    color: var(--gold-light);
-    margin-bottom: 16px;
-    position: relative;
-    z-index: 2;
-    text-shadow: 0 3px 15px rgba(0,0,0,0.4);
-}
-.hero p {
-    font-size: 1.2rem;
-    max-width: 680px;
-    margin: 0 auto 12px;
-    opacity: 0.95;
-    position: relative;
-    z-index: 2;
-}
+.hero::before { content: ''; position: absolute; top: -40%; left: -40%; width: 180%; height: 180%; background: radial-gradient(circle at 40% 50%, rgba(184,134,11,0.15) 0%, transparent 55%); animation: heroGlow 10s ease-in-out infinite; }
+@keyframes heroGlow { 0%,100% { transform: translate(0,0); } 50% { transform: translate(25px,-15px); } }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(184,134,11,0.2); border: 1px solid rgba(184,134,11,0.4); color: var(--gold-light); padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; font-weight: 700; margin-bottom: 22px; position: relative; z-index: 2; }
+.hero h1 { font-size: 3rem; font-weight: 900; color: var(--gold-light); margin-bottom: 16px; position: relative; z-index: 2; text-shadow: 0 3px 15px rgba(0,0,0,0.4); }
+.hero p { font-size: 1.2rem; max-width: 680px; margin: 0 auto 12px; opacity: 0.95; position: relative; z-index: 2; }
 .hero .sub { font-size: 1.05rem; opacity: 0.8; margin-bottom: 0; }
 
-.trust-bar {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px 50px;
-    background: #fff;
-    padding: 28px 20px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.04);
-    border-bottom: 1px solid #eee;
-}
+.trust-bar { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px 50px; background: #fff; padding: 28px 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.04); border-bottom: 1px solid #eee; }
 .trust-item { display: flex; align-items: center; gap: 12px; }
-.trust-item i {
-    width: 44px; height: 44px;
-    background: var(--gold-soft);
-    color: var(--gold);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem;
-}
+.trust-item i { width: 44px; height: 44px; background: var(--gold-soft); color: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
 .trust-item span { font-weight: 700; color: #333; font-size: 0.95rem; }
 
-.section {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 70px 20px 40px;
-}
+.section { max-width: 1100px; margin: 0 auto; padding: 70px 20px 40px; }
 .section-header { text-align: center; margin-bottom: 50px; }
-.section-header h2 {
-    font-size: 2.4rem;
-    font-weight: 900;
-    color: var(--dark);
-    margin-bottom: 12px;
-}
-.section-header h2 span {
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
+.section-header h2 { font-size: 2.4rem; font-weight: 900; color: var(--dark); margin-bottom: 12px; }
+.section-header h2 span { background: linear-gradient(135deg, var(--gold), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .section-header p { color: #666; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
 
-.consult-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 32px;
-    margin-bottom: 20px;
-}
-.consult-card {
-    background: #fff;
-    border-radius: 28px;
-    overflow: hidden;
-    box-shadow: 0 15px 45px rgba(0,0,0,0.07);
-    border: 1px solid #eee;
-    transition: all 0.4s cubic-bezier(0.25,0.8,0.25,1);
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
-.consult-card:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 28px 60px rgba(0,0,0,0.12);
-    border-color: rgba(184,134,11,0.35);
-}
-.card-top {
-    background: linear-gradient(145deg, #1a1a1a 0%, #2a2a2a 100%);
-    padding: 36px 28px 30px;
-    text-align: center;
-    position: relative;
-}
-.card-top.featured {
-    background: linear-gradient(145deg, #1a1a1a 0%, #2d2508 100%);
-}
-.card-top::after {
-    content: '';
-    position: absolute;
-    bottom: -1px; left: 0; right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--gold), var(--gold-light));
-}
-.card-badge {
-    position: absolute;
-    top: 16px; right: 16px;
-    background: rgba(184,134,11,0.25);
-    color: var(--gold-light);
-    padding: 5px 14px;
-    border-radius: 50px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    border: 1px solid rgba(184,134,11,0.35);
-}
-.card-badge.hot {
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    color: #111;
-    border: none;
-}
-.icon-circle {
-    width: 88px; height: 88px;
-    margin: 8px auto 18px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 10px 30px rgba(184,134,11,0.45);
-    transition: 0.35s;
-}
-.consult-card:hover .icon-circle {
-    transform: scale(1.08) rotate(-5deg);
-}
+.consult-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; margin-bottom: 20px; }
+.consult-card { background: #fff; border-radius: 28px; overflow: hidden; box-shadow: 0 15px 45px rgba(0,0,0,0.07); border: 1px solid #eee; transition: all 0.4s cubic-bezier(0.25,0.8,0.25,1); display: flex; flex-direction: column; position: relative; }
+.consult-card:hover { transform: translateY(-12px); box-shadow: 0 28px 60px rgba(0,0,0,0.12); border-color: rgba(184,134,11,0.35); }
+.card-top { background: linear-gradient(145deg, #1a1a1a 0%, #2a2a2a 100%); padding: 36px 28px 30px; text-align: center; position: relative; }
+.card-top.featured { background: linear-gradient(145deg, #1a1a1a 0%, #2d2508 100%); }
+.card-top::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); }
+.card-badge { position: absolute; top: 16px; right: 16px; background: rgba(184,134,11,0.25); color: var(--gold-light); padding: 5px 14px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(184,134,11,0.35); }
+.card-badge.hot { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #111; border: none; }
+.icon-circle { width: 88px; height: 88px; margin: 8px auto 18px; background: linear-gradient(135deg, var(--gold), var(--gold-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(184,134,11,0.45); transition: 0.35s; }
+.consult-card:hover .icon-circle { transform: scale(1.08) rotate(-5deg); }
 .icon-circle i { font-size: 2.3rem; color: #111; }
-.card-top h3 {
-    font-size: 1.55rem;
-    font-weight: 900;
-    color: #fff;
-    margin-bottom: 6px;
-}
+.card-top h3 { font-size: 1.55rem; font-weight: 900; color: #fff; margin-bottom: 6px; }
 .card-top .duration { color: rgba(255,255,255,0.7); font-size: 0.9rem; }
 
-.card-body {
-    padding: 28px 26px 32px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-.card-body .desc {
-    color: #555;
-    font-size: 0.98rem;
-    margin-bottom: 22px;
-    line-height: 1.7;
-}
+.card-body { padding: 28px 26px 32px; flex: 1; display: flex; flex-direction: column; }
+.card-body .desc { color: #555; font-size: 0.98rem; margin-bottom: 22px; line-height: 1.7; }
 .features { list-style: none; margin-bottom: 28px; flex: 1; }
-.features li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 12px;
-    font-size: 0.95rem;
-    color: #444;
-    font-weight: 500;
-}
-.features li i {
-    color: var(--gold);
-    font-size: 1rem;
-    margin-top: 3px;
-    min-width: 18px;
-}
-.price-box {
-    text-align: center;
-    margin-bottom: 20px;
-    padding: 16px;
-    background: var(--gold-soft);
-    border-radius: 16px;
-}
-.price-box .price {
-    font-size: 2.4rem;
-    font-weight: 900;
-    color: var(--gold);
-    line-height: 1.1;
-}
+.features li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; font-size: 0.95rem; color: #444; font-weight: 500; }
+.features li i { color: var(--gold); font-size: 1rem; margin-top: 3px; min-width: 18px; }
+.price-box { text-align: center; margin-bottom: 20px; padding: 16px; background: var(--gold-soft); border-radius: 16px; }
+.price-box .price { font-size: 2.4rem; font-weight: 900; color: var(--gold); line-height: 1.1; }
 .price-box .currency { font-size: 1.1rem; font-weight: 700; color: #666; }
 .price-box .note { font-size: 0.8rem; color: #888; margin-top: 4px; }
 
-.cta-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 16px 28px;
-    border-radius: 50px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    color: #111;
-    font-weight: 900;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: all 0.35s;
-    box-shadow: 0 8px 25px rgba(184,134,11,0.4);
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    font-family: 'Tajawal', sans-serif;
-}
-.cta-btn:hover {
-    background: linear-gradient(135deg, #111, #222);
-    color: var(--gold);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(184,134,11,0.5);
-}
+.cta-btn { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 28px; border-radius: 50px; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #111; font-weight: 900; text-decoration: none; font-size: 1.1rem; transition: all 0.35s; box-shadow: 0 8px 25px rgba(184,134,11,0.4); border: none; cursor: pointer; width: 100%; font-family: 'Tajawal', sans-serif; }
+.cta-btn:hover { background: linear-gradient(135deg, #111, #222); color: var(--gold); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(184,134,11,0.5); }
 .cta-btn i { font-size: 1.15rem; }
 
-.bottom-cta {
-    background: linear-gradient(145deg, #1a1a1a, #111);
-    border-radius: 28px;
-    padding: 48px 32px;
-    text-align: center;
-    margin: 50px auto 30px;
-    max-width: 900px;
-    border: 1px solid rgba(184,134,11,0.25);
-    position: relative;
-    overflow: hidden;
-}
-.bottom-cta::before {
-    content: '';
-    position: absolute;
-    top: -50%; right: -30%;
-    width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(184,134,11,0.15) 0%, transparent 70%);
-}
-.bottom-cta h3 {
-    font-size: 1.8rem;
-    font-weight: 900;
-    color: var(--gold-light);
-    margin-bottom: 12px;
-    position: relative;
-}
-.bottom-cta p {
-    color: rgba(255,255,255,0.8);
-    margin-bottom: 28px;
-    font-size: 1.05rem;
-    position: relative;
-}
-.wa-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px 36px;
-    border-radius: 50px;
-    background: var(--whatsapp);
-    color: #fff;
-    font-weight: 900;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: 0.3s;
-    box-shadow: 0 8px 25px rgba(37,211,102,0.4);
-    position: relative;
-}
-.wa-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(37,211,102,0.55);
-    background: #1ebe57;
-}
+.bottom-cta { background: linear-gradient(145deg, #1a1a1a, #111); border-radius: 28px; padding: 48px 32px; text-align: center; margin: 50px auto 30px; max-width: 900px; border: 1px solid rgba(184,134,11,0.25); position: relative; overflow: hidden; }
+.bottom-cta::before { content: ''; position: absolute; top: -50%; right: -30%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(184,134,11,0.15) 0%, transparent 70%); }
+.bottom-cta h3 { font-size: 1.8rem; font-weight: 900; color: var(--gold-light); margin-bottom: 12px; position: relative; }
+.bottom-cta p { color: rgba(255,255,255,0.8); margin-bottom: 28px; font-size: 1.05rem; position: relative; }
+.wa-btn { display: inline-flex; align-items: center; gap: 12px; padding: 16px 36px; border-radius: 50px; background: var(--whatsapp); color: #fff; font-weight: 900; text-decoration: none; font-size: 1.1rem; transition: 0.3s; box-shadow: 0 8px 25px rgba(37,211,102,0.4); position: relative; }
+.wa-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(37,211,102,0.55); background: #1ebe57; }
 .wa-btn i { font-size: 1.4rem; }
 
-footer {
-    background: linear-gradient(145deg, #111, #1a1a1a);
-    color: #ddd;
-    padding: 50px 20px 30px;
-    border-top: 3px solid var(--gold);
-    margin-top: 60px;
-}
+footer { background: linear-gradient(145deg, #111, #1a1a1a); color: #ddd; padding: 50px 20px 30px; border-top: 3px solid var(--gold); margin-top: 60px; }
 .footer-inner { max-width: 1100px; margin: 0 auto; }
-.footer-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 24px;
-}
-.footer-social a {
-    color: var(--gold);
-    font-size: 1.6rem;
-    margin: 0 8px;
-    transition: 0.3s;
-    display: inline-block;
-}
+.footer-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; }
+.footer-social a { color: var(--gold); font-size: 1.6rem; margin: 0 8px; transition: 0.3s; display: inline-block; }
 .footer-social a:hover { color: var(--gold-light); transform: translateY(-3px); }
-.footer-logo h2 {
-    color: var(--gold);
-    font-size: 1.15rem;
-    font-weight: 800;
-    text-align: center;
-}
-.footer-logo div {
-    width: 55px; height: 2px;
-    background: var(--gold);
-    margin: 8px auto 0;
-}
-.payment-box {
-    background: rgba(255,255,255,0.04);
-    padding: 10px 18px;
-    border-radius: 12px;
-    display: flex;
-    gap: 16px;
-    align-items: center;
-    border: 1px solid rgba(255,255,255,0.06);
-}
+.footer-logo h2 { color: var(--gold); font-size: 1.15rem; font-weight: 800; text-align: center; }
+.footer-logo div { width: 55px; height: 2px; background: var(--gold); margin: 8px auto 0; }
+.payment-box { background: rgba(255,255,255,0.04); padding: 10px 18px; border-radius: 12px; display: flex; gap: 16px; align-items: center; border: 1px solid rgba(255,255,255,0.06); }
 .payment-box img { height: 22px; }
-hr {
-    border: 0;
-    border-top: 1px solid rgba(184,134,11,0.15);
-    margin: 24px 0;
-}
+hr { border: 0; border-top: 1px solid rgba(184,134,11,0.15); margin: 24px 0; }
 .copyright { text-align: center; font-size: 0.85rem; color: #777; }
 .copyright span { color: var(--gold); font-weight: bold; }
 
-.floating-wa {
-    position: fixed;
-    bottom: 28px; right: 28px;
-    z-index: 999;
-    width: 58px; height: 58px;
-    background: var(--whatsapp);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.9rem;
-    color: #fff;
-    box-shadow: 0 6px 25px rgba(37,211,102,0.45);
-    text-decoration: none;
-    transition: 0.3s;
-    animation: waPulse 2s ease-in-out infinite;
-}
-@keyframes waPulse {
-    0%,100% { box-shadow: 0 6px 25px rgba(37,211,102,0.45); }
-    50% { box-shadow: 0 6px 40px rgba(37,211,102,0.7); transform: scale(1.06); }
-}
+.floating-wa { position: fixed; bottom: 28px; right: 28px; z-index: 999; width: 58px; height: 58px; background: var(--whatsapp); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.9rem; color: #fff; box-shadow: 0 6px 25px rgba(37,211,102,0.45); text-decoration: none; transition: 0.3s; animation: waPulse 2s ease-in-out infinite; }
+@keyframes waPulse { 0%,100% { box-shadow: 0 6px 25px rgba(37,211,102,0.45); } 50% { box-shadow: 0 6px 40px rgba(37,211,102,0.7); transform: scale(1.06); } }
 .floating-wa:hover { transform: scale(1.1); animation: none; }
 
-.payment-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(8px);
-    z-index: 5000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-.payment-overlay.open {
-    opacity: 1;
-    pointer-events: auto;
-}
-.payment-popup {
-    background: #1a1f2e;
-    border-radius: 24px;
-    width: 95%;
-    max-width: 520px;
-    height: 85vh;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    border: 1px solid rgba(184,134,11,0.35);
-}
-.payment-header {
-    background: #0f1420;
-    color: #fff;
-    padding: 16px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-shrink: 0;
-    border-bottom: 1px solid rgba(184,134,11,0.25);
-}
-.payment-header h3 {
-    font-family: 'Alexandria', sans-serif;
-    font-size: 1.15rem;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--gold-light);
-}
-.payment-header .close-payment {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 1.8rem;
-    cursor: pointer;
-    line-height: 1;
-    padding: 0 5px;
-    transition: 0.2s;
-    font-family: 'Tajawal', sans-serif;
-}
+/* ===== MODALS ===== */
+.payment-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px); z-index: 5000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.payment-overlay.open { opacity: 1; pointer-events: auto; }
+.payment-popup { background: #1a1f2e; border-radius: 24px; width: 95%; max-width: 520px; height: 85vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 1px solid rgba(184,134,11,0.35); }
+.payment-header { background: #0f1420; color: #fff; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; border-bottom: 1px solid rgba(184,134,11,0.25); }
+.payment-header h3 { font-family: 'Alexandria', sans-serif; font-size: 1.15rem; margin: 0; display: flex; align-items: center; gap: 10px; color: var(--gold-light); }
+.payment-header .close-payment { background: none; border: none; color: #fff; font-size: 1.8rem; cursor: pointer; line-height: 1; padding: 0 5px; transition: 0.2s; font-family: 'Tajawal', sans-serif; }
 .payment-header .close-payment:hover { color: var(--gold-light); }
-.payment-body {
-    flex: 1;
-    position: relative;
-    background: #fafafa;
-}
-.payment-body iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
+.payment-body { flex: 1; position: relative; background: #fafafa; }
+.payment-body iframe { width: 100%; height: 100%; border: none; }
+
+/* ===== BOOKING WIZARD ===== */
+.booking-body { background: #fff; overflow-y: auto; padding: 20px; }
+.booking-section { margin-bottom: 20px; display: none; }
+.booking-section.active { display: block; animation: fadeIn 0.4s; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Calendar UI */
+.cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.cal-header h4 { font-size: 1.1rem; color: #111; font-weight: 800; }
+.cal-nav-btn { background: #f0f0f0; border: none; width: 34px; height: 34px; border-radius: 8px; cursor: pointer; font-size: 1rem; transition: 0.2s; color: #333; }
+.cal-nav-btn:hover { background: var(--gold); color: #fff; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
+.cal-day-name { font-size: 0.75rem; font-weight: 700; color: #777; padding-bottom: 5px; }
+.cal-day { padding: 8px 4px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; border: 1px solid #eee; transition: 0.2s; position: relative; }
+.cal-day.available { background: #e8f5e9; color: #2e7d32; border-color: #c8e6c9; }
+.cal-day.available:hover { background: #2ecc71; color: #fff; }
+.cal-day.partial { background: #fff8e1; color: #f57f17; border-color: #ffecb3; }
+.cal-day.partial:hover { background: #f39c12; color: #fff; }
+.cal-day.full, .cal-day.closed, .cal-day.past, .cal-day.empty { background: #f5f5f5; color: #bbb; cursor: not-allowed; border-color: transparent; }
+.cal-day.selected { outline: 3px solid var(--gold); outline-offset: 1px; }
+
+/* Time Slots UI */
+.slots-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; margin-top: 10px; }
+.slot-btn { padding: 8px; border: 1px solid #ccc; border-radius: 8px; background: #fff; color: #333; font-weight: 700; cursor: pointer; transition: 0.2s; font-family: 'Tajawal', sans-serif; }
+.slot-btn:hover { border-color: var(--gold); color: var(--gold); }
+.slot-btn.selected { background: var(--gold); color: #fff; border-color: var(--gold); box-shadow: 0 4px 10px rgba(184,134,11,0.3); }
+
+/* Form UI */
+.form-group { margin-bottom: 12px; }
+.form-group label { display: block; font-size: 0.85rem; font-weight: 700; color: #555; margin-bottom: 4px; }
+.form-group input, .form-group textarea { width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 10px; font-family: 'Tajawal', sans-serif; font-size: 0.95rem; background: #fafafa; transition: 0.2s; }
+.form-group input:focus, .form-group textarea:focus { border-color: var(--gold); outline: none; background: #fff; }
+.next-btn { width: 100%; padding: 12px; background: var(--gold); color: #fff; border: none; border-radius: 10px; font-weight: 800; font-size: 1rem; cursor: pointer; transition: 0.3s; font-family: 'Tajawal', sans-serif; margin-top: 10px; }
+.next-btn:hover:not(:disabled) { background: #111; }
+.next-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.back-btn { background: transparent; color: #777; border: none; font-weight: 700; cursor: pointer; margin-bottom: 10px; font-family: 'Tajawal', sans-serif; font-size: 0.9rem; }
+.back-btn:hover { color: #111; }
+
+.loader-spin { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
 
 @media (max-width: 768px) {
     nav { flex-direction: column; gap: 12px; padding: 12px 4%; }
@@ -608,7 +283,7 @@ hr {
                     <div class="price">$99</div>
                     <div class="note">One-time payment · No extra commitments</div>
                 </div>
-                <button type="button" class="cta-btn" data-payment="https://www.entervia.co/checkout/81" data-title="Phone Consultation – $99">
+                <button type="button" class="cta-btn" data-type="call" data-payment="https://www.entervia.co/checkout/81" data-title="Phone Consultation – $99">
                     <i class="fas fa-calendar-plus"></i>
                     Book Phone Consultation
                 </button>
@@ -637,7 +312,7 @@ hr {
                     <div class="price">$249</div>
                     <div class="note">Includes visit + written report</div>
                 </div>
-                <button type="button" class="cta-btn" data-payment="https://www.entervia.co/checkout/91" data-title="On-Site Consultation – $249">
+                <button type="button" class="cta-btn" data-type="field" data-payment="https://www.entervia.co/checkout/91" data-title="On-Site Consultation – $249">
                     <i class="fas fa-map-marked-alt"></i>
                     Book On-Site Consultation
                 </button>
@@ -685,6 +360,70 @@ hr {
     <i class="fab fa-whatsapp"></i>
 </a>
 
+<!-- ===== BOOKING WIZARD MODAL ===== -->
+<div class="payment-overlay" id="bookingModal">
+    <div class="payment-popup" style="height: 90vh; max-width: 600px;">
+        <div class="payment-header">
+            <h3 id="bookingTitle"><i class="fas fa-calendar-alt"></i> Book Appointment</h3>
+            <button class="close-payment" id="closeBookingBtn" aria-label="Close">&times;</button>
+        </div>
+        <div class="payment-body booking-body">
+            
+            <!-- Step 1: Date & Time -->
+            <div class="booking-section active" id="stepDateTime">
+                <div class="cal-header">
+                    <button class="cal-nav-btn" id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                    <h4 id="monthLabel">Month</h4>
+                    <button class="cal-nav-btn" id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="cal-grid" id="calendarGrid">
+                    <!-- Javascript will render days here -->
+                </div>
+                
+                <div id="slotsContainer" style="display:none; margin-top: 25px;">
+                    <hr style="margin: 15px 0; border-color: #eee;">
+                    <h4 style="font-size: 1rem; color: #333; margin-bottom: 10px;">Available times for <span id="selectedDateLabel" style="color:var(--gold);"></span></h4>
+                    <div class="slots-grid" id="slotsGrid"></div>
+                </div>
+
+                <button class="next-btn" id="toStepForm" disabled>Continue to Details</button>
+            </div>
+
+            <!-- Step 2: Customer Details -->
+            <div class="booking-section" id="stepForm">
+                <button class="back-btn" id="backToDate"><i class="fas fa-arrow-left"></i> Change Date/Time</button>
+                <div style="background: #fdf8e8; padding: 12px; border-radius: 10px; border: 1px solid #f0e6c8; margin-bottom: 15px;">
+                    <p style="font-size: 0.9rem; color: #886a1a; margin: 0;"><i class="fas fa-clock"></i> Your Booking: <span id="summaryDate" style="font-weight:700;"></span> at <span id="summaryTime" style="font-weight:700;"></span></p>
+                </div>
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="custName" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone / WhatsApp *</label>
+                        <input type="tel" id="custPhone" required placeholder="e.g. 905550000000">
+                    </div>
+                    <div class="form-group">
+                        <label>Email (Optional)</label>
+                        <input type="email" id="custEmail" placeholder="name@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Additional Notes (Optional)</label>
+                        <textarea id="custNotes" rows="2" placeholder="Tell us a bit about your project..."></textarea>
+                    </div>
+                    <button type="submit" class="next-btn" id="submitBookingBtn">
+                        <span id="btnText">Confirm Booking & Proceed to Payment</span>
+                        <i class="fas fa-arrow-right" style="margin-left:5px;"></i>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ===== PAYMENT MODAL ===== -->
 <div class="payment-overlay" id="paymentModal">
     <div class="payment-popup">
         <div class="payment-header">
@@ -701,40 +440,281 @@ hr {
 <script>
     AOS.init({ duration: 800, once: true, offset: 80 });
 
-    (function() {
-        const modal = document.getElementById('paymentModal');
-        const iframe = document.getElementById('paymentIframe');
-        const titleEl = document.getElementById('paymentTitle');
-        const closeBtn = document.getElementById('closePaymentBtn');
-        const openBtns = document.querySelectorAll('.cta-btn[data-payment]');
+    // ════════ API Settings ════════
+    const API_URL = "https://script.google.com/macros/s/AKfycbxabO75lngU1DTw8REo9-sdmOKBVu61Avls8SqwOAyf6KLqzhwkOalXDm5dHpNy8YcFpQ/exec";
 
-        function openModal(url, title) {
-            iframe.src = url;
-            titleEl.innerHTML = '<i class="fas fa-lock"></i> ' + (title || 'Complete Booking');
-            modal.classList.add('open');
-            document.body.style.overflow = 'hidden';
+    // ════════ Variables ════════
+    let currentBookingType = 'call';
+    let currentPaymentUrl = '';
+    let currentPaymentTitle = '';
+    
+    let calYear = new Date().getFullYear();
+    let calMonth = new Date().getMonth() + 1;
+    let selectedDate = '';
+    let selectedTime = '';
+    let monthData = [];
+
+    // ════════ DOM Elements ════════
+    const bookingModal = document.getElementById('bookingModal');
+    const paymentModal = document.getElementById('paymentModal');
+    const paymentIframe = document.getElementById('paymentIframe');
+    const paymentTitle = document.getElementById('paymentTitle');
+    
+    const step1 = document.getElementById('stepDateTime');
+    const step2 = document.getElementById('stepForm');
+    const calGrid = document.getElementById('calendarGrid');
+    const monthLabel = document.getElementById('monthLabel');
+    const slotsContainer = document.getElementById('slotsContainer');
+    const slotsGrid = document.getElementById('slotsGrid');
+    const selectedDateLabel = document.getElementById('selectedDateLabel');
+    const nextBtn = document.getElementById('toStepForm');
+
+    // ════════ Open Calendar ════════
+    document.querySelectorAll('.cta-btn[data-type]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            currentBookingType = this.getAttribute('data-type');
+            currentPaymentUrl = this.getAttribute('data-payment');
+            currentPaymentTitle = this.getAttribute('data-title');
+            
+            // Setup UI
+            document.getElementById('bookingTitle').innerHTML = currentBookingType === 'call' 
+                ? '<i class="fas fa-phone-alt"></i> Book Phone Consultation' 
+                : '<i class="fas fa-map-marker-alt"></i> Book On-Site Consultation';
+                
+            document.getElementById('stepDateTime').classList.add('active');
+            document.getElementById('stepForm').classList.remove('active');
+            
+            // Reset selections
+            selectedDate = '';
+            selectedTime = '';
+            nextBtn.disabled = true;
+            slotsContainer.style.display = 'none';
+            calYear = new Date().getFullYear();
+            calMonth = new Date().getMonth() + 1;
+            
+            openBookingModal();
+        });
+    });
+
+    function openBookingModal() {
+        bookingModal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        fetchMonthData();
+    }
+
+    function closeBookingModal() {
+        bookingModal.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    document.getElementById('closeBookingBtn').addEventListener('click', closeBookingModal);
+
+    // ════════ Calendar ════════
+    async function fetchMonthData() {
+        calGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 20px; color: #888;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
+        
+        const monthsNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        monthLabel.textContent = monthsNames[calMonth - 1] + " " + calYear;
+
+        try {
+            const body = new URLSearchParams({ action: 'getMonthAvailability', year: calYear, month: calMonth });
+            const res = await fetch(API_URL, { method: 'POST', body: body.toString(), redirect: 'follow' });
+            const data = await res.json();
+            
+            if (data.status === 'success') {
+                monthData = data.data;
+                renderCalendar();
+            } else {
+                calGrid.innerHTML = '<div style="grid-column: 1/-1; color: red; text-align: center;">Error fetching data</div>';
+            }
+        } catch (e) {
+            calGrid.innerHTML = '<div style="grid-column: 1/-1; color: red; text-align: center;">Connection error</div>';
+        }
+    }
+
+    function renderCalendar() {
+        const daysNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        let html = daysNames.map(d => `<div class="cal-day-name">${d}</div>`).join('');
+        
+        const firstDay = new Date(calYear, calMonth - 1, 1).getDay();
+        const daysInMonth = new Date(calYear, calMonth, 0).getDate();
+        
+        for (let i = 0; i < firstDay; i++) {
+            html += `<div class="cal-day empty"></div>`;
         }
 
-        function closeModal() {
-            modal.classList.remove('open');
-            iframe.src = '';
-            document.body.style.overflow = '';
-        }
+        monthData.forEach(d => {
+            let cls = d.status; 
+            if (currentBookingType === 'field' && d.callsOnly) cls = 'closed';
+            if (currentBookingType === 'call' && d.callsBooked >= 5) cls = 'full'; 
+            
+            html += `<div class="cal-day ${cls}" data-date="${d.date}">
+                ${d.day}
+            </div>`;
+        });
 
-        openBtns.forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                openModal(btn.getAttribute('data-payment'), btn.getAttribute('data-title'));
+        calGrid.innerHTML = html;
+
+        calGrid.querySelectorAll('.cal-day.available, .cal-day.partial').forEach(dayEl => {
+            dayEl.addEventListener('click', function() {
+                calGrid.querySelectorAll('.cal-day').forEach(el => el.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedDate = this.getAttribute('data-date');
+                fetchSlots(selectedDate);
             });
         });
+    }
 
-        closeBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) closeModal();
-        });
-        window.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
-        });
-    })();
+    document.getElementById('prevMonth').addEventListener('click', () => {
+        calMonth--;
+        if (calMonth < 1) { calMonth = 12; calYear--; }
+        fetchMonthData();
+    });
+    document.getElementById('nextMonth').addEventListener('click', () => {
+        calMonth++;
+        if (calMonth > 12) { calMonth = 1; calYear++; }
+        fetchMonthData();
+    });
+
+    // ════════ Time Slots ════════
+    async function fetchSlots(date) {
+        selectedTime = '';
+        nextBtn.disabled = true;
+        slotsContainer.style.display = 'block';
+        slotsGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 10px;"><i class="fas fa-spinner fa-spin"></i></div>';
+        
+        const dObj = new Date(date + 'T00:00:00');
+        selectedDateLabel.textContent = dObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+
+        try {
+            const body = new URLSearchParams({ action: 'getAvailability', date });
+            const res = await fetch(API_URL, { method: 'POST', body: body.toString(), redirect: 'follow' });
+            const data = await res.json();
+            
+            if (data.status === 'success') {
+                const avail = data.data;
+                const slots = currentBookingType === 'call' ? avail.availableCallSlots : avail.availableFieldSlots;
+                
+                if (!slots || slots.length === 0) {
+                    slotsGrid.innerHTML = '<p style="grid-column: 1/-1; color: #e74c3c; font-weight: bold; text-align: center;">No available times on this day for this type.</p>';
+                    return;
+                }
+
+                slotsGrid.innerHTML = slots.map(time => 
+                    `<button type="button" class="slot-btn" data-time="${time}">${formatTime(time)}</button>`
+                ).join('');
+
+                slotsGrid.querySelectorAll('.slot-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        slotsGrid.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
+                        this.classList.add('selected');
+                        selectedTime = this.getAttribute('data-time');
+                        nextBtn.disabled = false;
+                    });
+                });
+            } else {
+                slotsGrid.innerHTML = '<p style="color:red; text-align:center;">Failed to load times</p>';
+            }
+        } catch (e) {
+            slotsGrid.innerHTML = '<p style="color:red; text-align:center;">Connection error</p>';
+        }
+    }
+
+    function formatTime(timeStr) {
+        // Convert 14:30 to 2:30 PM
+        const [h, m] = timeStr.split(':');
+        let hour = parseInt(h);
+        const ampm = hour >= 12 ? 'PM' : 'AM';
+        hour = hour % 12 || 12;
+        return `${hour}:${m} ${ampm}`;
+    }
+
+    // ════════ Proceed to Step 2 ════════
+    nextBtn.addEventListener('click', () => {
+        if (!selectedDate || !selectedTime) return;
+        
+        const dObj = new Date(selectedDate + 'T00:00:00');
+        const formattedDate = dObj.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+        
+        document.getElementById('summaryDate').textContent = formattedDate;
+        document.getElementById('summaryTime').textContent = formatTime(selectedTime);
+        
+        step1.classList.remove('active');
+        step2.classList.add('active');
+    });
+
+    document.getElementById('backToDate').addEventListener('click', () => {
+        step2.classList.remove('active');
+        step1.classList.add('active');
+    });
+
+    // ════════ Submit Booking ════════
+    document.getElementById('bookingForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('custName').value.trim();
+        const phone = document.getElementById('custPhone').value.trim();
+        const email = document.getElementById('custEmail').value.trim();
+        const notes = document.getElementById('custNotes').value.trim();
+        
+        const submitBtn = document.getElementById('submitBookingBtn');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="loader-spin"></span> Reserving your time...';
+
+        try {
+            const body = new URLSearchParams({
+                action: 'createBooking',
+                name, phone, email, notes,
+                type: currentBookingType,
+                date: selectedDate,
+                time: selectedTime
+            });
+
+            const res = await fetch(API_URL, { method: 'POST', body: body.toString(), redirect: 'follow' });
+            const data = await res.json();
+
+            if (data.status === 'success') {
+                // Success -> Go to payment
+                closeBookingModal();
+                openPaymentModal();
+            } else {
+                alert('Sorry, an error occurred: ' + data.message);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span id="btnText">Confirm Booking & Proceed to Payment</span> <i class="fas fa-arrow-right" style="margin-left:5px;"></i>';
+            }
+        } catch (err) {
+            alert('Connection error, please try again.');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span id="btnText">Confirm Booking & Proceed to Payment</span> <i class="fas fa-arrow-right" style="margin-left:5px;"></i>';
+        }
+    });
+
+    // ════════ Payment Modal ════════
+    function openPaymentModal() {
+        paymentIframe.src = currentPaymentUrl;
+        paymentTitle.innerHTML = '<i class="fas fa-lock"></i> ' + currentPaymentTitle;
+        paymentModal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closePaymentModal() {
+        paymentModal.classList.remove('open');
+        paymentIframe.src = '';
+        document.body.style.overflow = '';
+    }
+
+    document.getElementById('closePaymentBtn').addEventListener('click', closePaymentModal);
+    paymentModal.addEventListener('click', function(e) {
+        if (e.target === paymentModal) closePaymentModal();
+    });
+
+    // Close Modals on ESC
+    window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            if (paymentModal.classList.contains('open')) closePaymentModal();
+            if (bookingModal.classList.contains('open')) closeBookingModal();
+        }
+    });
 </script>
 </body>
 </html>
