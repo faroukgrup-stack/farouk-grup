@@ -152,7 +152,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);bo
 <div class="toast" id="toast"></div>
 
 <script>
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGwSOWJdstNkslj0Lq5RqoPL5W4PoM3h2kzuDbsYJrQ25pR6EVn9SEjAF5as-cFhuh/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyW6Jql8vrS2HzVDt5KHjaTL5fMZWlzr8XB1zU3sQp6gILqWHPJUjwDk2uZS4hkYxoh/exec";
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2600);}
 function clientOk(){const name=document.getElementById('clientName').value.trim(),phone=document.getElementById('clientPhone').value.trim(),cc=document.getElementById('countryCode').value.trim();if(name.length<2){toast('Please enter name');return false;}if(!cc.startsWith('+')){toast('Please select country code');return false;}if(phone.length<6){toast('Please enter valid phone');return false;}return true;}
 
